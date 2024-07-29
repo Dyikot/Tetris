@@ -6,19 +6,18 @@ Game::Game()
 	{
 		std::cout << "Ошибка инициализации SDL: " << SDL_GetError();
 	}
+
 	if(TTF_Init() < 0)
 	{
 		std::cout << "Ошибка инициализации TTL: " << SDL_GetError();
 	}
 	
-	_currentWindow = SDL_CreateWindow(
-		/*title*/ "Tetris",
-		/*x*/ SDL_WINDOWPOS_CENTERED,
-		/*y*/ SDL_WINDOWPOS_CENTERED,
-		/*w*/ WindowWidth,
-		/*h*/ WindowHeight,
-		/*flags*/ SDL_WINDOW_SHOWN
-	);
+	_currentWindow = SDL_CreateWindow(/*title*/ "Tetris",
+									  /*x*/ SDL_WINDOWPOS_CENTERED,
+									  /*y*/ SDL_WINDOWPOS_CENTERED,
+									  /*w*/ WindowWidth,
+									  /*h*/ WindowHeight,
+									  /*flags*/ SDL_WINDOW_SHOWN);
 
 	if(_currentWindow == nullptr)
 	{
@@ -41,6 +40,7 @@ Game::~Game()
 void Game::Run()
 {		
 	SDL_Event event;
+	constexpr Uint32 Delay = 10;
 	
 	// Игровой цикл
 	while(_isGameRunning)
@@ -59,13 +59,12 @@ void Game::Run()
 
 		// Устанавливает цвет фона окна
 		SDL_SetRenderDrawColor(_renderer, 0, 0, 0, 255);
-		// Ощистка рендера каждый цикл
+
 		SDL_RenderClear(_renderer);
-		// Отрисовка текущей сцены
 		_currentScene->Show();
 		SDL_RenderPresent(_renderer);
 
-		SDL_Delay(10);
+		SDL_Delay(Delay);
 	}
 }
 

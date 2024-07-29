@@ -18,6 +18,7 @@ private:
 		/*textColor*/ Colors::Red,
 		/*textFont*/ TTF_OpenFont("Style\\Fonts\\segoeui.ttf", 96)
 	);
+
 	Button _retryButton = Button(
 		/*postion*/{ .x = 140, .y = 300 },
 		/*width*/ 120,
@@ -28,6 +29,7 @@ private:
 		/*textColor*/ Colors::White,
 		/*textFont*/ TTF_OpenFont("Style\\Fonts\\segoeui.ttf", 32)
 	);	
+
 	Button _exitButton = Button(
 		/*postion*/{ .x = 140, .y = 350 },
 		/*width*/ 120,

@@ -22,6 +22,8 @@ private:
 	// Количество циклов для начала движения тетрамино
 	const int CyclesAmountToTetrominoMove = 80;
 
+	Random _random;
+
 	// Хранилище клеток упавших тетрамино
 	std::vector<Cell> _cells = std::vector<Cell>(VerticalCellsNumber * HorizontalCellsNumber);
 
@@ -116,10 +118,8 @@ private:
 	// Управляемое игроком тетрамино 
 	Tetromino _activeTetromino = SelectTetriminoRandomly();
 
-	// Доступно перевыбор фигуры
 	bool _isReselectAvaliable = true;
 
-	// Требутеся ли фигуру сбрасывать
 	bool _isDropRequired = false;
 public:
 	GameScene() = default;
@@ -131,7 +131,7 @@ public:
 	void Process() override;
 private:
 	// Выбирает тетрамино случайный образом со случайным цветом
-	Tetromino SelectTetriminoRandomly() const;
+	Tetromino SelectTetriminoRandomly();
 
 	// Проверка на то, требуется ли перемещать фигуру
 	bool IsTetrominoShouldMove();

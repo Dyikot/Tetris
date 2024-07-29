@@ -18,31 +18,34 @@ void GameScene::HandleEvent(const SDL_Event& e)
 			switch(e.key.keysym.sym)
 			{
 				case SDLK_LEFT:					
-					if(!_activeTetromino.IsOutLeftBorder(/*left*/ 0))
+					if(!_activeTetromino.IsOutLeftBorder(0))
 					{
 						_activeTetromino.Move(MovementSide::Left);
 					}					
 					break;
+
 				case SDLK_RIGHT:
 					if(!_activeTetromino.IsOutRightBorder(FieldWidth))
 					{
 						_activeTetromino.Move(MovementSide::Right);
 					}
 					break;
+
 				case SDLK_DOWN:
 					_activeTetromino.Move(MovementSide::Down);
 					break;
+
 				case SDLK_UP:
 					_activeTetromino.Rotate();
-					_activeTetromino.CorrectCoordinates(
-						/*left*/ 0,
-						/*right*/ FieldWidth,
-						/*top*/ 0
-					);
+					_activeTetromino.CorrectCoordinates(/*left*/ 0,
+														/*right*/ FieldWidth,
+														/*top*/ 0);
 					break;
+
 				case SDLK_SPACE:
 					_isDropRequired = true;
 					break;
+
 				case SDLK_c:
 					if(_isReselectAvaliable)
 					{
@@ -50,10 +53,12 @@ void GameScene::HandleEvent(const SDL_Event& e)
 						_isReselectAvaliable = false;
 					}
 					break;
+
 				case SDLK_ESCAPE:
 					Application::Current()->SaveCurrentScene();
 					Application::Current()->SetNextScene(new PauseMenu());
 					break;
+
 				default:
 					break;
 			}
@@ -74,26 +79,30 @@ void GameScene::Process()
 	{
 		case TetrominoState::BeyoundUppedBorder:
 			Application::Current()->SetNextScene(new GameOverMenu());
+
 		case TetrominoState::Dropped:
 			ClearRows(FindFullRows());
 			_activeTetromino = SelectTetriminoRandomly();
 			_isReselectAvaliable = true;
+
 		case TetrominoState::Moving:
 			break;
 	}
 }
 
-Tetromino GameScene::SelectTetriminoRandomly() const
+Tetromino GameScene::SelectTetriminoRandomly()
 {
-	auto tetromino = _tetrominos[Random::Current().GenerateNumber(0, 6)];
-	tetromino.SetBackground(Colors(Random::Current().GenerateNumber(2, 7)));
+	auto tetromino = _tetrominos[_random.NextInt(0, 6)];
+	tetromino.SetBackground(Colors(_random.NextInt(2, 7)));
 
 	return tetromino;
+	/*return _tetrominos.front();*/
 }
 
 bool GameScene::IsTetrominoShouldMove()
 {
 	_cyclesCompleted++;
+
 	if(_cyclesCompleted == CyclesAmountToTetrominoMove)
 	{
 		_cyclesCompleted = 0;
