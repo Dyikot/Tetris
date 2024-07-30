@@ -1,2 +1,2 @@
 # Tetris
- Tetris разработанный с помощью SDL 2.
+ Tetris developed with SDL 2.
