@@ -13,8 +13,7 @@ protected:
 	Colors _backgroud;
 	SDL_Renderer* _renderer = Application::Current()->GetRenderer();
 public:
-	Object(Colors background = DefaultBackgroundColor):
-		_backgroud(background){}
+	Object(Colors background = DefaultBackgroundColor);
 
 	virtual ~Object() = default;
 

@@ -9,6 +9,7 @@ public:
 	static constexpr Colors DefaultBorderColor = Colors::Green;
 protected:
 	Colors _borderColor;
+	Colors _backgroundSaved;
 public:
 	Button(const Coordinates& position,
 		   int width,
@@ -20,7 +21,14 @@ public:
 		   int textSize
 	):
 		TextBlock(position, width, height, background, text, textColor, textSize),
-		_borderColor(borderColor){}
+		_borderColor(borderColor),
+		_backgroundSaved(background){}
 
 	void Show() override;
+
+	void SetBackground(Colors color) override;
+	
+	void OnHover();
+
+	void OnLeave();
 };

@@ -1,5 +1,10 @@
 #include "StartMenu.h"
 
+StartMenu::StartMenu()
+{
+	_buttons = { &_startGameButton, &_exitButton };
+}
+
 void StartMenu::Show()
 {
 	_title.Show();
@@ -17,14 +22,18 @@ void StartMenu::HandleEvent(const SDL_Event& e)
 			break;
 
 		case SDL_MOUSEBUTTONDOWN:
-			if(_startGameButton.IsInRange({.x = e.button.x, .y = e.button.y }))
+			if(_startGameButton.IsInRange(e.button.x, e.button.y))
 			{
 				Application::Current()->SetNextScene(new GameScene());
 			}
-			else if(_exitButton.IsInRange({ .x = e.button.x, .y = e.button.y }))
+			else if(_exitButton.IsInRange(e.button.x, e.button.y))
 			{
 				Application::Current()->Shutdown();
 			}
+			break;
+
+		case SDL_MOUSEMOTION:
+			OnMouseMove(e.button.x, e.button.y);
 			break;
 
 		default:

@@ -5,6 +5,7 @@ void Color::SetRenderColor(SDL_Renderer* renderer, Colors color)
 	switch(color)
 	{
 		case Colors::None:
+			SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0); 
 			break;
 		case Colors::Black:
 			SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
@@ -43,7 +44,7 @@ SDL_Color Color::ToSDL_Color(Colors color)
 	switch(color)
 	{
 		case Colors::None:
-			return SDL_Color();
+			return SDL_Color(0, 0, 0, 0);
 		case Colors::Black:
 			return SDL_Color(0, 0, 0);
 		case Colors::Green:

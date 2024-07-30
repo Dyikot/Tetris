@@ -47,6 +47,8 @@ private:
 								Button::ActiveTextColor,
 								Button::DefaultTextSize);
 public:
+	PauseMenu();
+
 	void Show() override;
 
 	void HandleEvent(const SDL_Event& e) override;

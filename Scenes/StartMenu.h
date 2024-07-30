@@ -1,5 +1,7 @@
 #pragma once
 
+#include <algorithm>
+
 #include "Scene.h"
 #include "GameScene.h"
 #include "..\Application\Application.h"
@@ -64,6 +66,8 @@ private:
 								Button::ActiveTextColor,
 								Button::DefaultTextSize);
 public:
+	StartMenu();
+
 	void Show() override;
 
 	void HandleEvent(const SDL_Event& e) override;

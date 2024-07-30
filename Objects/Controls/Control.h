@@ -33,4 +33,6 @@ public:
 	const Coordinates& GetPosition() const;
 
 	bool IsInRange(const Coordinates& position) const;
+
+	bool IsInRange(const int x, const int y) const;
 };

@@ -1,7 +1,10 @@
 #pragma once
 
+#include <vector>
+
 #include "..\Application\Application.h"
 #include "..\BasicStructs\Coordinates.h"
+#include "..\Objects\Controls\Button.h"
 
 class Menu
 {
@@ -18,8 +21,12 @@ public:
 		.x = Application::Current()->WindowWidth / 2,
 		.y = 200
 	};
+
+	std::vector<Button*> _buttons;
 private:
 	const int ButtonSpacing = 50;
 public:
 	int CalculateButtonYPosition(const int order);
+
+	void OnMouseMove(int x, int y);
 };

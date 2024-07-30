@@ -37,3 +37,8 @@ bool Control::IsInRange(const Coordinates& position) const
            position.y >= _position.y &&
            position.y <= _position.y + _height;
 }
+
+bool Control::IsInRange(const int x, const int y) const
+{
+    return IsInRange({ x, y });
+}

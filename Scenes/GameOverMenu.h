@@ -47,7 +47,10 @@ private:
 								"Exit",
 								Button::ActiveTextColor,
 								Button::DefaultTextSize);
+
 public:
+	GameOverMenu();
+
 	void Show() override;
 
 	void HandleEvent(const SDL_Event& e) override;
