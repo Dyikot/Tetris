@@ -18,105 +18,87 @@ private:
 	const int FieldHeight = VerticalCellsNumber * Cell::Size;
 	const int WidthScale = Application::Current()->WindowWidth / FieldWidth;
 	const int HeightScale = Application::Current()->WindowHeight / FieldHeight;
-
-	// Количество циклов для начала движения тетрамино
-	const int CyclesAmountToTetrominoMove = 80;
+	const int TicksAmountToTetrominoMove = 80;
 
 	Random _random;
 
-	// Хранилище клеток упавших тетрамино
+	// Клетки упавших тетрамино
 	std::vector<Cell> _cells = std::vector<Cell>(VerticalCellsNumber * HorizontalCellsNumber);
 
 	// Сетка поля
-	Grid _grid = Grid(
-		/*startPoint*/ { .x = 0, .y = 0 },
-		/*rowsAmount*/ VerticalCellsNumber,
-		/*columnsAmount*/ HorizontalCellsNumber,
-		/*width*/ FieldWidth* WidthScale,	
-		/*height*/ FieldHeight* HeightScale,
-		/*backgound*/ Colors::Grey
-	);
+	Grid _grid = Grid(/*startPoint*/ { .x = 0, .y = 0 },
+					  /*rowsAmount*/ VerticalCellsNumber,
+					  /*columnsAmount*/ HorizontalCellsNumber,
+					  /*width*/ FieldWidth * WidthScale,	
+					  /*height*/ FieldHeight * HeightScale,
+					  /*backgound*/ Colors::Grey);
 
 	// Число пройденных циклов
-	int _cyclesCompleted = 0;
+	int _ticksNumber = 0;
 
 	// Тетрамино
 	std::array<Tetromino, 7> _tetrominos = 
 	{
-		Tetromino(
-			TetrominoType::I,
-			std::array<Cell, 4>
-			{
-				Cell(Coordinates{.x = 30, .y = 0}),
-				Cell(Coordinates{.x = 40, .y = 0}),
-				Cell(Coordinates{.x = 50, .y = 0}),
-				Cell(Coordinates{.x = 60, .y = 0})
-			}			
-		),
-		Tetromino(
-			TetrominoType::J,
-			std::array<Cell, 4>
-			{
-				Cell(Coordinates{.x = 40, .y = 0}),
-				Cell(Coordinates{.x = 40, .y = 10}),
-				Cell(Coordinates{.x = 50, .y = 10}),
-				Cell(Coordinates{.x = 60, .y = 10})
-			}
-		),
-		Tetromino(
-			TetrominoType::L,
-			std::array<Cell, 4>
-			{
-				Cell(Coordinates{.x = 60, .y = 0}),
-				Cell(Coordinates{.x = 60, .y = 10}),
-				Cell(Coordinates{.x = 50, .y = 10}),
-				Cell(Coordinates{.x = 40, .y = 10})
-			}
-		),
-		Tetromino(
-			TetrominoType::O,
-			std::array<Cell, 4>
-			{
-				Cell(Coordinates{.x = 40, .y = 0}),
-				Cell(Coordinates{.x = 50, .y = 0}),
-				Cell(Coordinates{.x = 40, .y = 10}),
-				Cell(Coordinates{.x = 50, .y = 10})
-			}
-		),
-		Tetromino(
-			TetrominoType::S,
-			std::array<Cell, 4>
-			{
-				Cell(Coordinates{.x = 50, .y = 0}),
-				Cell(Coordinates{.x = 60, .y = 0}),
-				Cell(Coordinates{.x = 40, .y = 10}),
-				Cell(Coordinates{.x = 50, .y = 10})
-			}
-		),
-		Tetromino(
-			TetrominoType::T,
-			std::array<Cell, 4>
-			{
-				Cell(Coordinates{.x = 50, .y = 0}),
-				Cell(Coordinates{.x = 40, .y = 10}),
-				Cell(Coordinates{.x = 50, .y = 10}),
-				Cell(Coordinates{.x = 60, .y = 10})
-			}
-		),
-		Tetromino(
-			TetrominoType::Z,
-			std::array<Cell, 4>
-			{
-				Cell(Coordinates{.x = 40, .y = 0}),
-				Cell(Coordinates{.x = 50, .y = 0}),
-				Cell(Coordinates{.x = 50, .y = 10}),
-				Cell(Coordinates{.x = 60, .y = 10})
-			}
-		)
+		Tetromino(TetrominoType::I,
+				  std::array<Cell, 4>
+				  {
+					  Cell(Coordinates{ .x = 30, .y = 0 }),
+					  Cell(Coordinates{ .x = 40, .y = 0 }),
+					  Cell(Coordinates{ .x = 50, .y = 0 }),
+					  Cell(Coordinates{ .x = 60, .y = 0 })
+				  }),
+		Tetromino(TetrominoType::J,
+				  std::array<Cell, 4>
+				  {
+				  	  Cell(Coordinates{ .x = 40, .y = 0 }),
+				  	  Cell(Coordinates{ .x = 40, .y = 10 }),
+				  	  Cell(Coordinates{ .x = 50, .y = 10 }),
+				  	  Cell(Coordinates{ .x = 60, .y = 10 })
+				  }),
+		Tetromino(TetrominoType::L,
+				  std::array<Cell, 4>
+				  {
+				  	  Cell(Coordinates{ .x = 60, .y = 0 }),
+				  	  Cell(Coordinates{ .x = 60, .y = 10 }),
+				  	  Cell(Coordinates{ .x = 50, .y = 10 }),
+				  	  Cell(Coordinates{ .x = 40, .y = 10 })
+				  }),
+		Tetromino(TetrominoType::O,
+				  std::array<Cell, 4>
+				  {
+				  	  Cell(Coordinates{ .x = 40, .y = 0 }),
+				  	  Cell(Coordinates{ .x = 50, .y = 0 }),
+				  	  Cell(Coordinates{ .x = 40, .y = 10 }),
+				  	  Cell(Coordinates{ .x = 50, .y = 10 })
+				  }),
+		Tetromino(TetrominoType::S,
+				  std::array<Cell, 4>
+				  {
+				  	  Cell(Coordinates{ .x = 50, .y = 0 }),
+				  	  Cell(Coordinates{ .x = 60, .y = 0 }),
+				  	  Cell(Coordinates{ .x = 40, .y = 10 }),
+				  	  Cell(Coordinates{ .x = 50, .y = 10 })
+				  }),
+		Tetromino(TetrominoType::T,
+				  std::array<Cell, 4>
+				  {
+				  	  Cell(Coordinates{ .x = 50, .y = 0 }),
+				  	  Cell(Coordinates{ .x = 40, .y = 10 }),
+				  	  Cell(Coordinates{ .x = 50, .y = 10 }),
+				  	  Cell(Coordinates{ .x = 60, .y = 10 })
+				  }),
+		Tetromino(TetrominoType::Z,
+				  std::array<Cell, 4>
+				  {
+				  	  Cell(Coordinates{ .x = 40, .y = 0 }),
+				  	  Cell(Coordinates{ .x = 50, .y = 0 }),
+				  	  Cell(Coordinates{ .x = 50, .y = 10 }),
+				  	  Cell(Coordinates{ .x = 60, .y = 10 })
+				  })
 	};
 
 	// Управляемое игроком тетрамино 
-	Tetromino _activeTetromino = SelectTetriminoRandomly();
+	Tetromino _activeTetromino = SelectRandomTetromino();
 
 	bool _isReselectAvaliable = true;
 
@@ -130,38 +112,45 @@ public:
 
 	void Process() override;
 private:
-	// Выбирает тетрамино случайный образом со случайным цветом
-	Tetromino SelectTetriminoRandomly();
+	Tetromino SelectRandomTetromino();
 
-	// Проверка на то, требуется ли перемещать фигуру
 	bool IsTetrominoShouldMove();
 
-	// Определяет состояние тетрамино, путем проверки дошла ли тетрамино
-	// до упавших тетрамино и если дошла то требуется ли очистить строки,
-	// низа игрового поля, вверхней границы игрового поля
+	/// <summary>
+	/// Определяет состояние тетрамино, путем проверки дошла ли тетрамино
+	/// до упавших тетрамино и если дошла, то требуется ли очистить строки,
+	/// низа игрового поля, вверхней границы игрового поля
+	/// </summary>
 	TetrominoState GetTetrominoState();
-
-	// Поиск заполненных строк
-	// \return Возвращает  массив индексов заполненных строк
+	
+	/// <summary>
+	/// Поиск заполненных строк
+	/// </summary>
+	/// <returns>Возвращает массив индексов заполненных строк</returns>
 	std::vector<int> FindFullRows();
 
-	// Очищает заполненные строки
-	// \param removeRowsIndexes - массив индексов заполненных строк
+	/// <summary>
+	///  Очищает заполненные строки
+	/// </summary>
+	/// <param name="removeRowsIndexes"> - массив индексов заполненных строк</param>
 	void ClearRows(const std::vector<int>& removeRowsIndexes);
 
-	// Отображает упавшие тетрамино
-	void ShowDroppedTetrominoes();
+	void DisplayFallenTetrominos();
 
-	// \param cell - клетка, для которой требуется найти индекс на поле _cells
-	// \return Возвращает  индекс клетки на поле _cells
+	/// <param name="cell">- клетка, для которой требуется найти индекс на поле _cells</param>
+	/// <returns>Возвращает  индекс клетки на поле _cells</returns>
 	int GetIndexFrom(const Cell& cell);
 
-	// Получить индекс нижний клетки относительно клетки в хранилище упавших тетрамино
-	//\param cell - клетка игрового поля
-	//\returns Индекс нижней клетки
+	/// <summary>
+	/// Получить индекс нижний клетки относительно клетки в хранилище упавших тетрамино
+	/// </summary>
+	/// <param name="cell">- клетка игрового поля</param>
+	/// <returns>Индекс нижней клетки</returns>
 	int GetLowerIndexFrom(const Cell& cell);
 
-	// Сохраняет клетки упавшей тетерамино в массиве _cells
-	// \param cells - клетки, которые требуется сохранить
+	/// <summary>
+	/// Сохраняет клетки упавшей тетерамино в массиве _cells
+	/// </summary>
+	/// <param name="cells">- клетки, которые требуется сохранить</param>
 	void AddCellsToDroppedCellsStorage(const std::array<Cell, 4>& cells);
 };

@@ -5,49 +5,64 @@
 #include "..\Application\Application.h"
 #include "..\Objects\Controls\Button.h"
 #include "..\Objects\Controls\TextBlock.h"
+#include "..\UI\Menu.h"
 
-class StartMenu : public Scene
+class StartMenu : public Scene, protected Menu
 {
 private:
-	TextBlock _title = TextBlock(
-		/*postion*/{ .x = 80, .y = 160 },
-		/*width*/ 240,
-		/*height*/ 80,
-		/*background*/ Colors::None,
-		/*text*/ "Tetris",
-		/*textColor*/ Colors::White,
-		/*textFont*/ TTF_OpenFont("Style\\Fonts\\segoeui.ttf", 96)
-	);
-	Button _startGameButton = Button(
-		/*postion*/{ .x = 140, .y = 300 },
-		/*width*/ 120,
-		/*height*/ 40,
-		/*background*/ Colors::None,
-		/*borderColor*/ Colors::Green,
-		/*text*/ "  Play  ",
-		/*textColor*/ Colors::White,
-		/*textFont*/ TTF_OpenFont("Style\\Fonts\\segoeui.ttf", 32)
-	);
-	Button _settingsButton = Button(
-		/*postion*/{ .x = 140, .y = 350 },
-		/*width*/ 120,
-		/*height*/ 40,
-		/*background*/ Colors::None,
-		/*borderColor*/ Colors::Green,
-		/*text*/ "Settings",
-		/*textColor*/ Colors::Grey,
-		/*textFont*/ TTF_OpenFont("Style\\Fonts\\segoeui.ttf", 32)
-	);
-	Button _exitButton = Button(
-		/*postion*/{ .x = 140, .y = 400 },
-		/*width*/ 120,
-		/*height*/ 40,
-		/*background*/ Colors::None,
-		/*borderColor*/ Colors::Green,
-		/*text*/ "  Exit  ",
-		/*textColor*/ Colors::White,
-		/*textFont*/ TTF_OpenFont("Style\\Fonts\\segoeui.ttf", 32)
-	);
+	const int StartButtonOrder = 0;
+	const Coordinates StartGameButtonPosition =
+	{
+		.x = DefaultButtonXPosition,
+		.y = CalculateButtonYPosition(StartButtonOrder)
+	};
+
+	const int SettingsButtonOrder = 1;
+	const Coordinates SettingsButtonPosition =
+	{
+		.x = DefaultButtonXPosition,
+		.y = CalculateButtonYPosition(SettingsButtonOrder)
+	};
+
+	const int ExitButtonOrder = 2;
+	const Coordinates ExitButtonPosition = 
+	{
+		.x = DefaultButtonXPosition,
+		.y = CalculateButtonYPosition(ExitButtonOrder)
+	};
+	
+	TextBlock _title = TextBlock(DefaultTitlePosition,
+								 Object::DefaultBackgroundColor,
+								 "Tetris",
+								 TextBlock::ActiveTextColor,
+								 DefaultTitleTextSize);
+
+	Button _startGameButton = Button(StartGameButtonPosition,
+									 DefaultButtonWidth,
+									 DefaultButtonHeight,
+									 Button::DefaultBackgroundColor,
+									 Button::DefaultBorderColor,
+									 "Play",
+									 Button::ActiveTextColor,
+									 Button::DefaultTextSize);
+
+	Button _settingsButton = Button(SettingsButtonPosition,
+									DefaultButtonWidth,
+									DefaultButtonHeight,
+									Button::DefaultBackgroundColor,
+									Button::DefaultBorderColor,
+									"Settins",
+									Button::InactiveTextColor,
+									Button::DefaultTextSize);
+
+	Button _exitButton = Button(ExitButtonPosition,
+								DefaultButtonWidth,
+								DefaultButtonHeight,
+								Button::DefaultBackgroundColor,
+								Button::DefaultBorderColor,
+								"Exit",
+								Button::ActiveTextColor,
+								Button::DefaultTextSize);
 public:
 	void Show() override;
 

@@ -1,7 +1,7 @@
 #include "Application/Game.h"
 #undef main
 
-void main()
+int main()
 {
 	Game().Run();
 }

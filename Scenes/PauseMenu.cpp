@@ -25,17 +25,11 @@ void PauseMenu::HandleEvent(const SDL_Event& e)
 			break;
 
 		case SDL_MOUSEBUTTONDOWN:
-			if(e.button.x >= _continueButton.GetPosition().x &&
-			   e.button.x <= _continueButton.GetPosition().x + _continueButton.GetWight() &&
-			   e.button.y >= _continueButton.GetPosition().y &&
-			   e.button.y <= _continueButton.GetPosition().y + _continueButton.GetHeight())
+			if(_continueButton.IsInRange({ .x = e.button.x, .y = e.button.y }))
 			{
 				Application::Current()->UploadSavedSceneToNext();
 			}
-			else if(e.button.x >= _exitButton.GetPosition().x &&
-					e.button.x <= _exitButton.GetPosition().x + _exitButton.GetWight() &&
-					e.button.y >= _exitButton.GetPosition().y &&
-					e.button.y <= _exitButton.GetPosition().y + _exitButton.GetHeight())
+			else if(_exitButton.IsInRange({ .x = e.button.x, .y = e.button.y }))
 			{
 				Application::Current()->Shutdown();
 			}

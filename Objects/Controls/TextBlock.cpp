@@ -12,15 +12,17 @@ void TextBlock::SetTextColor(Colors textColor)
 
 void TextBlock::Show()
 {
-    SDL_Rect text =
+    SDL_QueryTexture(_textTexture, NULL, NULL, &_width, &_height);
+
+    SDL_Rect textRectangle =
     {
-        .x = _position.x,
-        .y = _position.y,
+        .x = _position.x - _width / 2,
+        .y = _position.y - _height / 2,
         .w = _width,
         .h = _height
     };
 
-    SDL_RenderCopy(_renderer, _textTexture, NULL, &text);
+    SDL_RenderCopy(_renderer, _textTexture, NULL, &textRectangle);
 }
 
 const std::string& TextBlock::GetText() const

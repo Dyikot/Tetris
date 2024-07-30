@@ -13,13 +13,12 @@ private:
 	const int ColumnWidth = Width / ColumnsAmount;
 	const int RowHeight = Height / RowsAmount;
 public:
-	Grid(
-		const Coordinates& startPoint,
-		int rowsAmount, 
-		int columnsAmount,
-		int width,
-		int height,
-		Colors background
+	Grid(const Coordinates& startPoint,
+		 int rowsAmount, 
+		 int columnsAmount,
+		 int width,
+		 int height,
+		 Colors background
 	):
 		_startPoint(startPoint),
 		RowsAmount(rowsAmount),

@@ -4,39 +4,48 @@
 #include "../Application/Application.h"
 #include "..\Objects\Controls\Button.h"
 #include "..\Objects\Controls\TextBlock.h"
+#include "..\UI\Menu.h"
 
-class PauseMenu: public Scene
+class PauseMenu: public Scene, protected Menu
 {
 private:
-	TextBlock _pauseTextBlock = TextBlock(
-		/*postion*/{ .x = 80, .y = 160 },
-		/*width*/ 240,
-		/*height*/ 80,
-		/*background*/ Colors::None,
-		/*text*/ " Pause ",
-		/*textColor*/ Colors::White,
-		/*textFont*/ TTF_OpenFont("Style\\Fonts\\segoeui.ttf", 96)
-	);
-	Button _continueButton = Button(
-		/*postion*/{ .x = 140, .y = 300 },
-		/*width*/ 120,
-		/*height*/ 40,
-		/*background*/ Colors::None,
-		/*borderColor*/ Colors::Green,
-		/*text*/ "Continue",
-		/*textColor*/ Colors::White,
-		/*textFont*/ TTF_OpenFont("Style\\Fonts\\segoeui.ttf", 32)
-	);
-	Button _exitButton = Button(
-		/*postion*/{ .x = 140, .y = 350 },
-		/*width*/ 120,
-		/*height*/ 40,
-		/*background*/ Colors::None,
-		/*borderColor*/ Colors::Green,
-		/*text*/ "  Exit  ",
-		/*textColor*/ Colors::White,
-		/*textFont*/ TTF_OpenFont("Style\\Fonts\\segoeui.ttf", 32)
-	);
+	const int ContinueButtonOrder = 0;
+	const Coordinates ContinueButtonPosition =
+	{
+		.x = DefaultButtonXPosition,
+		.y = CalculateButtonYPosition(ContinueButtonOrder)
+	};
+
+	const int ExitButtonOrder = 1;
+	const Coordinates ExitButtonPosition =
+	{
+		.x = DefaultButtonXPosition,
+		.y = CalculateButtonYPosition(ExitButtonOrder)
+	};
+
+	TextBlock _pauseTextBlock = TextBlock(DefaultTitlePosition,
+										  Object::DefaultBackgroundColor,
+										  "Pause",
+										  TextBlock::ActiveTextColor,
+										  DefaultTitleTextSize);
+
+	Button _continueButton = Button(ContinueButtonPosition,
+									DefaultButtonWidth,
+									DefaultButtonHeight,
+									Button::DefaultBackgroundColor,
+									Button::DefaultBorderColor,
+									"Continue",
+									Button::ActiveTextColor,
+									Button::DefaultTextSize);
+
+	Button _exitButton = Button(ExitButtonPosition,
+								DefaultButtonWidth,
+								DefaultButtonHeight,
+								Button::DefaultBackgroundColor,
+								Button::DefaultBorderColor,
+								"Exit",
+								Button::ActiveTextColor,
+								Button::DefaultTextSize);
 public:
 	void Show() override;
 

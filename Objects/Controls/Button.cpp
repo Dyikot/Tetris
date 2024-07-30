@@ -9,15 +9,19 @@ void Button::Show()
 		.w = _width,
 		.h = _height
 	};
-	SDL_Rect text =
+
+	int w, h;
+	SDL_QueryTexture(_textTexture, NULL, NULL, &w, &h);
+
+	SDL_Rect textRectangle =
 	{
-		.x = _position.x + _width / 4,
-		.y = _position.y + _height / 4,
-		.w = _width / 2,
-		.h = _height / 2 
+		.x = _position.x + _width / 2 - w / 2,
+		.y = _position.y + _height / 2 - h / 2,
+		.w = w,
+		.h = h
 	};
 
 	Color::SetRenderColor(_renderer, _borderColor);
 	SDL_RenderDrawRect(_renderer, &border);
-	SDL_RenderCopy(_renderer, _textTexture, NULL, &text);
+	SDL_RenderCopy(_renderer, _textTexture, NULL, &textRectangle);
 }

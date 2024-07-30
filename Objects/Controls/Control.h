@@ -10,11 +10,10 @@ protected:
 	int _width;
 	int _height;
 public:
-	Control(
-		const Coordinates& position, 
-		int width, 
-		int height, 
-		Colors background
+	Control(const Coordinates& position, 
+			int width, 
+			int height, 
+			Colors background
 	):
 		_position(position),
 		_width(width),
@@ -32,4 +31,6 @@ public:
 	int GetHeight() const;
 
 	const Coordinates& GetPosition() const;
+
+	bool IsInRange(const Coordinates& position) const;
 };

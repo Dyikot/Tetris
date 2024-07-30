@@ -3,7 +3,7 @@
 void GameScene::Show()
 {
 	_grid.Show();
-	ShowDroppedTetrominoes();
+	DisplayFallenTetrominos();
 	_activeTetromino.Show();
 }
 
@@ -14,6 +14,7 @@ void GameScene::HandleEvent(const SDL_Event& e)
 		case SDL_QUIT:
 			Application::Current()->Shutdown();
 			break;
+
 		case SDL_KEYDOWN:
 			switch(e.key.keysym.sym)
 			{
@@ -49,7 +50,7 @@ void GameScene::HandleEvent(const SDL_Event& e)
 				case SDLK_c:
 					if(_isReselectAvaliable)
 					{
-						_activeTetromino = SelectTetriminoRandomly();
+						_activeTetromino = SelectRandomTetromino();
 						_isReselectAvaliable = false;
 					}
 					break;
@@ -63,6 +64,7 @@ void GameScene::HandleEvent(const SDL_Event& e)
 					break;
 			}
 			break;
+
 		default:
 			break;
 	}
@@ -82,7 +84,7 @@ void GameScene::Process()
 
 		case TetrominoState::Dropped:
 			ClearRows(FindFullRows());
-			_activeTetromino = SelectTetriminoRandomly();
+			_activeTetromino = SelectRandomTetromino();
 			_isReselectAvaliable = true;
 
 		case TetrominoState::Moving:
@@ -90,22 +92,21 @@ void GameScene::Process()
 	}
 }
 
-Tetromino GameScene::SelectTetriminoRandomly()
+Tetromino GameScene::SelectRandomTetromino()
 {
 	auto tetromino = _tetrominos[_random.NextInt(0, 6)];
 	tetromino.SetBackground(Colors(_random.NextInt(2, 7)));
 
 	return tetromino;
-	/*return _tetrominos.front();*/
 }
 
 bool GameScene::IsTetrominoShouldMove()
 {
-	_cyclesCompleted++;
+	_ticksNumber++;
 
-	if(_cyclesCompleted == CyclesAmountToTetrominoMove)
+	if(_ticksNumber == TicksAmountToTetrominoMove)
 	{
-		_cyclesCompleted = 0;
+		_ticksNumber = 0;
 		return true;
 	}
 
@@ -211,7 +212,7 @@ void GameScene::ClearRows(const std::vector<int>& removeRowsIndexes)
 	);
 }
 
-void GameScene::ShowDroppedTetrominoes()
+void GameScene::DisplayFallenTetrominos()
 {
 	int index = 0;
 	int cellInRow = 1;

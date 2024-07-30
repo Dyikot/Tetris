@@ -11,6 +11,8 @@ void SettingsMenu::HandleEvent(const SDL_Event& e)
 	{
 		case SDL_QUIT:
 			Application::Current()->Shutdown();
+			break;
+
 		default:
 			break;
 	}

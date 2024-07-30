@@ -7,11 +7,13 @@
 
 class Object
 {
+public:
+	static constexpr Colors DefaultBackgroundColor = Colors::None;
 protected:
 	Colors _backgroud;
 	SDL_Renderer* _renderer = Application::Current()->GetRenderer();
 public:
-	Object(Colors background = Colors::None):
+	Object(Colors background = DefaultBackgroundColor):
 		_backgroud(background){}
 
 	virtual ~Object() = default;

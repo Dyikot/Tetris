@@ -17,7 +17,7 @@ void Control::SetPosition(const Coordinates& position)
 
 int Control::GetWight() const
 {
-    return _width;;
+    return _width;
 }
 
 int Control::GetHeight() const
@@ -28,4 +28,12 @@ int Control::GetHeight() const
 const Coordinates& Control::GetPosition() const
 {
     return _position;
+}
+
+bool Control::IsInRange(const Coordinates& position) const
+{
+    return position.x >= _position.x &&
+           position.x <= _position.x + _width &&
+           position.y >= _position.y &&
+           position.y <= _position.y + _height;
 }
