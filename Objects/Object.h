@@ -8,18 +8,18 @@
 class Object
 {
 public:
-	static constexpr Colors DefaultBackgroundColor = Colors::None;
+	static constexpr Color DefaultBackgroundColor = Color::None;
 protected:
-	Colors _backgroud;
+	Color _backgroud;
 	SDL_Renderer* _renderer = Application::Current()->GetRenderer();
 public:
-	Object(Colors background = DefaultBackgroundColor);
+	Object(Color background = DefaultBackgroundColor);
 
 	virtual ~Object() = default;
 
 	virtual void Show() = 0;
 		
-	Colors GetBackground() const;
+	Color GetBackground() const;
 
-	virtual void SetBackground(Colors color);
+	virtual void SetBackground(Color color);
 };

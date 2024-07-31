@@ -22,7 +22,6 @@
     <ClInclude Include="Application\Application.h" />
     <ClInclude Include="UI\Menu.h" />
     <ClInclude Include="Style\Color\Color.h" />
-    <ClInclude Include="Style\Color\Colors.h" />
     <ClInclude Include="BasicStructs\Coordinates.h" />
     <ClInclude Include="BasicStructs\MovementSide.h" />
     <ClInclude Include="Scenes\GameOverMenu.h" />

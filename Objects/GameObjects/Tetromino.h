@@ -35,35 +35,48 @@ public:
 
 	void Rotate();
 
-	// Проверка на то, не зашло ли тетрамино за левую границу игрового поля
-	// \param left - Левая граница игрового поля.	
+	/// <summary>
+	/// Проверка на то, не зашло ли тетрамино за левую границу игрового поля
+	/// </summary>
+	/// <param name="left">- левая граница игрового поля</param>
 	bool IsOutLeftBorder(int left) const;
 
-	// Проверка на то, не зашло ли тетрамино за левую границу игрового поля
-	// \param right - Правая граница игрового поля.
+	/// <summary>
+	/// Проверка на то, не зашло ли тетрамино за правую границу игрового поля
+	/// </summary>
+	/// <param name="right">- правая граница игрового поля</param>
+	/// <returns></returns>
 	bool IsOutRightBorder(int right) const;
 
-	// Проверка на то, не зашло ли тетрамино за границу игрового поля.
-	// И если зашло то, корректирует положение, перемещая в границы игрового поля
-	// \param left - Левая граница игрового поля.
-	// \param right - Правая граница игрового поля.
-	// \param top - Верхняя граница игрового поля.
+	/// <summary>
+	/// Проверка на то, не зашло ли тетрамино за границу игрового поля.
+	/// И если зашло то, корректирует положение, перемещая в границы игрового поля
+	/// </summary>
+	/// <param name="left">- левая граница игрового поля</param>
+	/// <param name="right">- правая граница игрового поля</param>
+	/// <param name="top">- верхняя граница игрового поля</param>
 	void CorrectCoordinates(int left, int right, int top);
 
 	const std::array<Cell, 4>& GetCells() const;
 
-	// Производится поиск стартовой точки клетки, которая расположена выше остальных
-	// \return Возвращает  координаты точки
+	/// <summary>
+	/// Производится поиск стартовой точки клетки, которая расположена выше остальных
+	/// </summary>
+	/// <returns>Возвращает  координаты точки</returns>
 	const Coordinates& GetLowestCoordinates() const;
 
-	// Производится поиск стартовой точки клетки, которая расположена ниже остальных
-	// \return Возвращает  координаты точки
+	/// <summary>
+	/// Производится поиск стартовой точки клетки, которая расположена ниже остальных
+	/// </summary>
+	/// <returns>Возвращает  координаты точки</returns>
 	const Coordinates& GetHighestCoordinates() const;
 
-	void SetBackground(Colors background) override;
+	void SetBackground(Color background) override;
 
-	// Выбирается точка вокруг которой происходит вращение
-	// \param tetrominoType - тип тетрамино
-	// \return Возвращает  индекс точки массива _cells 
+	/// <summary>
+	/// Выбирается точка вокруг которой происходит вращение
+	/// </summary>
+	/// <param name="tetrominoType">- тип тетрамино</param>
+	/// <returns>Возвращает индекс точки массива _cells </returns>
 	int SelectRotationCenter(TetrominoType tetrominoType) const;
 };

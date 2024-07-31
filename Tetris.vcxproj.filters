@@ -54,9 +54,6 @@
     <ClInclude Include="Objects\Object.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Style\Color\Colors.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Objects\GameObjects\Cell.h">
       <Filter>Header Files</Filter>
     </ClInclude>

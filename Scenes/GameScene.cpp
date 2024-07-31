@@ -94,8 +94,11 @@ void GameScene::Process()
 
 Tetromino GameScene::SelectRandomTetromino()
 {
-	auto tetromino = _tetrominos[_random.NextInt(0, 6)];
-	tetromino.SetBackground(Colors(_random.NextInt(2, 7)));
+	auto randomTetrominoIndex = _random.NextInt(0, 6);
+	auto randomColor = Color(_random.NextInt(2, 8));
+
+	auto tetromino = _tetrominos[randomTetrominoIndex];
+	tetromino.SetBackground(randomColor);
 
 	return tetromino;
 }
@@ -117,14 +120,14 @@ TetrominoState GameScene::GetTetrominoState()
 {
 	const auto& tetrominoCells = _activeTetromino.GetCells();
 	int index;
-
+	
 	// Проверка не повяилась ли новая тетрамино в уже заполненном поле
 	if(GetIndexFrom(tetrominoCells.front()) < 20)
 	{
 		for(const auto& cell : tetrominoCells)
 		{
 			index = GetIndexFrom(cell);
-			if(_cells[index].GetBackground() != Colors::None)
+			if(_cells[index].GetBackground() != Color::None)
 			{
 				return TetrominoState::BeyoundUppedBorder;
 			}
@@ -139,7 +142,7 @@ TetrominoState GameScene::GetTetrominoState()
 		{
 			index = GetLowerIndexFrom(cell);
 			// Проверка на то, достигла ли тетронимо нижней границы поля
-			if(index >= FieldHeight || _cells[index].GetBackground() != Colors::None)
+			if(index >= FieldHeight || _cells[index].GetBackground() != Color::None)
 			{
 				AddCellsToDroppedCellsStorage(tetrominoCells);
 				return TetrominoState::Dropped;
@@ -175,7 +178,7 @@ std::vector<int> GameScene::FindFullRows()
 		{
 			index = row * HorizontalCellsNumber + column;
 
-			if(_cells[index].GetBackground() == Colors::None)
+			if(_cells[index].GetBackground() == Color::None)
 			{
 				break;
 			}
@@ -231,7 +234,7 @@ void GameScene::DisplayFallenTetrominos()
 		{
 			index = row * HorizontalCellsNumber + column;
 
-			if(_cells[index].GetBackground() != Colors::None)
+			if(_cells[index].GetBackground() != Color::None)
 			{
 				_cells[index].Show({ .x = column * Cell::Size, .y = row * Cell::Size });
 				cellInRow++;

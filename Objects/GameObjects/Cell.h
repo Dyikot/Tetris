@@ -9,20 +9,26 @@ public:
 	static const int Size = 10;
 	Coordinates StartPoint;
 public:
-	Cell(const Coordinates startPoint = {.x = 0, .y = 0}, Colors color = Colors::None):
+	Cell(const Coordinates startPoint = {.x = 0, .y = 0},
+		 Color background = Cell::DefaultBackgroundColor):
 		StartPoint(startPoint),
-		Object(color){}
+		Object(background){}
 
-	// ќтрисовка клетки
+	/// <summary>
+	/// ќтрисовка клетки
+	/// </summary>
 	void Show() override;
 
-	// ќтрисовка клетки в других координатах
-	// \param coordinates - координаты начальной точки клетки
+	/// <summary>
+	/// ќтрисовка клетки в других координатах
+	/// </summary>
+	/// <param name="coordinates">- координаты начальной точки клетки</param>
 	void Show(const Coordinates& coordinates);
 
-	// ѕеремещение клетки
-	// \param movementSide - сторона в которую требуетс€ переместить клетку.
-	// —тороны: Left, Right, Down.
+	/// <summary>
+	/// ѕеремещение клетки
+	/// </summary>
+	/// <param name="movementSide">- сторона перемещени€: Left, Right, Down.</param>
 	void Move(MovementSide movementSide);
 };
 

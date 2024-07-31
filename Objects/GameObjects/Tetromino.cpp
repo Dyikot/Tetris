@@ -31,12 +31,12 @@ void Tetromino::Rotate()
 
 	for(auto& cell : _cells)
 	{
-		newCoordinates.x =  int((cell.StartPoint.x - shiftByX) * cos(angle))
-							- int((cell.StartPoint.y - shiftByY) * sin(angle))
-							+ shiftByX;
-		newCoordinates.y = int((cell.StartPoint.x - shiftByX) * sin(angle))
-							+ int((cell.StartPoint.y - shiftByY) * cos(angle))
-							+ shiftByY;
+		newCoordinates.x = static_cast<int>((cell.StartPoint.x - shiftByX) * cos(angle))
+						   - static_cast<int>((cell.StartPoint.y - shiftByY) * sin(angle))
+						   + shiftByX;
+		newCoordinates.y = static_cast<int>((cell.StartPoint.x - shiftByX) * sin(angle))
+						   + static_cast<int>((cell.StartPoint.y - shiftByY) * cos(angle))
+						   + shiftByY;
 		cell.StartPoint = newCoordinates;
 	}
 }
@@ -127,7 +127,7 @@ const Coordinates& Tetromino::GetHighestCoordinates() const
 	}).operator*().StartPoint;
 }
 
-void Tetromino::SetBackground(Colors background)
+void Tetromino::SetBackground(Color background)
 {
 	_backgroud = background;
 	for(auto& cell : _cells)

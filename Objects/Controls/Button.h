@@ -6,18 +6,18 @@ class Button: public TextBlock
 {
 public:
 	static constexpr int DefaultTextSize = 24;
-	static constexpr Colors DefaultBorderColor = Colors::Green;
+	static constexpr Color DefaultBorderColor = Color::Green;
 protected:
-	Colors _borderColor;
-	Colors _backgroundSaved;
+	Color _borderColor;
+	Color _backgroundSaved;
 public:
 	Button(const Coordinates& position,
 		   int width,
 		   int height,
-		   Colors background,
-		   Colors borderColor,
+		   Color background,
+		   Color borderColor,
 		   const std::string& text,
-		   Colors textColor,
+		   Color textColor,
 		   int textSize
 	):
 		TextBlock(position, width, height, background, text, textColor, textSize),
@@ -26,7 +26,7 @@ public:
 
 	void Show() override;
 
-	void SetBackground(Colors color) override;
+	void SetBackground(Color color) override;
 	
 	void OnHover();
 

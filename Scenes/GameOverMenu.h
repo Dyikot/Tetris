@@ -27,7 +27,7 @@ private:
 	TextBlock _gameOverTextBlock = TextBlock(DefaultTitlePosition,
 											 Object::DefaultBackgroundColor,
 											 "Game over",
-											 TextBlock::ActiveTextColor,
+											 Color::Red,
 											 DefaultTitleTextSize);
 
 	Button _retryButton = Button(RetryButtonPosition,

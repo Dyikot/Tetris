@@ -5,7 +5,7 @@ void TextBlock::SetText(const std::string& text)
     _text = text;
 }
 
-void TextBlock::SetTextColor(Colors textColor)
+void TextBlock::SetTextColor(Color textColor)
 {
     _textColor = textColor;
 }
@@ -30,7 +30,7 @@ const std::string& TextBlock::GetText() const
     return _text;
 }
 
-Colors TextBlock::GetTextColor() const
+Color TextBlock::GetTextColor() const
 {
     return _textColor;
 }

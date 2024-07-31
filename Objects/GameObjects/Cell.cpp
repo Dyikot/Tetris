@@ -10,7 +10,7 @@ void Cell::Show()
 		.h = Size * 4
 	};
 
-	Color::SetRenderColor(_renderer, _backgroud);
+	Colors::SetRenderColor(_renderer, _backgroud);
 	SDL_RenderFillRect(_renderer, &body);
 }
 
@@ -24,7 +24,7 @@ void Cell::Show(const Coordinates& startPoint)
 		.h = Size * 4
 	};
 
-	Color::SetRenderColor(_renderer, _backgroud);
+	Colors::SetRenderColor(_renderer, _backgroud);
 	SDL_RenderFillRect(_renderer, &body);
 }
 
@@ -35,12 +35,15 @@ void Cell::Move(MovementSide movementSide)
 		case MovementSide::Left:
 			StartPoint.x -= Size;
 			break;
+
 		case MovementSide::Right:
 			StartPoint.x += Size;
 			break;
+
 		case MovementSide::Down:
 			StartPoint.y += Size;
 			break;
+
 		default:
 			break;
 	}

@@ -18,7 +18,7 @@ public:
 		 int columnsAmount,
 		 int width,
 		 int height,
-		 Colors background
+		 Color background
 	):
 		_startPoint(startPoint),
 		RowsAmount(rowsAmount),

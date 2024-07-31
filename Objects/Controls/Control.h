@@ -13,7 +13,7 @@ public:
 	Control(const Coordinates& position, 
 			int width, 
 			int height, 
-			Colors background
+			Color background
 	):
 		_position(position),
 		_width(width),

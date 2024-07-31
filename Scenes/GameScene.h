@@ -31,7 +31,7 @@ private:
 					  /*columnsAmount*/ HorizontalCellsNumber,
 					  /*width*/ FieldWidth * WidthScale,	
 					  /*height*/ FieldHeight * HeightScale,
-					  /*backgound*/ Colors::Grey);
+					  /*backgound*/ Color::Grey);
 
 	// Число пройденных циклов
 	int _ticksNumber = 0;
