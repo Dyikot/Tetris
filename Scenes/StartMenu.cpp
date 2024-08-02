@@ -17,23 +17,16 @@ void StartMenu::HandleEvent(const SDL_Event& e)
 {
 	switch(e.type)
 	{
-		case SDL_QUIT:
-			Application::Current()->Shutdown();
+		case SDL_QUIT: 
+			OnQuit(e);
 			break;
 
 		case SDL_MOUSEBUTTONDOWN:
-			if(_startGameButton.IsInRange(e.button.x, e.button.y))
-			{
-				Application::Current()->SetNextScene(new GameScene());
-			}
-			else if(_exitButton.IsInRange(e.button.x, e.button.y))
-			{
-				Application::Current()->Shutdown();
-			}
+			OnMouseDown(e);
 			break;
 
 		case SDL_MOUSEMOTION:
-			OnMouseMove(e.button.x, e.button.y);
+			OnMouseMove(e);
 			break;
 
 		default:
@@ -44,4 +37,21 @@ void StartMenu::HandleEvent(const SDL_Event& e)
 void StartMenu::Process()
 {
 
+}
+
+void StartMenu::OnMouseDown(const SDL_Event& e)
+{
+	if(_startGameButton.IsInRange(e.button.x, e.button.y))
+	{
+		Application::Current()->SetNextScene(new GameScene());
+	}
+	else if(_exitButton.IsInRange(e.button.x, e.button.y))
+	{
+		Application::Current()->Shutdown();
+	}
+}
+
+void StartMenu::OnQuit(const SDL_Event & e)
+{
+	Application::Current()->Shutdown();
 }

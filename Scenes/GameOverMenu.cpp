@@ -17,22 +17,15 @@ void GameOverMenu::HandleEvent(const SDL_Event& e)
 	switch(e.type)
 	{
 		case SDL_QUIT:
-			Application::Current()->Shutdown();
+			OnQuit(e);
 			break;
 
 		case SDL_MOUSEBUTTONDOWN:
-			if(_retryButton.IsInRange(e.button.x, e.button.y))
-			{
-				Application::Current()->SetNextScene(new GameScene());
-			}
-			else if(_exitButton.IsInRange(e.button.x, e.button.y))
-			{
-				Application::Current()->Shutdown();
-			}
+			OnMouseDown(e);
 			break;
 
 		case SDL_MOUSEMOTION:
-			OnMouseMove(e.button.x, e.button.y);
+			OnMouseMove(e);
 			break;
 
 		default:
@@ -42,3 +35,20 @@ void GameOverMenu::HandleEvent(const SDL_Event& e)
 
 void GameOverMenu::Process()
 {}
+
+void GameOverMenu::OnMouseDown(const SDL_Event & e)
+{
+	if(_retryButton.IsInRange(e.button.x, e.button.y))
+	{
+		Application::Current()->SetNextScene(new GameScene());
+	}
+	else if(_exitButton.IsInRange(e.button.x, e.button.y))
+	{
+		Application::Current()->Shutdown();
+	}
+}
+
+void GameOverMenu::OnQuit(const SDL_Event & e)
+{
+	Application::Current()->Shutdown();
+}

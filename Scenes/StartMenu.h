@@ -73,4 +73,8 @@ public:
 	void HandleEvent(const SDL_Event& e) override;
 
 	void Process() override;
+
+	void OnMouseDown(const SDL_Event& e);
+
+	void OnQuit(const SDL_Event& e);
 };

@@ -17,31 +17,19 @@ void PauseMenu::HandleEvent(const SDL_Event& e)
 	switch(e.type)
 	{
 		case SDL_QUIT:
-			Application::Current()->Shutdown();
+			OnQuit(e);
 			break;
 
 		case SDL_KEYDOWN:
-			switch(e.key.keysym.sym)
-			{
-				case SDLK_ESCAPE:
-					Application::Current()->UploadSavedSceneToNext();
-					break;
-			}
+			OnKeyDown(e);
 			break;
 
 		case SDL_MOUSEBUTTONDOWN:
-			if(_continueButton.IsInRange(e.button.x, e.button.y))
-			{
-				Application::Current()->UploadSavedSceneToNext();
-			}
-			else if(_exitButton.IsInRange(e.button.x, e.button.y))
-			{
-				Application::Current()->Shutdown();
-			}
+			OnMouseDown(e);
 			break;
 
 		case SDL_MOUSEMOTION:
-			OnMouseMove(e.button.x, e.button.y);
+			OnMouseMove(e);
 			break;
 
 		default:
@@ -51,3 +39,30 @@ void PauseMenu::HandleEvent(const SDL_Event& e)
 
 void PauseMenu::Process()
 {}
+
+void PauseMenu::OnMouseDown(const SDL_Event & e)
+{
+	if(_continueButton.IsInRange(e.button.x, e.button.y))
+	{
+		Application::Current()->UploadSavedSceneToNext();
+	}
+	else if(_exitButton.IsInRange(e.button.x, e.button.y))
+	{
+		Application::Current()->Shutdown();
+	}
+}
+
+void PauseMenu::OnQuit(const SDL_Event& e)
+{
+	Application::Current()->Shutdown();
+}
+
+void PauseMenu::OnKeyDown(const SDL_Event& e)
+{
+	switch(e.key.keysym.sym)
+	{
+		case SDLK_ESCAPE:
+			Application::Current()->UploadSavedSceneToNext();
+			break;
+	}
+}

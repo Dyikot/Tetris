@@ -40,12 +40,14 @@ Game::~Game()
 void Game::Run()
 {		
 	SDL_Event event;
+
+	// Скорость падения
 	constexpr Uint32 Delay = 10;
-	
+
 	// Игровой цикл
 	while(_isGameRunning)
 	{
-		while(SDL_PollEvent(&event))
+		while(PollEvents(&event))
 		{
 			_currentScene->HandleEvent(event);
 		}
@@ -58,8 +60,8 @@ void Game::Run()
 		_currentScene->Process();
 
 		// Устанавливает цвет фона окна
-		SDL_SetRenderDrawColor(_renderer, 0, 0, 0, 255);
-
+		Colors::SetRenderColor(_renderer, Color::Black);
+		
 		SDL_RenderClear(_renderer);
 		_currentScene->Show();
 		SDL_RenderPresent(_renderer);
@@ -71,4 +73,42 @@ void Game::Run()
 void Game::Shutdown()
 {
 	_isGameRunning = false;
+}
+
+bool Game::PollEvents(SDL_Event* e)
+{
+	if(SDL_PollEvent(e))
+	{
+		switch(e->type)
+		{
+			case SDL_KEYDOWN:
+				if(e->key.repeat)
+				{
+					if(_holdKeyEvent.IsHold())
+					{
+						e->key = _holdKeyEvent;
+						return true;
+					}
+
+					return false;
+				}
+
+			case SDL_KEYUP:
+				_holdKeyEvent = e->key;
+				break;
+
+			default:
+				break;
+		}
+
+		return true;
+	}
+	else if(_holdKeyEvent.IsHold())
+	{
+		e->key = _holdKeyEvent;
+		return true;
+	}
+	
+	return false;
+
 }

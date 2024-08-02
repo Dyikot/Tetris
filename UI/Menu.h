@@ -28,5 +28,5 @@ private:
 public:
 	int CalculateButtonYPosition(const int order);
 
-	void OnMouseMove(int x, int y);
+	void OnMouseMove(const SDL_Event& e);
 };

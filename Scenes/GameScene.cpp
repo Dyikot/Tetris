@@ -12,57 +12,15 @@ void GameScene::HandleEvent(const SDL_Event& e)
 	switch(e.type)
 	{
 		case SDL_QUIT:
-			Application::Current()->Shutdown();
+			OnQuit(e);
 			break;
 
 		case SDL_KEYDOWN:
-			switch(e.key.keysym.sym)
-			{
-				case SDLK_LEFT:					
-					if(!_activeTetromino.IsOutLeftBorder(0))
-					{
-						_activeTetromino.Move(MovementSide::Left);
-					}					
-					break;
+			OnKeyDown(e);
+			break;
 
-				case SDLK_RIGHT:
-					if(!_activeTetromino.IsOutRightBorder(FieldWidth))
-					{
-						_activeTetromino.Move(MovementSide::Right);
-					}
-					break;
-
-				case SDLK_DOWN:
-					_activeTetromino.Move(MovementSide::Down);
-					break;
-
-				case SDLK_UP:
-					_activeTetromino.Rotate();
-					_activeTetromino.CorrectCoordinates(/*left*/ 0,
-														/*right*/ FieldWidth,
-														/*top*/ 0);
-					break;
-
-				case SDLK_SPACE:
-					_isDropRequired = true;
-					break;
-
-				case SDLK_c:
-					if(_isReselectAvaliable)
-					{
-						_activeTetromino = SelectRandomTetromino();
-						_isReselectAvaliable = false;
-					}
-					break;
-
-				case SDLK_ESCAPE:
-					Application::Current()->SaveCurrentScene();
-					Application::Current()->SetNextScene(new PauseMenu());
-					break;
-
-				default:
-					break;
-			}
+		case SDL_KEYHOLD:
+			OnKeyHold(e);
 			break;
 
 		default:
@@ -81,11 +39,13 @@ void GameScene::Process()
 	{
 		case TetrominoState::BeyoundUppedBorder:
 			Application::Current()->SetNextScene(new GameOverMenu());
+			break;
 
 		case TetrominoState::Dropped:
 			ClearRows(FindFullRows());
 			_activeTetromino = SelectRandomTetromino();
 			_isReselectAvaliable = true;
+			break;
 
 		case TetrominoState::Moving:
 			break;
@@ -259,4 +219,94 @@ void GameScene::AddCellsToDroppedCellsStorage(const std::array<Cell, 4>& cells)
 	{
 		_cells[GetIndexFrom(cell)] = cell;
 	}
+}
+
+void GameScene::OnKeyDown(const SDL_Event& e)
+{
+	switch(e.key.keysym.sym)
+	{
+		case SDLK_LEFT:
+			OnLeftKeyDown(e);
+			break;
+
+		case SDLK_RIGHT:
+			OnRightKeyDown(e);
+			break;
+
+		case SDLK_DOWN:
+			OnDownKeyDown(e);
+			break;
+
+		case SDLK_UP:
+			_activeTetromino.Rotate();
+			_activeTetromino.CorrectCoordinates(/*left*/ 0, /*right*/ FieldWidth, /*top*/ 0);
+			break;
+
+		case SDLK_SPACE:
+			_isDropRequired = true;
+			break;
+
+		case SDLK_c:
+			if(_isReselectAvaliable)
+			{
+				_activeTetromino = SelectRandomTetromino();
+				_isReselectAvaliable = false;
+			}
+			break;
+
+		case SDLK_ESCAPE:
+			Application::Current()->SaveCurrentScene();
+			Application::Current()->SetNextScene(new PauseMenu());
+			break;
+
+		default:
+			break;
+	}
+}
+
+void GameScene::OnKeyHold(const SDL_Event& e)
+{
+	switch(e.key.keysym.sym)
+	{
+		case SDLK_LEFT:
+			OnLeftKeyDown(e);
+			break;
+
+		case SDLK_RIGHT:
+			OnRightKeyDown(e);
+			break;
+
+		case SDLK_DOWN:
+			OnDownKeyDown(e);
+			break;
+
+		default:
+			break;
+	}
+}
+
+void GameScene::OnQuit(const SDL_Event & e)
+{
+	Application::Current()->Shutdown();
+}
+
+void GameScene::OnLeftKeyDown(const SDL_Event& e)
+{
+	if(!_activeTetromino.IsOutLeftBorder(0))
+	{
+		_activeTetromino.Move(MovementSide::Left);
+	}
+}
+
+void GameScene::OnRightKeyDown(const SDL_Event & e)
+{
+	if(!_activeTetromino.IsOutRightBorder(FieldWidth))
+	{
+		_activeTetromino.Move(MovementSide::Right);
+	}
+}
+
+void GameScene::OnDownKeyDown(const SDL_Event & e)
+{
+	_activeTetromino.Move(MovementSide::Down);
 }

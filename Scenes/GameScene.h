@@ -1,5 +1,7 @@
 #pragma once
 
+#include <iostream>
+
 #include "Scene.h"
 #include "GameOverMenu.h"
 #include "PauseMenu.h"
@@ -7,6 +9,7 @@
 #include "..\Objects\GameObjects\Cell.h"
 #include "..\Objects\GameObjects\Grid.h"
 #include "..\Objects\GameObjects\Tetromino.h"
+#include "..\Events\HoldKeyEvent.h"
 #include "Random/Random.h"
 
 class GameScene: public Scene
@@ -19,7 +22,7 @@ private:
 	const int WidthScale = Application::Current()->WindowWidth / FieldWidth;
 	const int HeightScale = Application::Current()->WindowHeight / FieldHeight;
 	const int TicksAmountToTetrominoMove = 80;
-
+	
 	Random _random;
 
 	// Клетки упавших тетрамино
@@ -35,7 +38,7 @@ private:
 
 	// Число пройденных циклов
 	int _ticksNumber = 0;
-
+	
 	// Тетрамино
 	std::array<Tetromino, 7> _tetrominos = 
 	{
@@ -153,4 +156,16 @@ private:
 	/// </summary>
 	/// <param name="cells">- клетки, которые требуется сохранить</param>
 	void AddCellsToDroppedCellsStorage(const std::array<Cell, 4>& cells);
+
+	void OnKeyDown(const SDL_Event& e);
+
+	void OnKeyHold(const SDL_Event& e);
+
+	void OnQuit(const SDL_Event& e);
+
+	void OnLeftKeyDown(const SDL_Event& e);
+
+	void OnRightKeyDown(const SDL_Event& e);
+
+	void OnDownKeyDown(const SDL_Event& e);
 };
