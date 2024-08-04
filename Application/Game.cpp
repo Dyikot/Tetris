@@ -4,28 +4,32 @@ Game::Game()
 {
 	if(SDL_Init(SDL_INIT_VIDEO | SDL_INIT_EVENTS) < 0)
 	{
-		std::cout << "Ошибка инициализации SDL: " << SDL_GetError();
+		std::cout << "Ошибка инициализации SDL: " << SDL_GetError() << '\n';
 	}
 
 	if(TTF_Init() < 0)
 	{
-		std::cout << "Ошибка инициализации TTL: " << SDL_GetError();
+		std::cout << "Ошибка инициализации TTF: " << SDL_GetError() << '\n';
+	}
+
+	if(!IMG_Init(IMG_InitFlags::IMG_INIT_PNG | IMG_InitFlags::IMG_INIT_JPG))
+	{
+		std::cout << "Ошибка инициализации IMG: " << SDL_GetError() << '\n';
 	}
 	
-	_currentWindow = SDL_CreateWindow(/*title*/ "Tetris",
-									  /*x*/ SDL_WINDOWPOS_CENTERED,
-									  /*y*/ SDL_WINDOWPOS_CENTERED,
-									  /*w*/ WindowWidth,
-									  /*h*/ WindowHeight,
-									  /*flags*/ SDL_WINDOW_SHOWN);
+	_currentWindow = SDL_CreateWindow("Tetris",
+									  SDL_WINDOWPOS_CENTERED,
+									  SDL_WINDOWPOS_CENTERED,
+									  WindowWidth,
+									  WindowHeight,
+									  SDL_WINDOW_SHOWN);
 
 	if(_currentWindow == nullptr)
 	{
-		std::cout << "Не удалось создать окно : " << SDL_GetError();
+		std::cout << "Не удалось создать окно : " << SDL_GetError() << '\n';
 	}
-
+	
 	_renderer = SDL_CreateRenderer(_currentWindow, -1, SDL_RENDERER_ACCELERATED);
-
 	_isGameRunning = true;
 	_currentScene = new StartMenu();
 }
@@ -34,6 +38,7 @@ Game::~Game()
 {
 	SDL_DestroyWindow(_currentWindow);
 	TTF_Quit();
+	IMG_Quit();
 	SDL_Quit();
 }
 

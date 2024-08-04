@@ -1,7 +1,7 @@
 #pragma once
 
 #include <string>
-#include "..\Object.h"
+#include "../Object.h"
 
 class Control : public Object
 {
@@ -10,15 +10,10 @@ protected:
 	int _width;
 	int _height;
 public:
-	Control(const Coordinates& position, 
-			int width, 
-			int height, 
-			Color background
-	):
-		_position(position),
-		_width(width),
-		_height(height),
-		Object(background){}
+	Control(const Coordinates& position,
+			int width,
+			int height,
+			Color background);
 
 	void SetWidth(int width);
 

@@ -1,24 +1,26 @@
 #pragma once
 
-#include"..\Object.h"
-#include "..\..\BasicStructs\MovementSide.h"
+#include"../Object.h"
+#include "../../BasicStructs/MovementSide.h"
+#include "../../Style/Texture.h"
 
 class Cell: public Object
 {
 public:
-	static const int Size = 10;
+	static constexpr int Size = 10;
 	Coordinates StartPoint;
+private:
+	Texture* _cellTexture;
 public:
-	Cell(const Coordinates startPoint = {.x = 0, .y = 0},
-		 Color background = Cell::DefaultBackgroundColor):
-		StartPoint(startPoint),
-		Object(background){}
+	Cell(Texture* cellTexture = nullptr,
+		 const Coordinates startPoint = { .x = 0 , .y = 0 },
+		 Color background = Cell::DefaultBackgroundColor);
 
 	/// <summary>
 	/// Отрисовка клетки
 	/// </summary>
 	void Show() override;
-
+	
 	/// <summary>
 	/// Отрисовка клетки в других координатах
 	/// </summary>

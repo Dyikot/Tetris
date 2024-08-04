@@ -1,6 +1,6 @@
 #pragma once
 
-#include "..\Object.h"
+#include "../Object.h"
 
 class Grid : public Object
 {
@@ -14,18 +14,11 @@ private:
 	const int RowHeight = Height / RowsAmount;
 public:
 	Grid(const Coordinates& startPoint,
-		 int rowsAmount, 
+		 int rowsAmount,
 		 int columnsAmount,
 		 int width,
 		 int height,
-		 Color background
-	):
-		_startPoint(startPoint),
-		RowsAmount(rowsAmount),
-		ColumnsAmount(columnsAmount),
-		Width(width),
-		Height(height),
-		Object(background){}
+		 Color background);
 
 	void Show() override;
 };

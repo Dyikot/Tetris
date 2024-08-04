@@ -10,6 +10,23 @@ void TextBlock::SetTextColor(Color textColor)
     _textColor = textColor;
 }
 
+TextBlock::TextBlock(const Coordinates& position,
+                     Color background, 
+                     const std::string& text, 
+                     Color textColor, int textSize):
+    TextBlock(position, Width, Height, background, text, textColor, textSize)
+{
+
+}
+
+TextBlock::~TextBlock()
+{
+    TTF_CloseFont(_font);
+    SDL_FreeSurface(_textSurface);
+    SDL_DestroyTexture(_textTexture);
+}
+
+
 void TextBlock::Show()
 {
     SDL_QueryTexture(_textTexture, NULL, NULL, &_width, &_height);
@@ -33,4 +50,21 @@ const std::string& TextBlock::GetText() const
 Color TextBlock::GetTextColor() const
 {
     return _textColor;
+}
+
+TextBlock::TextBlock(const Coordinates& position,
+                     int width, 
+                     int height,
+                     Color background,
+                     const std::string& text,
+                     Color textColor,
+                     int textSize):
+    Control(position, width, height, background),
+    _text(text),
+    _textColor(textColor),
+    _font(TTF_OpenFont("Resources/Fonts/segoeui.ttf", textSize)),
+    _textSurface(TTF_RenderText_Blended(_font, _text.c_str(), Colors::ToSDL_Color(textColor))),
+    _textTexture(SDL_CreateTextureFromSurface(_renderer, _textSurface))
+{
+
 }

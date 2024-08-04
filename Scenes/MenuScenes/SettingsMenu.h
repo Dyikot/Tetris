@@ -1,7 +1,7 @@
 #pragma once
 
-#include "Scene.h"
-#include "../Application/Application.h"
+#include "../Scene.h"
+#include "../../Application/Application.h"
 
 class SettingsMenu: public Scene
 {

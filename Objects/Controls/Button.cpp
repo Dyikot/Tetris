@@ -1,5 +1,20 @@
 #include "Button.h"
 
+Button::Button(const Coordinates& position, 
+			   int width, 
+			   int height,
+			   Color background,
+			   Color borderColor,
+			   const std::string& text,
+			   Color textColor, 
+			   int textSize):
+	TextBlock(position, width, height, background, text, textColor, textSize),
+	_borderColor(borderColor),
+	_backgroundSaved(background)
+{
+
+}
+
 void Button::Show()
 {
 	SDL_Rect rectangle =

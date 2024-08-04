@@ -1,11 +1,11 @@
 #pragma once
 
-#include "Scene.h"
-#include "GameScene.h"
-#include "../Application/Application.h"
-#include "..\Objects\Controls\Button.h"
-#include "..\Objects\Controls\TextBlock.h"
-#include "..\UI\Menu.h"
+#include "../Scene.h"
+#include "../GameScene.h"
+#include "../../Application/Application.h"
+#include "../../Objects/Controls/Button.h"
+#include "../../Objects/Controls/TextBlock.h"
+#include "Menu.h"
 
 class GameOverMenu: public Scene, protected Menu
 {

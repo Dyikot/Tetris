@@ -1,5 +1,10 @@
 #include "GameScene.h"
 
+GameScene::~GameScene()
+{
+	SDL_DestroyTexture(_cellTexture);
+}
+
 void GameScene::Show()
 {
 	_grid.Show();
@@ -54,11 +59,11 @@ void GameScene::Process()
 
 Tetromino GameScene::SelectRandomTetromino()
 {
-	auto randomTetrominoIndex = _random.NextInt(0, 6);
-	auto randomColor = Color(_random.NextInt(2, 8));
+	auto tetrominoIndex = _random.NextInt(0, 6);
+	auto color = Color(_random.NextInt(2, 8));
 
-	auto tetromino = _tetrominos[randomTetrominoIndex];
-	tetromino.SetBackground(randomColor);
+	auto tetromino = _tetrominos[tetrominoIndex];
+	tetromino.SetBackground(color);
 
 	return tetromino;
 }
@@ -67,13 +72,15 @@ bool GameScene::IsTetrominoShouldMove()
 {
 	_ticksNumber++;
 
-	if(_ticksNumber == TicksAmountToTetrominoMove)
+	switch(_ticksNumber)
 	{
-		_ticksNumber = 0;
-		return true;
-	}
+		case TicksAmountToTetrominoMove:
+			_ticksNumber = 0;
+			return true;
 
-	return false;
+		default:
+			return false;
+	}
 }
 
 TetrominoState GameScene::GetTetrominoState()
@@ -82,7 +89,7 @@ TetrominoState GameScene::GetTetrominoState()
 	int index;
 	
 	// Проверка не повяилась ли новая тетрамино в уже заполненном поле
-	if(GetIndexFrom(tetrominoCells.front()) < 20)
+	if(GetIndexFrom(tetrominoCells.front()) < 2 * HorizontalCellsNumber)
 	{
 		for(const auto& cell : tetrominoCells)
 		{
@@ -94,13 +101,11 @@ TetrominoState GameScene::GetTetrominoState()
 		}
 	}
 	// Проверка на наличие тетронимо ниже текущего
-	// \return Возвращает  TetrominoState::Dropped, если ниже есть клетка,
-	// если нет, то TetrominoState::Moving
 	auto GetStateBasedOnLowerCells = [&]()
 	{
 		for(const auto& cell : tetrominoCells)
 		{
-			index = GetLowerIndexFrom(cell);
+			index = GetLowerIndexBy(cell);
 			// Проверка на то, достигла ли тетронимо нижней границы поля
 			if(index >= FieldHeight || _cells[index].GetBackground() != Color::None)
 			{
@@ -128,7 +133,7 @@ TetrominoState GameScene::GetTetrominoState()
 
 std::vector<int> GameScene::FindFullRows()
 {
-	std::vector<int> removeRowsIndexes;
+	std::vector<int> fullRowsIndexes;
 	int index = 0;
 	int lastRow = _activeTetromino.GetHighestCoordinates().y / 10;
 
@@ -144,12 +149,12 @@ std::vector<int> GameScene::FindFullRows()
 			}
 			else if(column + 1 == HorizontalCellsNumber)
 			{
-				removeRowsIndexes.push_back(row);
+				fullRowsIndexes.push_back(row);
 			}
 		}
 	}
 
-	return removeRowsIndexes;
+	return fullRowsIndexes;
 }
 
 void GameScene::ClearRows(const std::vector<int>& removeRowsIndexes)
@@ -161,18 +166,14 @@ void GameScene::ClearRows(const std::vector<int>& removeRowsIndexes)
 
 	for(auto removeIndex : removeRowsIndexes)
 	{
-		_cells.erase(
-			_cells.begin() + removeIndex * HorizontalCellsNumber,
-			_cells.begin() + removeIndex * HorizontalCellsNumber
-			+ HorizontalCellsNumber
-		);
+		_cells.erase(_cells.begin() + removeIndex * HorizontalCellsNumber,
+					 _cells.begin() + removeIndex * HorizontalCellsNumber 
+									+ HorizontalCellsNumber);
 	}
 
-	_cells.insert(
-		_cells.begin(),
-		removeRowsIndexes.size() * HorizontalCellsNumber,
-		Cell()
-	);
+	_cells.insert(_cells.begin(),
+				  removeRowsIndexes.size() * HorizontalCellsNumber,
+				  Cell(&_cellTexture));
 }
 
 void GameScene::DisplayFallenTetrominos()
@@ -208,13 +209,13 @@ int GameScene::GetIndexFrom(const Cell& cell)
 	return cell.StartPoint.y / 10 * HorizontalCellsNumber + cell.StartPoint.x / 10;
 }
 
-int GameScene::GetLowerIndexFrom(const Cell& cell)
+int GameScene::GetLowerIndexBy(const Cell& cell)
 {
 	return (cell.StartPoint.y / 10 + 1) * HorizontalCellsNumber + cell.StartPoint.x / 10;
 }
 
 void GameScene::AddCellsToDroppedCellsStorage(const std::array<Cell, 4>& cells)
-{
+{	
 	for(const auto& cell : cells)
 	{
 		_cells[GetIndexFrom(cell)] = cell;

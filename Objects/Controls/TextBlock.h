@@ -22,17 +22,9 @@ public:
 			  Color background,
 			  const std::string& text,
 			  Color textColor,
-			  int textSize
-	):
-		TextBlock(position, Width, Height, background, text, textColor, textSize){}
-	
+			  int textSize);	
 
-	virtual ~TextBlock()
-	{
-		TTF_CloseFont(_font);
-		SDL_FreeSurface(_textSurface);
-		SDL_DestroyTexture(_textTexture);
-	}
+	virtual ~TextBlock();
 
 	void Show() override;
 
@@ -46,18 +38,10 @@ public:
 
 protected:
 	TextBlock(const Coordinates& position,
-		int width,
-		int height,
-		Color background,
-		const std::string& text,
-		Color textColor,
-		int textSize
-	):
-		Control(position, width, height, background),
-		_text(text),
-		_textColor(textColor),
-		_font(TTF_OpenFont("Style/Fonts/segoeui.ttf", textSize)),
-		_textSurface(TTF_RenderText_Blended(_font, _text.c_str(), Colors::ToSDL_Color(textColor))),
-		_textTexture(SDL_CreateTextureFromSurface(_renderer, _textSurface))
-	{}
+			  int width,
+			  int height,
+			  Color background,
+			  const std::string& text,
+			  Color textColor,
+			  int textSize);
 };

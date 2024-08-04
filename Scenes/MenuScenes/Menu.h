@@ -2,9 +2,9 @@
 
 #include <vector>
 
-#include "..\Application\Application.h"
-#include "..\BasicStructs\Coordinates.h"
-#include "..\Objects\Controls\Button.h"
+#include "../../Application/Application.h"
+#include "../../BasicStructs/Coordinates.h"
+#include "../../Objects/Controls/Button.h"
 
 class Menu
 {

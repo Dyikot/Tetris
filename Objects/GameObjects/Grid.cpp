@@ -1,5 +1,21 @@
 #include "Grid.h"
 
+Grid::Grid(const Coordinates& startPoint,
+		   int rowsAmount, 
+		   int columnsAmount,
+		   int width, 
+		   int height, 
+		   Color background):
+	_startPoint(startPoint),
+	RowsAmount(rowsAmount),
+	ColumnsAmount(columnsAmount),
+	Width(width),
+	Height(height),
+	Object(background)
+{
+
+}
+
 void Grid::Show()
 {
 	Colors::SetRenderColor(_renderer, _backgroud);

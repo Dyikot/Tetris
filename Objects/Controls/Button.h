@@ -18,11 +18,7 @@ public:
 		   Color borderColor,
 		   const std::string& text,
 		   Color textColor,
-		   int textSize
-	):
-		TextBlock(position, width, height, background, text, textColor, textSize),
-		_borderColor(borderColor),
-		_backgroundSaved(background){}
+		   int textSize);
 
 	void Show() override;
 

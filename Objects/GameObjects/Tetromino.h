@@ -4,8 +4,10 @@
 #include <array>
 #include <numbers>
 #include <functional>
+#include <algorithm>
 
-#include "Cell.h" 
+#include "Cell.h"
+#include "../../Style/Texture.h"
 
 enum class TetrominoType
 {
@@ -23,11 +25,9 @@ class Tetromino : public Object
 {
 private:
 	TetrominoType _type;
-	std::array<Cell, 4> _cells;	
+	std::array<Cell, 4> _cells;
 public:
-	Tetromino(TetrominoType type, const std::array<Cell, 4>& cellStartPoints):
-		_type(type),
-		_cells(cellStartPoints){}
+	Tetromino(TetrominoType type, const std::array<Cell, 4>& cellStartPoints);
 
 	void Show() override;
 

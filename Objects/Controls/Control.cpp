@@ -1,5 +1,14 @@
 #include "Control.h"
 
+Control::Control(const Coordinates& position, int width, int height, Color background):
+    _position(position),
+    _width(width),
+    _height(height),
+    Object(background)
+{
+
+}
+
 void Control::SetWidth(int width)
 {
     _width = width;

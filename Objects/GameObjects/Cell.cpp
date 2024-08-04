@@ -1,32 +1,32 @@
 #include "Cell.h"
 
+Cell::Cell(Texture* cellTexture, const Coordinates startPoint, Color background):
+	_cellTexture(cellTexture),
+	StartPoint(startPoint),
+	Object(background)
+{
+
+}
+
 void Cell::Show()
 {
-	SDL_Rect body =
-	{
-		.x = StartPoint.x * 4,
-		.y = StartPoint.y * 4,
-		.w = Size * 4,
-		.h = Size * 4
-	};
-
-	Colors::SetRenderColor(_renderer, _backgroud);
-	SDL_RenderFillRect(_renderer, &body);
+	Show(StartPoint);
 }
 
 void Cell::Show(const Coordinates& startPoint)
 {
-	SDL_Rect body =
+	SDL_Rect rectangle =
 	{
 		.x = startPoint.x * 4,
 		.y = startPoint.y * 4,
 		.w = Size * 4,
 		.h = Size * 4
 	};
-
-	Colors::SetRenderColor(_renderer, _backgroud);
-	SDL_RenderFillRect(_renderer, &body);
+	
+	Colors::SetTextureColor(*_cellTexture, _backgroud);
+	_cellTexture->Render(_renderer, rectangle);
 }
+
 
 void Cell::Move(MovementSide movementSide)
 {

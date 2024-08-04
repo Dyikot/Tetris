@@ -52,4 +52,6 @@ public:
 	static constexpr SDL_Color ToSDL_Color(Color color);
 
 	static void SetRenderColor(SDL_Renderer* renderer, Color color);
+
+	static void SetTextureColor(SDL_Texture* texture, Color color);
 };

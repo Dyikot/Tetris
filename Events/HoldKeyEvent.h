@@ -1,8 +1,9 @@
 #pragma once
 
-#include "SDL/SDL.h"
-#include  <iostream>
+#include <iostream>
 #include <chrono>
+
+#include "SDL/SDL.h"
 
 constexpr Uint32 SDL_KEYHOLD = 767;
 

@@ -21,7 +21,7 @@
     <ClInclude Include="Scenes\Scene.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Scenes\StartMenu.h">
+    <ClInclude Include="Scenes\MenuScenes\StartMenu.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Objects\Controls\Button.h">
@@ -36,10 +36,10 @@
     <ClInclude Include="Objects\Controls\TextBlock.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Scenes\PauseMenu.h">
+    <ClInclude Include="Scenes\MenuScenes\PauseMenu.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Scenes\SettingsMenu.h">
+    <ClInclude Include="Scenes\MenuScenes\SettingsMenu.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Scenes\GameScene.h">
@@ -63,16 +63,19 @@
     <ClInclude Include="BasicStructs\MovementSide.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Scenes\GameOverMenu.h">
+    <ClInclude Include="Scenes\MenuScenes\GameOverMenu.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Style\Color\Color.h">
+    <ClInclude Include="Style\Color.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="UI\Menu.h">
+    <ClInclude Include="Scenes\MenuScenes\Menu.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Events\HoldKeyEvent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Style\Texture.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -83,7 +86,7 @@
     <ClCompile Include="Source.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Scenes\StartMenu.cpp">
+    <ClCompile Include="Scenes\MenuScenes\StartMenu.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Objects\Controls\Button.cpp">
@@ -92,10 +95,10 @@
     <ClCompile Include="Objects\Controls\Control.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Scenes\PauseMenu.cpp">
+    <ClCompile Include="Scenes\MenuScenes\PauseMenu.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Scenes\SettingsMenu.cpp">
+    <ClCompile Include="Scenes\MenuScenes\SettingsMenu.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Scenes\GameScene.cpp">
@@ -116,19 +119,22 @@
     <ClCompile Include="Objects\GameObjects\Grid.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Scenes\GameOverMenu.cpp">
+    <ClCompile Include="Scenes\MenuScenes\GameOverMenu.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Objects\Controls\TextBlock.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Style\Color\Color.cpp">
+    <ClCompile Include="Style\Color.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="UI\Menu.cpp">
+    <ClCompile Include="Scenes\MenuScenes\Menu.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Events\HoldKeyEvent.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Style\Texture.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
