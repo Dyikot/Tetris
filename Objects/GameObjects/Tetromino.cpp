@@ -67,11 +67,11 @@ bool Tetromino::IsOutLeftBorder(int left) const
 
 void Tetromino::CorrectCoordinates(int left, int right, int top)
 {
-	for(int i = 0; i < _cells.size(); i++)
+	for(size_t i = 0; i < _cells.size(); i++)
 	{
 		if(_cells[i].StartPoint.x <= left)
 		{
-			for(int j = i; j < _cells.size(); j++)
+			for(size_t j = i; j < _cells.size(); j++)
 			{
 				if(_cells[j].StartPoint.x <= left)
 				{
@@ -82,7 +82,7 @@ void Tetromino::CorrectCoordinates(int left, int right, int top)
 		}
 		else if(_cells[i].StartPoint.x >= right)
 		{
-			for(int j = i; j < _cells.size(); j++)
+			for(size_t j = i; j < _cells.size(); j++)
 			{
 				if(_cells[i].StartPoint.x >= right)
 				{
@@ -93,7 +93,7 @@ void Tetromino::CorrectCoordinates(int left, int right, int top)
 		}
 		else if(_cells[i].StartPoint.y <= top)
 		{
-			for(int j = i; j < _cells.size(); j++)
+			for(size_t j = i; j < _cells.size(); j++)
 			{
 				if(_cells[i].StartPoint.y <= top)
 				{
@@ -110,20 +110,20 @@ const std::array<Cell, 4>& Tetromino::GetCells() const
 	return _cells;
 }
 
-const Coordinates& Tetromino::GetLowestCoordinates() const
+const Cell& Tetromino::GetLowestCell() const
 {
 	return std::ranges::max_element(_cells, [](const Cell& left, const Cell& right)
 	{
 		return left.StartPoint.y < right.StartPoint.y;
-	}).operator*().StartPoint;
+	}).operator*();
 }
 
-const Coordinates& Tetromino::GetHighestCoordinates() const
+const Cell& Tetromino::GetHighestCell() const
 {
 	return std::ranges::max_element(_cells, [](const Cell& left, const Cell& right)
 	{
 		return left.StartPoint.y > right.StartPoint.y;
-	}).operator*().StartPoint;
+	}).operator*();
 }
 
 void Tetromino::SetBackground(Color background)

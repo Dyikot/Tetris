@@ -4,5 +4,6 @@ enum class MovementSide
 {
 	Left, 
 	Right, 
-	Down
+	Down,
+	Up
 };

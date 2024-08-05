@@ -28,7 +28,11 @@ private:
 	Random _random;
 
 	//  летки упавших тетрамино
-	std::vector<Cell> _cells = std::vector<Cell>(VerticalCellsNumber * HorizontalCellsNumber);
+	std::vector<std::vector<Cell>> _cellsStorage = std::vector<std::vector<Cell>>(
+												VerticalCellsNumber,
+												std::vector<Cell>(HorizontalCellsNumber));
+
+	std::vector<size_t> _fullRowIndeces;
 
 	Texture _cellTexture = Texture(Application::Current()->GetRenderer(),
 								   "Resources/Textures/tile.png");
@@ -108,22 +112,35 @@ private:
 	// ”правл€емое игроком тетрамино 
 	Tetromino _activeTetromino = SelectRandomTetromino();
 
+	// Ќеактивное тетрамино, показывающее место расположени€ активного тетрамино в случае 
+	// его падени€
+	Tetromino _activeTetrominoPlaceHolder = GetCopyOfActiveTetrominoWith(Color::Grey);
+
 	bool _isReselectAvaliable = true;
 
 	bool _isDropRequired = false;
-public:
-	GameScene() = default;
-
-	~GameScene();
-		
+public:		
 	void Show() override;
 
 	void HandleEvent(const SDL_Event& e) override;
 
 	void Process() override;
 private:
+	/// <summary>
+	/// ¬ыбирает из массива _tetrominos случаную тетрамино со случайным цветом
+	/// </summary>
+	/// <returns>—лучаную тетрамино со случаный цветом</returns>
 	Tetromino SelectRandomTetromino();
 
+	/// <param name="color">color - цвет тетрамино</param>
+	/// <returns> опию активного тетрамино _activeTetromino с выбранным цветом</returns>
+	Tetromino GetCopyOfActiveTetrominoWith(Color color);
+
+	/// <summary>
+	/// ƒвижение тетромино происходит каждый TicksAmountToTetrominoMove цикл.
+	/// ќпредел€ет наступил ли этот цикл.
+	/// </summary>
+	/// <returns>≈сли наступил, то возращает - true, если нет - false</returns>
 	bool IsTetrominoShouldMove();
 
 	/// <summary>
@@ -136,27 +153,35 @@ private:
 	/// <summary>
 	/// ѕоиск заполненных строк
 	/// </summary>
-	/// <returns>¬озвращает массив индексов заполненных строк</returns>
-	std::vector<int> FindFullRows();
+	/// <returns>ћассив индексов заполненных строк</returns>
+	std::vector<size_t> FindFullRows(size_t lowestRow, size_t highestRow);
 
 	/// <summary>
 	///  ќчищает заполненные строки
 	/// </summary>
 	/// <param name="removeRowsIndexes"> - массив индексов заполненных строк</param>
-	void ClearRows(const std::vector<int>& removeRowsIndexes);
-
-	void DisplayFallenTetrominos();
-
-	/// <param name="cell">- клетка, дл€ которой требуетс€ найти индекс на поле _cells</param>
-	/// <returns>¬озвращает  индекс клетки на поле _cells</returns>
-	int GetIndexFrom(const Cell& cell);
+	void ClearRows(const std::vector<size_t>& removeRowsIndexes);
 
 	/// <summary>
-	/// ѕолучить индекс нижний клетки относительно клетки в хранилище упавших тетрамино
+	/// ќтображает на игровом поле все упавшие тетрамино
 	/// </summary>
-	/// <param name="cell">- клетка игрового пол€</param>
-	/// <returns>»ндекс нижней клетки</returns>
-	int GetLowerIndexBy(const Cell& cell);
+	void DisplayCellStorage();
+
+	/// <param name="cell"> - клетка активного тетрамино</param>
+	/// <returns> летку в хранилище клеток упавших тетрамино</returns>
+	Cell& GetCellAtStotage(const Cell& cell);
+
+	/// <param name="cell"> - клетка, ниже клетки активного тетрамино</param>
+	/// <returns> летку в хранилище клеток упавших тетрамино</returns>
+	Cell& GetLowerCellAtStorage(const Cell& cell);
+
+	/// <param name="cell"> - клетка, ниже клетки активного тетрамино</param>
+	/// <returns>–€д в хранилище клеток упавших тетрамино</returns>
+	int GetLowerCellRow(const Cell& cell) const;
+
+	bool IsCellAtLowestBorderOfStorage(const Cell& cell);
+
+	bool IsTetrominoAtLowestBorderOfStorage(const Tetromino& tetromino);
 
 	/// <summary>
 	/// —охран€ет клетки упавшей тетерамино в массиве _cells

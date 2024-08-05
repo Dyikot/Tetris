@@ -44,6 +44,10 @@ void Cell::Move(MovementSide movementSide)
 			StartPoint.y += Size;
 			break;
 
+		case MovementSide::Up:
+			StartPoint.y -= Size;
+			break;
+
 		default:
 			break;
 	}

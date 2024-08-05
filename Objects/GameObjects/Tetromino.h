@@ -60,16 +60,16 @@ public:
 	const std::array<Cell, 4>& GetCells() const;
 
 	/// <summary>
-	/// ѕроизводитс€ поиск стартовой точки клетки, котора€ расположена выше остальных
+	/// ѕоиск самой низкой клетки
 	/// </summary>
-	/// <returns>¬озвращает  координаты точки</returns>
-	const Coordinates& GetLowestCoordinates() const;
+	/// <returns>¬озвращает найденную клетку</returns>
+	const Cell& GetLowestCell() const;
 
 	/// <summary>
-	/// ѕроизводитс€ поиск стартовой точки клетки, котора€ расположена ниже остальных
+	/// ѕоиск самой высокой клетки
 	/// </summary>
-	/// <returns>¬озвращает  координаты точки</returns>
-	const Coordinates& GetHighestCoordinates() const;
+	/// <returns>¬озвращает найденную клетку</returns>
+	const Cell& GetHighestCell() const;
 
 	void SetBackground(Color background) override;
 
