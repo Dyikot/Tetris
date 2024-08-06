@@ -36,6 +36,13 @@ void GameScene::Process()
 		_activeTetromino.Move(MovementSide::Down);
 	}
 
+	_activeTetrominoPlaceHolder = GetCopyOfActiveTetrominoWith(Color::Grey);
+
+	while(!IsLocatedAtBottomOfStorage(_activeTetrominoPlaceHolder))
+	{
+		_activeTetrominoPlaceHolder.Move(MovementSide::Down);
+	}
+
 	switch(GetTetrominoState())
 	{
 		case TetrominoState::BeyoundUppedBorder:
@@ -43,14 +50,8 @@ void GameScene::Process()
 			break;
 
 		case TetrominoState::Dropped:
-			_fullRowIndeces = FindFullRows(_activeTetromino.GetLowestCell().StartPoint.y / 10,
-										   _activeTetromino.GetHighestCell().StartPoint.y / 10);
-			
-			do
-			{
-				ClearRows(_fullRowIndeces);
-				_fullRowIndeces = FindFullRows(VerticalCellsNumber - 1, 0);
-			} while(_fullRowIndeces.size() != 0);
+			_fullRowIndeces = FindFullRows();
+			ClearRows(_fullRowIndeces);
 
 			_activeTetromino = SelectRandomTetromino();
 			_activeTetrominoPlaceHolder = GetCopyOfActiveTetrominoWith(Color::Grey);
@@ -59,14 +60,6 @@ void GameScene::Process()
 
 		case TetrominoState::Moving:
 			break;
-	}
-
-	// ќпределение положени€ дл€ неактивного тетрамино _activeTetrominoPlaceHolder
-	_activeTetrominoPlaceHolder = GetCopyOfActiveTetrominoWith(Color::Grey);
-
-	while(!IsTetrominoAtLowestBorderOfStorage(_activeTetrominoPlaceHolder))
-	{
-		_activeTetrominoPlaceHolder.Move(MovementSide::Down);
 	}
 }
 
@@ -91,12 +84,12 @@ Tetromino GameScene::GetCopyOfActiveTetrominoWith(Color color)
 
 bool GameScene::IsTetrominoShouldMove()
 {
-	_ticksNumber++;
+	_ticksAmount++;
 
-	switch(_ticksNumber)
+	switch(_ticksAmount)
 	{
 		case TicksAmountToTetrominoMove:
-			_ticksNumber = 0;
+			_ticksAmount = 0;
 			return true;
 
 		default:
@@ -106,15 +99,14 @@ bool GameScene::IsTetrominoShouldMove()
 
 TetrominoState GameScene::GetTetrominoState()
 {
-	const auto& tetrominoCells = _activeTetromino.GetCells();	
-	
-	// ѕроверка не пов€илась ли нова€ тетрамино в уже заполненном поле
-	if(tetrominoCells.front().StartPoint.y <= 2 * Cell::Size)
+	// ѕроверка не по€вилась ли нова€ тетрамино в уже заполненном поле
+	if(_activeTetromino.GetCells().front().StartPoint.y <= Cell::Size)
 	{
-		bool isTetrominoInCells = std::ranges::any_of(tetrominoCells, [this](const Cell& cell)
-		{
-			return GetCellAtStotage(cell).GetBackground() != Color::None;
-		});
+		bool isTetrominoInCells = std::ranges::any_of(_activeTetromino.GetCells(), 
+			[this](const Cell& cell)
+			{
+				return GetCellAtStotage(cell).GetBackground() != Color::None;
+			});
 
 		if(isTetrominoInCells)
 		{
@@ -122,38 +114,36 @@ TetrominoState GameScene::GetTetrominoState()
 		}
 	}
 
-	// ѕроверка на наличие тетронимо ниже текущего
-	auto GetTetrominoState = [&]()
-	{
-		if(IsTetrominoAtLowestBorderOfStorage(_activeTetromino))
-		{
-			AddCellsToDroppedCellsStorage(tetrominoCells);
-			return TetrominoState::Dropped;
-		}
-
-		return TetrominoState::Moving;
-	};
-	
 	if(_isDropRequired)
 	{
 		_isDropRequired = false;
-
-		while(GetTetrominoState() == TetrominoState::Moving)
-		{
-			_activeTetromino.Move(MovementSide::Down);
-		}
+		_activeTetromino.CopyCoordinates(_activeTetrominoPlaceHolder);
+		AddCellsToDroppedCellsStorage(_activeTetromino.GetCells());
 
 		return TetrominoState::Dropped;
 	}
+	
+	if(IsLocatedAtBottomOfStorage(_activeTetromino))
+	{
+		AddCellsToDroppedCellsStorage(_activeTetromino.GetCells());
+		return TetrominoState::Dropped;
+	}
 
-	return GetTetrominoState();
+	return TetrominoState::Moving;
 }
 
-std::vector<size_t> GameScene::FindFullRows(size_t lowestRow, size_t highestRow)
+std::vector<int> GameScene::FindFullRows() const
 {
-	std::vector<size_t> fullRowsIndexes;
+	std::vector<int> fullRowsIndexes;
+	int lowestRow = _activeTetromino.GetLowestCell().StartPoint.y / 10;
+	int highestRow = _activeTetromino.GetHighestCell().StartPoint.y / 10;
 
-	auto isRowFull = [&](size_t row)
+	if(highestRow == 0)
+	{
+		int b = 0;
+	}
+
+	auto isRowFull = [&](int row)
 	{
 		return !std::ranges::any_of(_cellsStorage[row], [](const Cell& cell)
 		{
@@ -161,7 +151,7 @@ std::vector<size_t> GameScene::FindFullRows(size_t lowestRow, size_t highestRow)
 		});
 	};
 
-	for(size_t row = lowestRow; row > highestRow; row--)
+ 	for(int row = lowestRow; row >= highestRow; row--)
 	{
 		if(isRowFull(row))
 		{
@@ -172,13 +162,13 @@ std::vector<size_t> GameScene::FindFullRows(size_t lowestRow, size_t highestRow)
 	return fullRowsIndexes;
 }
 
-void GameScene::ClearRows(const std::vector<size_t>& removeRowsIndexes)
+void GameScene::ClearRows(const std::vector<int>& removeRowsIndexes)
 {
 	if(removeRowsIndexes.size() == 0)
 	{
 		return;
 	}
-
+	
 	for(auto removeIndex : removeRowsIndexes)
 	{
 		_cellsStorage.erase(_cellsStorage.begin() + removeIndex);
@@ -233,17 +223,17 @@ int GameScene::GetLowerCellRow(const Cell& cell) const
 	return cell.StartPoint.y / Cell::Size + 1;
 }
 
-bool GameScene::IsCellAtLowestBorderOfStorage(const Cell& cell)
+bool GameScene::IsLocatedAtBottomOfStorage(const Cell& cell)
 {
 	return GetLowerCellRow(cell) >= VerticalCellsNumber ||
 		   GetLowerCellAtStorage(cell).GetBackground() != Color::None;
 }
 
-bool GameScene::IsTetrominoAtLowestBorderOfStorage(const Tetromino& tetromino)
+bool GameScene::IsLocatedAtBottomOfStorage(const Tetromino& tetromino)
 {
 	return std::ranges::any_of(tetromino.GetCells(), [this](const auto& cell)
 	{
-		return IsCellAtLowestBorderOfStorage(cell);
+		return IsLocatedAtBottomOfStorage(cell);
 	});
 }
 

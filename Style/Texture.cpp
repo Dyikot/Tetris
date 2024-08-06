@@ -3,7 +3,7 @@
 Texture::Texture(SDL_Renderer* renderer, std::string_view string_view)
 {
 	_texture = IMG_LoadTexture(renderer, string_view.data());
-
+	
 	if(_texture == nullptr)
 	{
 		std::cout << "Не удалось создать текстуру: " << SDL_GetError() << '\n';

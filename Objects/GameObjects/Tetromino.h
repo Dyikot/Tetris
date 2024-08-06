@@ -73,6 +73,8 @@ public:
 
 	void SetBackground(Color background) override;
 
+	void CopyCoordinates(const Tetromino& tetromino);
+
 	/// <summary>
 	/// Выбирается точка вокруг которой происходит вращение
 	/// </summary>

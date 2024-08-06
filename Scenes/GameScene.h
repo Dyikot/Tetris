@@ -19,7 +19,7 @@ class GameScene: public Scene
 private:
 	static constexpr int HorizontalCellsNumber = 10;
 	static constexpr int VerticalCellsNumber = 20;
-	static constexpr int TicksAmountToTetrominoMove = 80;
+	static constexpr int TicksAmountToTetrominoMove = 70;
 	static constexpr int FieldWidth = HorizontalCellsNumber * Cell::Size;
 	static constexpr int FieldHeight = VerticalCellsNumber * Cell::Size;
 	const int WidthScale = Application::Current()->WindowWidth / FieldWidth;
@@ -32,7 +32,7 @@ private:
 												VerticalCellsNumber,
 												std::vector<Cell>(HorizontalCellsNumber));
 
-	std::vector<size_t> _fullRowIndeces;
+	std::vector<int> _fullRowIndeces;
 
 	Texture _cellTexture = Texture(Application::Current()->GetRenderer(),
 								   "Resources/Textures/tile.png");
@@ -46,7 +46,7 @@ private:
 					  /*backgound*/ Color::Grey);
 
 	// „исло пройденных циклов
-	int _ticksNumber = 0;
+	int _ticksAmount = 0;
 	
 	// “етрамино
 	std::array<Tetromino, 7> _tetrominos = 
@@ -154,13 +154,13 @@ private:
 	/// ѕоиск заполненных строк
 	/// </summary>
 	/// <returns>ћассив индексов заполненных строк</returns>
-	std::vector<size_t> FindFullRows(size_t lowestRow, size_t highestRow);
+	std::vector<int> FindFullRows() const;
 
 	/// <summary>
 	///  ќчищает заполненные строки
 	/// </summary>
 	/// <param name="removeRowsIndexes"> - массив индексов заполненных строк</param>
-	void ClearRows(const std::vector<size_t>& removeRowsIndexes);
+	void ClearRows(const std::vector<int>& removeRowsIndexes);
 
 	/// <summary>
 	/// ќтображает на игровом поле все упавшие тетрамино
@@ -179,9 +179,9 @@ private:
 	/// <returns>–€д в хранилище клеток упавших тетрамино</returns>
 	int GetLowerCellRow(const Cell& cell) const;
 
-	bool IsCellAtLowestBorderOfStorage(const Cell& cell);
+	bool IsLocatedAtBottomOfStorage(const Cell& cell);
 
-	bool IsTetrominoAtLowestBorderOfStorage(const Tetromino& tetromino);
+	bool IsLocatedAtBottomOfStorage(const Tetromino& tetromino);
 
 	/// <summary>
 	/// —охран€ет клетки упавшей тетерамино в массиве _cells

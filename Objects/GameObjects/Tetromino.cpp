@@ -67,11 +67,11 @@ bool Tetromino::IsOutLeftBorder(int left) const
 
 void Tetromino::CorrectCoordinates(int left, int right, int top)
 {
-	for(size_t i = 0; i < _cells.size(); i++)
+	for(int i = 0; i < _cells.size(); i++)
 	{
 		if(_cells[i].StartPoint.x <= left)
 		{
-			for(size_t j = i; j < _cells.size(); j++)
+			for(int j = i; j < _cells.size(); j++)
 			{
 				if(_cells[j].StartPoint.x <= left)
 				{
@@ -82,7 +82,7 @@ void Tetromino::CorrectCoordinates(int left, int right, int top)
 		}
 		else if(_cells[i].StartPoint.x >= right)
 		{
-			for(size_t j = i; j < _cells.size(); j++)
+			for(int j = i; j < _cells.size(); j++)
 			{
 				if(_cells[i].StartPoint.x >= right)
 				{
@@ -93,7 +93,7 @@ void Tetromino::CorrectCoordinates(int left, int right, int top)
 		}
 		else if(_cells[i].StartPoint.y <= top)
 		{
-			for(size_t j = i; j < _cells.size(); j++)
+			for(int j = i; j < _cells.size(); j++)
 			{
 				if(_cells[i].StartPoint.y <= top)
 				{
@@ -132,6 +132,14 @@ void Tetromino::SetBackground(Color background)
 	for(auto& cell : _cells)
 	{
 		cell.SetBackground(background);
+	}
+}
+
+void Tetromino::CopyCoordinates(const Tetromino& tetromino)
+{
+	for(int i = 0; i < tetromino._cells.size(); i++)
+	{
+		_cells[i].StartPoint = tetromino._cells[i].StartPoint;
 	}
 }
 
