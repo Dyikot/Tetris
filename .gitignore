@@ -2,3 +2,6 @@
 resource.h
 Tetris.rc
 Tetris.aps
+Tetris.vcxproj
+Tetris.vcxproj.filters
+Tetris.vcxproj.user
