@@ -11,14 +11,14 @@ class GameOverMenu: public Scene, protected Menu
 {
 private:
 	const int RetryButtonOrder = 0;
-	const Coordinates RetryButtonPosition =
+	const SDL_Point RetryButtonPosition =
 	{
 		.x = DefaultButtonXPosition,
 		.y = CalculateButtonYPosition(RetryButtonOrder)
 	};
 
 	const int ExitButtonOrder = 1;
-	const Coordinates ExitButtonPosition =
+	const SDL_Point ExitButtonPosition =
 	{
 		.x = DefaultButtonXPosition,
 		.y = CalculateButtonYPosition(ExitButtonOrder)

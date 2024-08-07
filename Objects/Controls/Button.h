@@ -11,7 +11,7 @@ protected:
 	Color _borderColor;
 	Color _backgroundSaved;
 public:
-	Button(const Coordinates& position,
+	Button(const SDL_Point& position,
 		   int width,
 		   int height,
 		   Color background,

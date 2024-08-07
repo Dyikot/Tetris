@@ -10,14 +10,14 @@ class PauseMenu: public Scene, protected Menu
 {
 private:
 	const int ContinueButtonOrder = 0;
-	const Coordinates ContinueButtonPosition =
+	const SDL_Point ContinueButtonPosition =
 	{
 		.x = DefaultButtonXPosition,
 		.y = CalculateButtonYPosition(ContinueButtonOrder)
 	};
 
 	const int ExitButtonOrder = 1;
-	const Coordinates ExitButtonPosition =
+	const SDL_Point ExitButtonPosition =
 	{
 		.x = DefaultButtonXPosition,
 		.y = CalculateButtonYPosition(ExitButtonOrder)

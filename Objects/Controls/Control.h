@@ -6,11 +6,11 @@
 class Control : public Object
 {
 protected:
-	Coordinates _position;
+	SDL_Point _position;
 	int _width;
 	int _height;
 public:
-	Control(const Coordinates& position,
+	Control(const SDL_Point& position,
 			int width,
 			int height,
 			Color background) noexcept;
@@ -19,15 +19,15 @@ public:
 
 	void SetHeight(int height) noexcept;
 
-	void SetPosition(const Coordinates& position) noexcept;
+	void SetPosition(const SDL_Point& position) noexcept;
 
 	int GetWight() const noexcept;
 
 	int GetHeight() const noexcept;
 
-	const Coordinates& GetPosition() const noexcept;
+	const SDL_Point& GetPosition() const noexcept;
 
-	bool IsInRange(const Coordinates& position) const noexcept;
+	bool IsInRange(const SDL_Point& position) const noexcept;
 
 	bool IsInRange(const int x, const int y) const noexcept;
 };

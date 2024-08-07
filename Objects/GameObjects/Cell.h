@@ -8,12 +8,12 @@ class Cell: public Object
 {
 public:
 	static constexpr int Size = 10;
-	Coordinates StartPoint;
+	SDL_Point StartPoint;
 private:
 	Texture* _cellTexture;
 public:
 	Cell(Texture* cellTexture = nullptr,
-		 const Coordinates startPoint = { .x = 0 , .y = 0 },
+		 const SDL_Point startPoint = { .x = 0 , .y = 0 },
 		 Color background = Cell::DefaultBackgroundColor) noexcept;
 
 	/// <summary>
@@ -25,7 +25,7 @@ public:
 	/// ќтрисовка клетки в других координатах
 	/// </summary>
 	/// <param name="coordinates">- координаты начальной точки клетки</param>
-	void Show(const Coordinates& coordinates) noexcept;
+	void Show(const SDL_Point& coordinates) noexcept;
 
 	/// <summary>
 	/// ѕеремещение клетки

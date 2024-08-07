@@ -30,9 +30,6 @@
     <ClInclude Include="Objects\Controls\Control.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="BasicStructs\Coordinates.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Objects\Controls\TextBlock.h">
       <Filter>Header Files</Filter>
     </ClInclude>
