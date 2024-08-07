@@ -1,10 +1,7 @@
 /x64
-<<<<<<< HEAD
 resource.h
 Tetris.rc
 Tetris.aps
 Tetris.vcxproj
 Tetris.vcxproj.filters
 Tetris.vcxproj.user
-=======
->>>>>>> parent of 4ac63e0 (Added animation for delete full rows and window icon)
