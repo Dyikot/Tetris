@@ -14,7 +14,7 @@
 class Game : public Application
 {
 private:
-	HoldKeyEvent _holdKeyEvent;	
+	HoldKeyEvent _holdKeyEvent;
 	bool _isGameRunning = false;
 public:
 	Game();
@@ -23,7 +23,7 @@ public:
 
 	void Run() override;
 
-	void Shutdown() noexcept override;
+	void Shutdown() override;
 
-	bool PollEvents(SDL_Event* e) noexcept;
+	bool PollEvents(SDL_Event* e);
 };

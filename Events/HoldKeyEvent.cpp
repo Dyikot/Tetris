@@ -1,13 +1,13 @@
 #include "HoldKeyEvent.h"
 
-std::chrono::milliseconds HoldKeyEvent::GetHoldTime() const noexcept
+std::chrono::milliseconds HoldKeyEvent::GetHoldTime() const
 {
 	return std::chrono::duration_cast<std::chrono::milliseconds>(
 		std::chrono::high_resolution_clock::now() - _startHoldKeyTime
 	);
 }
 
-bool HoldKeyEvent::IsHold() noexcept
+bool HoldKeyEvent::IsHold()
 {
 	if(state == SDL_PRESSED)
 	{
@@ -28,7 +28,7 @@ bool HoldKeyEvent::IsHold() noexcept
 	return false;
 }
 
-HoldKeyEvent& HoldKeyEvent::operator=(const SDL_KeyboardEvent& event) noexcept
+HoldKeyEvent& HoldKeyEvent::operator=(const SDL_KeyboardEvent& event)
 {
 	type = SDL_KEYHOLD;
 	keysym = event.keysym;

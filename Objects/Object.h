@@ -13,13 +13,13 @@ protected:
 	Color _backgroud;
 	SDL_Renderer* _renderer = Application::Current()->GetRenderer();
 public:
-	Object(Color background = DefaultBackgroundColor) noexcept;
+	Object(Color background = DefaultBackgroundColor);
 
 	virtual ~Object() = default;
 
 	virtual void Show() = 0;
 		
-	Color GetBackground() const noexcept;
+	Color GetBackground() const;
 
-	virtual void SetBackground(Color color) noexcept;
+	virtual void SetBackground(Color color);
 };

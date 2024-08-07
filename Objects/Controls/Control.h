@@ -13,21 +13,21 @@ public:
 	Control(const Coordinates& position,
 			int width,
 			int height,
-			Color background) noexcept;
+			Color background);
 
-	void SetWidth(int width) noexcept;
+	void SetWidth(int width);
 
-	void SetHeight(int height) noexcept;
+	void SetHeight(int height);
 
-	void SetPosition(const Coordinates& position) noexcept;
+	void SetPosition(const Coordinates& position);
 
-	int GetWight() const noexcept;
+	int GetWight() const;
 
-	int GetHeight() const noexcept;
+	int GetHeight() const;
 
-	const Coordinates& GetPosition() const noexcept;
+	const Coordinates& GetPosition() const;
 
-	bool IsInRange(const Coordinates& position) const noexcept;
+	bool IsInRange(const Coordinates& position) const;
 
-	bool IsInRange(const int x, const int y) const noexcept;
+	bool IsInRange(const int x, const int y) const;
 };

@@ -5,7 +5,7 @@ Grid::Grid(const Coordinates& startPoint,
 		   int columnsAmount,
 		   int width, 
 		   int height, 
-		   Color background) noexcept:
+		   Color background):
 	_startPoint(startPoint),
 	RowsAmount(rowsAmount),
 	ColumnsAmount(columnsAmount),
@@ -16,7 +16,7 @@ Grid::Grid(const Coordinates& startPoint,
 
 }
 
-void Grid::Show() noexcept
+void Grid::Show()
 {
 	Colors::SetRenderColor(_renderer, _backgroud);
 

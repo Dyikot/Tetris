@@ -1,6 +1,6 @@
 #include "Cell.h"
 
-Cell::Cell(Texture* cellTexture, const Coordinates startPoint, Color background) noexcept:
+Cell::Cell(Texture* cellTexture, const Coordinates startPoint, Color background):
 	_cellTexture(cellTexture),
 	StartPoint(startPoint),
 	Object(background)
@@ -8,12 +8,12 @@ Cell::Cell(Texture* cellTexture, const Coordinates startPoint, Color background)
 
 }
 
-void Cell::Show() noexcept
+void Cell::Show()
 {
 	Show(StartPoint);
 }
 
-void Cell::Show(const Coordinates& startPoint) noexcept
+void Cell::Show(const Coordinates& startPoint)
 {
 	SDL_Rect rectangle =
 	{
@@ -28,7 +28,7 @@ void Cell::Show(const Coordinates& startPoint) noexcept
 }
 
 
-void Cell::Move(MovementSide movementSide) noexcept
+void Cell::Move(MovementSide movementSide)
 {
 	switch(movementSide)
 	{

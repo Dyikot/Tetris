@@ -31,12 +31,6 @@ void GameScene::HandleEvent(const SDL_Event& e)
 
 void GameScene::Process()
 {
-	if(_cellClearAnimation.IsActivated())
-	{
-		_cellClearAnimation.Process();
-		return;
-	}
-
 	if(IsTetrominoShouldMove())
 	{
 		_activeTetromino.Move(MovementSide::Down);
@@ -57,40 +51,15 @@ void GameScene::Process()
 
 		case TetrominoState::Dropped:
 			_fullRowIndeces = FindFullRows();
+			ClearRows(_fullRowIndeces);
 
-			if(_fullRowIndeces.size() > 0)
-			{
-				_cellClearAnimation.Start();
-			}
-			
 			_activeTetromino = SelectRandomTetromino();
 			_activeTetrominoPlaceHolder = GetCopyOfActiveTetrominoWith(Color::Grey);
 			_isReselectAvaliable = true;
+			break;
 
 		case TetrominoState::Moving:
 			break;
-	}
-}
-
-void GameScene::OnCellClearAnimationCompleted()
-{
-	ClearRows(_fullRowIndeces);
-}
-
-void GameScene::OnCellClearAnimationCycleCompleted()
-{
-	const int CellToClearAmount = 2 * (_cellClearAnimation.GetCompletedCyclesAmount() + 1);
-	const int StartColumn = HorizontalCellsNumber / 2
-							   - _cellClearAnimation.GetCompletedCyclesAmount() - 1;
-	const int EndColumn = HorizontalCellsNumber / 2
-						  + _cellClearAnimation.GetCompletedCyclesAmount() + 1;
-
-	for(int row: _fullRowIndeces)
-	{
-		for(int column = StartColumn; column < EndColumn; column++)
-		{
-			_cellsStorage[row][column].SetBackground(Color::None);
-		}
 	}
 }
 
@@ -181,7 +150,7 @@ std::vector<int> GameScene::FindFullRows() const
 			return cell.GetBackground() == Color::None;
 		});
 	};
-	
+
  	for(int row = lowestRow; row >= highestRow; row--)
 	{
 		if(isRowFull(row))
@@ -204,7 +173,7 @@ void GameScene::ClearRows(const std::vector<int>& removeRowsIndexes)
 	{
 		_cellsStorage.erase(_cellsStorage.begin() + removeIndex);
 	}
-	
+
 	_cellsStorage.insert(_cellsStorage.begin(),
 						 removeRowsIndexes.size(),
 						 std::vector(HorizontalCellsNumber, Cell(&_cellTexture)));

@@ -16,10 +16,12 @@ private:
 	bool _isActive = false;
 	std::chrono::steady_clock::time_point _startHoldKeyTime;
 public:
-	bool IsHold() noexcept;
+	HoldKeyEvent() = default;
 
-	HoldKeyEvent& operator=(const SDL_KeyboardEvent& event) noexcept;
+	bool IsHold();
+
+	HoldKeyEvent& operator=(const SDL_KeyboardEvent& event);
 private:
-	std::chrono::milliseconds GetHoldTime() const noexcept;
+	std::chrono::milliseconds GetHoldTime() const;
 };
 

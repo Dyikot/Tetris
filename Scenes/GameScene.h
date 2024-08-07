@@ -12,7 +12,6 @@
 #include "../Objects/GameObjects/Tetromino.h"
 #include "../Events/HoldKeyEvent.h"
 #include "../Style/Texture.h"
-#include "../Style/Animation.h"
 #include "Random/Random.h"
 
 class GameScene: public Scene
@@ -21,8 +20,6 @@ private:
 	static constexpr int HorizontalCellsNumber = 10;
 	static constexpr int VerticalCellsNumber = 20;
 	static constexpr int TicksAmountToTetrominoMove = 70;
-	static constexpr int TicksAmountToClearCell = 8;
-	static constexpr int CyclesToCompleteCellClearAnimation = HorizontalCellsNumber / 2;
 	static constexpr int FieldWidth = HorizontalCellsNumber * Cell::Size;
 	static constexpr int FieldHeight = VerticalCellsNumber * Cell::Size;
 	const int WidthScale = Application::Current()->WindowWidth / FieldWidth;
@@ -119,12 +116,8 @@ private:
 	// его падени€
 	Tetromino _activeTetrominoPlaceHolder = GetCopyOfActiveTetrominoWith(Color::Grey);
 
-	Animation _cellClearAnimation = Animation(TicksAmountToClearCell,
-											  CyclesToCompleteCellClearAnimation,
-											  [this](){ OnCellClearAnimationCompleted(); },
-											  [this](){ OnCellClearAnimationCycleCompleted(); });
-
 	bool _isReselectAvaliable = true;
+
 	bool _isDropRequired = false;
 public:		
 	void Show() override;
@@ -133,10 +126,6 @@ public:
 
 	void Process() override;
 private:
-	void OnCellClearAnimationCompleted();
-
-	void OnCellClearAnimationCycleCompleted();
-
 	/// <summary>
 	/// ¬ыбирает из массива _tetrominos случаную тетрамино со случайным цветом
 	/// </summary>
@@ -174,7 +163,7 @@ private:
 	void ClearRows(const std::vector<int>& removeRowsIndexes);
 
 	/// <summary>
-	/// ќтображает все упавшие тетрамино
+	/// ќтображает на игровом поле все упавшие тетрамино
 	/// </summary>
 	void DisplayCellStorage();
 

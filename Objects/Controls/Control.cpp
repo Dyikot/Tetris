@@ -1,6 +1,6 @@
 #include "Control.h"
 
-Control::Control(const Coordinates& position, int width, int height, Color background) noexcept:
+Control::Control(const Coordinates& position, int width, int height, Color background):
     _position(position),
     _width(width),
     _height(height),
@@ -9,37 +9,37 @@ Control::Control(const Coordinates& position, int width, int height, Color backg
 
 }
 
-void Control::SetWidth(int width) noexcept
+void Control::SetWidth(int width)
 {
     _width = width;
 }
 
-void Control::SetHeight(int height) noexcept
+void Control::SetHeight(int height)
 {
     _height = height;
 }
 
-void Control::SetPosition(const Coordinates& position) noexcept
+void Control::SetPosition(const Coordinates& position)
 {
     _position = position;
 }
 
-int Control::GetWight() const noexcept
+int Control::GetWight() const
 {
     return _width;
 }
 
-int Control::GetHeight() const noexcept
+int Control::GetHeight() const
 {
     return _height;
 }
 
-const Coordinates& Control::GetPosition() const noexcept
+const Coordinates& Control::GetPosition() const
 {
     return _position;
 }
 
-bool Control::IsInRange(const Coordinates& position) const noexcept
+bool Control::IsInRange(const Coordinates& position) const
 {
     return position.x >= _position.x &&
            position.x <= _position.x + _width &&
@@ -47,7 +47,7 @@ bool Control::IsInRange(const Coordinates& position) const noexcept
            position.y <= _position.y + _height;
 }
 
-bool Control::IsInRange(const int x, const int y) const noexcept
+bool Control::IsInRange(const int x, const int y) const
 {
     return IsInRange({ x, y });
 }

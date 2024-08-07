@@ -27,11 +27,11 @@ private:
 	TetrominoType _type;
 	std::array<Cell, 4> _cells;
 public:
-	Tetromino(TetrominoType type, const std::array<Cell, 4>& cellStartPoints) noexcept;
+	Tetromino(TetrominoType type, const std::array<Cell, 4>& cellStartPoints);
 
-	void Show() noexcept override;
+	void Show() override;
 
-	void Move(MovementSide movementSide) noexcept;
+	void Move(MovementSide movementSide);
 
 	void Rotate();
 
@@ -39,14 +39,14 @@ public:
 	/// Проверка на то, не зашло ли тетрамино за левую границу игрового поля
 	/// </summary>
 	/// <param name="left">- левая граница игрового поля</param>
-	bool IsOutLeftBorder(int left) const noexcept;
+	bool IsOutLeftBorder(int left) const;
 
 	/// <summary>
 	/// Проверка на то, не зашло ли тетрамино за правую границу игрового поля
 	/// </summary>
 	/// <param name="right">- правая граница игрового поля</param>
 	/// <returns></returns>
-	bool IsOutRightBorder(int right) const noexcept;
+	bool IsOutRightBorder(int right) const;
 
 	/// <summary>
 	/// Проверка на то, не зашло ли тетрамино за границу игрового поля.
@@ -57,23 +57,23 @@ public:
 	/// <param name="top">- верхняя граница игрового поля</param>
 	void CorrectCoordinates(int left, int right, int top);
 
-	const std::array<Cell, 4>& GetCells() const noexcept;
+	const std::array<Cell, 4>& GetCells() const;
 
 	/// <summary>
 	/// Поиск самой низкой клетки
 	/// </summary>
 	/// <returns>Возвращает найденную клетку</returns>
-	const Cell& GetLowestCell() const noexcept;
+	const Cell& GetLowestCell() const;
 
 	/// <summary>
 	/// Поиск самой высокой клетки
 	/// </summary>
 	/// <returns>Возвращает найденную клетку</returns>
-	const Cell& GetHighestCell() const noexcept;
+	const Cell& GetHighestCell() const;
 
-	void SetBackground(Color background) noexcept override;
+	void SetBackground(Color background) override;
 
-	void CopyCoordinates(const Tetromino& tetromino) noexcept;
+	void CopyCoordinates(const Tetromino& tetromino);
 
 	/// <summary>
 	/// Выбирается точка вокруг которой происходит вращение

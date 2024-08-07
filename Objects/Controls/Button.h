@@ -18,13 +18,13 @@ public:
 		   Color borderColor,
 		   const std::string& text,
 		   Color textColor,
-		   int textSize) noexcept;
+		   int textSize);
 
-	void Show() noexcept override;
+	void Show() override;
 
-	void SetBackground(Color color) noexcept override;
+	void SetBackground(Color color) override;
 	
-	void OnHover() noexcept;
+	void OnHover();
 
-	void OnLeave() noexcept;
+	void OnLeave();
 };

@@ -1,13 +1,13 @@
 #include "Tetromino.h"
 
-Tetromino::Tetromino(TetrominoType type, const std::array<Cell, 4>& cellStartPoints) noexcept:
+Tetromino::Tetromino(TetrominoType type, const std::array<Cell, 4>& cellStartPoints):
 	_type(type),
 	_cells(cellStartPoints)
 {
 
 }
 
-void Tetromino::Show() noexcept
+void Tetromino::Show()
 {
 	for(auto& cell : _cells)
 	{
@@ -15,7 +15,7 @@ void Tetromino::Show() noexcept
 	}
 }
 
-void Tetromino::Move(MovementSide movementSide) noexcept
+void Tetromino::Move(MovementSide movementSide)
 {
 	for(auto& cell : _cells)
 	{
@@ -48,18 +48,18 @@ void Tetromino::Rotate()
 	}
 }
 
-bool Tetromino::IsOutRightBorder(int right) const noexcept
+bool Tetromino::IsOutRightBorder(int right) const
 {
-	return std::ranges::any_of(_cells, [right](const Cell& cell) noexcept
+	return std::ranges::any_of(_cells, [right](const auto& cell)
 	{
 		return cell.StartPoint.x + Cell::Size >= right;
 	});
 }
 
 
-bool Tetromino::IsOutLeftBorder(int left) const noexcept
+bool Tetromino::IsOutLeftBorder(int left) const
 {
-	return std::ranges::any_of(_cells, [left](const auto& cell) noexcept
+	return std::ranges::any_of(_cells, [left](const auto& cell)
 	{
 		return cell.StartPoint.x <= left;
 	});
@@ -105,28 +105,28 @@ void Tetromino::CorrectCoordinates(int left, int right, int top)
 	}
 }
 
-const std::array<Cell, 4>& Tetromino::GetCells() const noexcept
+const std::array<Cell, 4>& Tetromino::GetCells() const
 {
 	return _cells;
 }
 
-const Cell& Tetromino::GetLowestCell() const noexcept
+const Cell& Tetromino::GetLowestCell() const
 {
-	return std::ranges::max_element(_cells, [](const Cell& left, const Cell& right) noexcept
+	return std::ranges::max_element(_cells, [](const Cell& left, const Cell& right)
 	{
 		return left.StartPoint.y < right.StartPoint.y;
 	}).operator*();
 }
 
-const Cell& Tetromino::GetHighestCell() const noexcept
+const Cell& Tetromino::GetHighestCell() const
 {
-	return std::ranges::max_element(_cells, [](const Cell& left, const Cell& right) noexcept
+	return std::ranges::max_element(_cells, [](const Cell& left, const Cell& right)
 	{
 		return left.StartPoint.y > right.StartPoint.y;
 	}).operator*();
 }
 
-void Tetromino::SetBackground(Color background) noexcept
+void Tetromino::SetBackground(Color background)
 {
 	_backgroud = background;
 	for(auto& cell : _cells)
@@ -135,7 +135,7 @@ void Tetromino::SetBackground(Color background) noexcept
 	}
 }
 
-void Tetromino::CopyCoordinates(const Tetromino& tetromino) noexcept
+void Tetromino::CopyCoordinates(const Tetromino& tetromino)
 {
 	for(int i = 0; i < tetromino._cells.size(); i++)
 	{
