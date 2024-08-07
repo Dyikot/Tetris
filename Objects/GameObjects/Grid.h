@@ -18,8 +18,8 @@ public:
 		 int columnsAmount,
 		 int width,
 		 int height,
-		 Color background);
+		 Color background) noexcept;
 
-	void Show() override;
+	void Show() noexcept override;
 };
 

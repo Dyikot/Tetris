@@ -7,7 +7,7 @@ Button::Button(const Coordinates& position,
 			   Color borderColor,
 			   const std::string& text,
 			   Color textColor, 
-			   int textSize):
+			   int textSize) noexcept:
 	TextBlock(position, width, height, background, text, textColor, textSize),
 	_borderColor(borderColor),
 	_backgroundSaved(background)
@@ -15,7 +15,7 @@ Button::Button(const Coordinates& position,
 
 }
 
-void Button::Show()
+void Button::Show() noexcept
 {
 	SDL_Rect rectangle =
 	{
@@ -48,17 +48,17 @@ void Button::Show()
 	SDL_RenderCopy(_renderer, _textTexture, NULL, &textRectangle);
 }
 
-void Button::SetBackground(Color color)
+void Button::SetBackground(Color color) noexcept
 {
 	_backgroud = _backgroundSaved = color;
 }
 
-void Button::OnHover()
+void Button::OnHover() noexcept
 {
 	_backgroud = Color::Green;
 }
 
-void Button::OnLeave()
+void Button::OnLeave() noexcept
 {
 	_backgroud = _backgroundSaved;
 }
