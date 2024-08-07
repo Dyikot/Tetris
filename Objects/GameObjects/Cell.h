@@ -14,23 +14,23 @@ private:
 public:
 	Cell(Texture* cellTexture = nullptr,
 		 const Coordinates startPoint = { .x = 0 , .y = 0 },
-		 Color background = Cell::DefaultBackgroundColor);
+		 Color background = Cell::DefaultBackgroundColor) noexcept;
 
 	/// <summary>
 	/// ќтрисовка клетки
 	/// </summary>
-	void Show() override;
+	void Show() noexcept override;
 	
 	/// <summary>
 	/// ќтрисовка клетки в других координатах
 	/// </summary>
 	/// <param name="coordinates">- координаты начальной точки клетки</param>
-	void Show(const Coordinates& coordinates);
+	void Show(const Coordinates& coordinates) noexcept;
 
 	/// <summary>
 	/// ѕеремещение клетки
 	/// </summary>
 	/// <param name="movementSide">- сторона перемещени€: Left, Right, Down.</param>
-	void Move(MovementSide movementSide);
+	void Move(MovementSide movementSide) noexcept;
 };
 

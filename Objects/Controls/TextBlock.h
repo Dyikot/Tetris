@@ -22,19 +22,19 @@ public:
 			  Color background,
 			  const std::string& text,
 			  Color textColor,
-			  int textSize);	
+			  int textSize) noexcept;	
 
 	virtual ~TextBlock();
 
-	void Show() override;
+	void Show() noexcept override;
 
-	void SetText(const std::string& text);
+	void SetText(const std::string& text) noexcept;
 
-	void SetTextColor(Color textColor);	
+	void SetTextColor(Color textColor) noexcept;	
 
-	const std::string& GetText() const;
+	const std::string& GetText() const noexcept;
 
-	Color GetTextColor() const;
+	Color GetTextColor() const noexcept;
 
 protected:
 	TextBlock(const Coordinates& position,
@@ -43,5 +43,5 @@ protected:
 			  Color background,
 			  const std::string& text,
 			  Color textColor,
-			  int textSize);
+			  int textSize) noexcept;
 };

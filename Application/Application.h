@@ -23,23 +23,23 @@ protected:
 public:
 	static Application* const Current();
 
-	Application();
+	Application() noexcept;
 
-	virtual ~Application() = default;
+	virtual ~Application();
 
 	virtual void Run() = 0;
 
 	virtual void Shutdown() = 0;
 
-	void SetNextScene(Scene* next);
+	void SetNextScene(Scene* next) noexcept;
 
-	void SaveCurrentScene();
+	void SaveCurrentScene() noexcept;
 
-	void UploadSavedSceneToNext();
+	void UploadSavedSceneToNext() noexcept;
 
 	SDL_Window* GetCurrentWindow();
 
 	SDL_Renderer* GetRenderer() const;
 protected:
-	void SwitchToNextScene();
+	void SwitchToNextScene() noexcept;
 };

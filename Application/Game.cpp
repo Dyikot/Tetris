@@ -4,17 +4,17 @@ Game::Game()
 {
 	if(SDL_Init(SDL_INIT_VIDEO | SDL_INIT_EVENTS) < 0)
 	{
-		std::cout << "Ошибка инициализации SDL: " << SDL_GetError() << '\n';
+		std::cout << SDL_GetError() << '\n';
 	}
 
 	if(TTF_Init() < 0)
 	{
-		std::cout << "Ошибка инициализации TTF: " << SDL_GetError() << '\n';
+		std::cout << SDL_GetError() << '\n';
 	}
-
+	
 	if(!IMG_Init(IMG_InitFlags::IMG_INIT_PNG | IMG_InitFlags::IMG_INIT_JPG))
 	{
-		std::cout << "Ошибка инициализации IMG: " << SDL_GetError() << '\n';
+		std::cout << SDL_GetError() << '\n';
 	}
 	
 	_currentWindow = SDL_CreateWindow("Tetris",
@@ -26,9 +26,9 @@ Game::Game()
 
 	if(_currentWindow == nullptr)
 	{
-		std::cout << "Не удалось создать окно : " << SDL_GetError() << '\n';
+		std::cout << SDL_GetError() << '\n';
 	}
-	
+
 	_renderer = SDL_CreateRenderer(_currentWindow, -1, SDL_RENDERER_ACCELERATED);
 	_isGameRunning = true;
 	_currentScene = new StartMenu();
@@ -36,10 +36,8 @@ Game::Game()
 
 Game::~Game()
 {
-	SDL_DestroyWindow(_currentWindow);
 	TTF_Quit();
 	IMG_Quit();
-	SDL_Quit();
 }
 
 void Game::Run()
@@ -75,12 +73,12 @@ void Game::Run()
 	}
 }
 
-void Game::Shutdown()
+void Game::Shutdown() noexcept
 {
 	_isGameRunning = false;
 }
 
-bool Game::PollEvents(SDL_Event* e)
+bool Game::PollEvents(SDL_Event* e) noexcept
 {
 	if(SDL_PollEvent(e))
 	{

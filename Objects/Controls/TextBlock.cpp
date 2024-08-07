@@ -1,11 +1,11 @@
 #include "TextBlock.h"
 
-void TextBlock::SetText(const std::string& text)
+void TextBlock::SetText(const std::string& text) noexcept
 {
     _text = text;
 }
 
-void TextBlock::SetTextColor(Color textColor)
+void TextBlock::SetTextColor(Color textColor) noexcept
 {
     _textColor = textColor;
 }
@@ -13,7 +13,7 @@ void TextBlock::SetTextColor(Color textColor)
 TextBlock::TextBlock(const Coordinates& position,
                      Color background, 
                      const std::string& text, 
-                     Color textColor, int textSize):
+                     Color textColor, int textSize) noexcept:
     TextBlock(position, Width, Height, background, text, textColor, textSize)
 {
 
@@ -27,7 +27,7 @@ TextBlock::~TextBlock()
 }
 
 
-void TextBlock::Show()
+void TextBlock::Show() noexcept
 {
     SDL_QueryTexture(_textTexture, NULL, NULL, &_width, &_height);
 
@@ -42,12 +42,12 @@ void TextBlock::Show()
     SDL_RenderCopy(_renderer, _textTexture, NULL, &textRectangle);
 }
 
-const std::string& TextBlock::GetText() const
+const std::string& TextBlock::GetText() const noexcept
 {
     return _text;
 }
 
-Color TextBlock::GetTextColor() const
+Color TextBlock::GetTextColor() const noexcept
 {
     return _textColor;
 }
@@ -58,7 +58,7 @@ TextBlock::TextBlock(const Coordinates& position,
                      Color background,
                      const std::string& text,
                      Color textColor,
-                     int textSize):
+                     int textSize) noexcept:
     Control(position, width, height, background),
     _text(text),
     _textColor(textColor),
