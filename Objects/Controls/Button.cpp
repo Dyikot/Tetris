@@ -1,6 +1,6 @@
 #include "Button.h"
 
-Button::Button(const Coordinates& position, 
+Button::Button(const SDL_Point& position, 
 			   int width, 
 			   int height,
 			   Color background,

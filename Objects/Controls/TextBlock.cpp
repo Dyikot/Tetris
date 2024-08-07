@@ -10,7 +10,7 @@ void TextBlock::SetTextColor(Color textColor) noexcept
     _textColor = textColor;
 }
 
-TextBlock::TextBlock(const Coordinates& position,
+TextBlock::TextBlock(const SDL_Point& position,
                      Color background, 
                      const std::string& text, 
                      Color textColor, int textSize) noexcept:
@@ -52,7 +52,7 @@ Color TextBlock::GetTextColor() const noexcept
     return _textColor;
 }
 
-TextBlock::TextBlock(const Coordinates& position,
+TextBlock::TextBlock(const SDL_Point& position,
                      int width, 
                      int height,
                      Color background,

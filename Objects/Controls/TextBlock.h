@@ -18,7 +18,7 @@ private:
 	const int Width = 0;
 	const int Height = 0;
 public:
-	TextBlock(const Coordinates& position,
+	TextBlock(const SDL_Point& position,
 			  Color background,
 			  const std::string& text,
 			  Color textColor,
@@ -37,7 +37,7 @@ public:
 	Color GetTextColor() const noexcept;
 
 protected:
-	TextBlock(const Coordinates& position,
+	TextBlock(const SDL_Point& position,
 			  int width,
 			  int height,
 			  Color background,

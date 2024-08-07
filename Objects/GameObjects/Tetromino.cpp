@@ -31,7 +31,7 @@ void Tetromino::Rotate()
 	}
 
 	auto angle = std::numbers::pi / 2;
-	Coordinates newCoordinates;
+	SDL_Point newCoordinates;
 	int rotationCenterIndex = SelectRotationCenter(_type);
 	int shiftByY = _cells[rotationCenterIndex].StartPoint.y;
 	int shiftByX = _cells[rotationCenterIndex].StartPoint.x;

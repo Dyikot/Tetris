@@ -5,7 +5,7 @@
 class Grid : public Object
 {
 private:
-	Coordinates _startPoint;
+	SDL_Point _startPoint;
 	const int RowsAmount;
 	const int ColumnsAmount;
 	const int Width;
@@ -13,7 +13,7 @@ private:
 	const int ColumnWidth = Width / ColumnsAmount;
 	const int RowHeight = Height / RowsAmount;
 public:
-	Grid(const Coordinates& startPoint,
+	Grid(const SDL_Point& startPoint,
 		 int rowsAmount,
 		 int columnsAmount,
 		 int width,

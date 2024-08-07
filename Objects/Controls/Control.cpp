@@ -1,6 +1,6 @@
 #include "Control.h"
 
-Control::Control(const Coordinates& position, int width, int height, Color background) noexcept:
+Control::Control(const SDL_Point& position, int width, int height, Color background) noexcept:
     _position(position),
     _width(width),
     _height(height),
@@ -19,7 +19,7 @@ void Control::SetHeight(int height) noexcept
     _height = height;
 }
 
-void Control::SetPosition(const Coordinates& position) noexcept
+void Control::SetPosition(const SDL_Point& position) noexcept
 {
     _position = position;
 }
@@ -34,12 +34,12 @@ int Control::GetHeight() const noexcept
     return _height;
 }
 
-const Coordinates& Control::GetPosition() const noexcept
+const SDL_Point& Control::GetPosition() const noexcept
 {
     return _position;
 }
 
-bool Control::IsInRange(const Coordinates& position) const noexcept
+bool Control::IsInRange(const SDL_Point& position) const noexcept
 {
     return position.x >= _position.x &&
            position.x <= _position.x + _width &&

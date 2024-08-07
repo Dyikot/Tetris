@@ -26,7 +26,6 @@
     <ClInclude Include="Style\Texture.h" />
     <ClInclude Include="Scenes\MenuScenes\Menu.h" />
     <ClInclude Include="Style\Color.h" />
-    <ClInclude Include="BasicStructs\Coordinates.h" />
     <ClInclude Include="BasicStructs\MovementSide.h" />
     <ClInclude Include="Scenes\MenuScenes\GameOverMenu.h" />
     <ClInclude Include="Objects\GameObjects\Grid.h" />

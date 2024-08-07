@@ -3,7 +3,6 @@
 #include <vector>
 
 #include "../../Application/Application.h"
-#include "../../BasicStructs/Coordinates.h"
 #include "../../Objects/Controls/Button.h"
 
 class Menu
@@ -16,7 +15,7 @@ public:
 	const int DefaultButtonYPosition = 300;
 	
 	const int DefaultTitleTextSize = 72;
-	const Coordinates DefaultTitlePosition =
+	const SDL_Point DefaultTitlePosition =
 	{
 		.x = Application::Current()->WindowWidth / 2,
 		.y = 200

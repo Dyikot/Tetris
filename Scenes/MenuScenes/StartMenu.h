@@ -13,21 +13,21 @@ class StartMenu : public Scene, protected Menu
 {
 private:
 	const int StartButtonOrder = 0;
-	const Coordinates StartGameButtonPosition =
+	const SDL_Point StartGameButtonPosition =
 	{
 		.x = DefaultButtonXPosition,
 		.y = CalculateButtonYPosition(StartButtonOrder)
 	};
 
 	const int SettingsButtonOrder = 1;
-	const Coordinates SettingsButtonPosition =
+	const SDL_Point SettingsButtonPosition =
 	{
 		.x = DefaultButtonXPosition,
 		.y = CalculateButtonYPosition(SettingsButtonOrder)
 	};
 
 	const int ExitButtonOrder = 2;
-	const Coordinates ExitButtonPosition = 
+	const SDL_Point ExitButtonPosition = 
 	{
 		.x = DefaultButtonXPosition,
 		.y = CalculateButtonYPosition(ExitButtonOrder)

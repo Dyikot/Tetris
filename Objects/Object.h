@@ -2,7 +2,6 @@
 
 #include "SDL/SDL.h"
 #include "../Application/Application.h"
-#include "../BasicStructs/Coordinates.h"
 #include "../Style/Color.h"
 
 class Object

@@ -19,4 +19,6 @@ void SettingsMenu::HandleEvent(const SDL_Event& e)
 }
 
 void SettingsMenu::Process()
-{}
+{
+
+}

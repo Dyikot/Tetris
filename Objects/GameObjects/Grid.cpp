@@ -1,6 +1,6 @@
 #include "Grid.h"
 
-Grid::Grid(const Coordinates& startPoint,
+Grid::Grid(const SDL_Point& startPoint,
 		   int rowsAmount, 
 		   int columnsAmount,
 		   int width, 
