@@ -23,13 +23,13 @@ void Application::SetNextScene(Scene* next) noexcept
 
 void Application::SaveCurrentScene() noexcept
 {
-    _savedScene = _currentScene;
+    _savedScenes.push(_currentScene);
 }
 
-void Application::UploadSavedSceneToNext() noexcept
+void Application::SetSavedSceneToNext() noexcept
 {
-    _nextScene = _savedScene;
-    _savedScene = nullptr;
+    _nextScene = _savedScenes.top();
+    _savedScenes.pop();
 }
 
 SDL_Window* Application::GetCurrentWindow()
@@ -42,9 +42,14 @@ SDL_Renderer* Application::GetRenderer() const
     return _renderer;
 }
 
+void Application::SetWindowSize(size_t width, size_t height)
+{
+    SDL_SetWindowSize(_currentWindow, width, height);
+}
+
 void Application::SwitchToNextScene() noexcept
 {
-    if(_currentScene != _savedScene)
+    if(_savedScenes.empty() || _currentScene != _savedScenes.top())
     {
         delete _currentScene;
     }

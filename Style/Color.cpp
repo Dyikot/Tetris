@@ -15,4 +15,5 @@ void Colors::SetTextureColor(SDL_Texture* texture, Color color) noexcept
 {
 	auto [r, g, b, a] = ToSDL_Color(color);
 	SDL_SetTextureColorMod(texture, r, g, b);
+	SDL_SetTextureAlphaMod(texture, a);
 }

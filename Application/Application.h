@@ -1,21 +1,21 @@
 #pragma once
 
+#include <stack>
+#include <filesystem>
 #include "../Scenes/Scene.h"
 
 class Application
 {
 public:
-	const int WindowWidth = 400;
-	const int WindowHeight = 800;
+	static constexpr int WindowWidth = 400;
+	static constexpr int WindowHeight = 800;
 protected:
-	// Текущее приложение
 	inline static Application* _current = nullptr;
 
 	Scene* _currentScene = nullptr;
-
 	Scene* _nextScene = nullptr;
 
-	Scene* _savedScene = nullptr;
+	std::stack<Scene*> _savedScenes = std::stack<Scene*>();
 
 	SDL_Window* _currentWindow = nullptr;
 
@@ -35,11 +35,13 @@ public:
 
 	void SaveCurrentScene() noexcept;
 
-	void UploadSavedSceneToNext() noexcept;
+	void SetSavedSceneToNext() noexcept;
 
 	SDL_Window* GetCurrentWindow();
 
 	SDL_Renderer* GetRenderer() const;
+
+	void SetWindowSize(size_t width, size_t height);
 protected:
 	void SwitchToNextScene() noexcept;
 };

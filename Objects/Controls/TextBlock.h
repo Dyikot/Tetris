@@ -6,17 +6,16 @@
 class TextBlock: public Control
 {
 public:
-	static constexpr Color ActiveTextColor = Color::White;
+	static constexpr Color ActiveTextColor = Color::Whitesmoke;
 	static constexpr Color InactiveTextColor = Color::Grey;
 protected:
 	std::string _text;
+
 	Color _textColor;
+
 	TTF_Font* _font;
-	SDL_Surface* _textSurface;
+
 	SDL_Texture* _textTexture;
-private:
-	const int Width = 0;
-	const int Height = 0;
 public:
 	TextBlock(const SDL_Point& position,
 			  Color background,
@@ -26,7 +25,7 @@ public:
 
 	virtual ~TextBlock();
 
-	void Show() noexcept override;
+	void Show() const noexcept override;
 
 	void SetText(const std::string& text) noexcept;
 
@@ -36,6 +35,7 @@ public:
 
 	Color GetTextColor() const noexcept;
 
+	SDL_Point GetRealPosition() const;
 protected:
 	TextBlock(const SDL_Point& position,
 			  int width,
@@ -44,4 +44,6 @@ protected:
 			  const std::string& text,
 			  Color textColor,
 			  int textSize) noexcept;
+
+	SDL_Texture* GenerateTextureByText() const noexcept;
 };

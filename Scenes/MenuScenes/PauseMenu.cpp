@@ -2,14 +2,13 @@
 
 PauseMenu::PauseMenu()
 {
-	_buttons = { &_continueButton, &_exitButton };
+	_buttons = { &_continueButton, &_settingsButton, &_exitButton };
+	_controls = { &_title, &_continueButton, &_settingsButton, &_exitButton };
 }
 
 void PauseMenu::Show()
 {
-	_pauseTextBlock.Show();
-	_continueButton.Show();
-	_exitButton.Show();
+	ShowControls();
 }
 
 void PauseMenu::HandleEvent(const SDL_Event& e)
@@ -25,7 +24,13 @@ void PauseMenu::HandleEvent(const SDL_Event& e)
 			break;
 
 		case SDL_MOUSEBUTTONDOWN:
+			if(_hoverButton == nullptr)
+			{
+				break;
+			}
+
 			OnMouseDown(e);
+			Menu::OnMouseDown(e);
 			break;
 
 		case SDL_MOUSEMOTION:
@@ -38,15 +43,22 @@ void PauseMenu::HandleEvent(const SDL_Event& e)
 }
 
 void PauseMenu::Process()
-{}
+{
+
+}
 
 void PauseMenu::OnMouseDown(const SDL_Event & e)
 {
-	if(_continueButton.IsInRange(e.button.x, e.button.y))
+	if(_hoverButton == &_continueButton)
 	{
-		Application::Current()->UploadSavedSceneToNext();
+		Application::Current()->SetSavedSceneToNext();
 	}
-	else if(_exitButton.IsInRange(e.button.x, e.button.y))
+	else if(_hoverButton == &_settingsButton)
+	{
+		Application::Current()->SaveCurrentScene();
+		Application::Current()->SetNextScene(new SettingsMenu());
+	}
+	else if(_hoverButton == &_exitButton)
 	{
 		Application::Current()->Shutdown();
 	}
@@ -62,7 +74,7 @@ void PauseMenu::OnKeyDown(const SDL_Event& e)
 	switch(e.key.keysym.sym)
 	{
 		case SDLK_ESCAPE:
-			Application::Current()->UploadSavedSceneToNext();
+			Application::Current()->SetSavedSceneToNext();
 			break;
 	}
 }

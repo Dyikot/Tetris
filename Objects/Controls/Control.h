@@ -7,6 +7,7 @@ class Control : public Object
 {
 protected:
 	SDL_Point _position;
+
 	int _width;
 	int _height;
 public:
@@ -15,19 +16,19 @@ public:
 			int height,
 			Color background) noexcept;
 
-	void SetWidth(int width) noexcept;
+	virtual void SetWidth(int width) noexcept;
 
-	void SetHeight(int height) noexcept;
+	virtual void SetHeight(int height) noexcept;
 
-	void SetPosition(const SDL_Point& position) noexcept;
+	virtual void SetPosition(const SDL_Point& position) noexcept;
 
-	int GetWight() const noexcept;
+	virtual int GetWight() const noexcept;
 
-	int GetHeight() const noexcept;
+	virtual int GetHeight() const noexcept;
 
-	const SDL_Point& GetPosition() const noexcept;
+	virtual const SDL_Point& GetPosition() const noexcept;
 
-	bool IsInRange(const SDL_Point& position) const noexcept;
+	virtual bool IsInRange(const SDL_Point& position) const noexcept;
 
-	bool IsInRange(const int x, const int y) const noexcept;
+	virtual bool IsInRange(const int x, const int y) const noexcept;
 };

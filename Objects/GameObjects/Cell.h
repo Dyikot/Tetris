@@ -8,24 +8,25 @@ class Cell: public Object
 {
 public:
 	static constexpr int Size = 10;
-	SDL_Point StartPoint;
+
+	SDL_Point Position;
 private:
 	Texture* _cellTexture;
 public:
 	Cell(Texture* cellTexture = nullptr,
-		 const SDL_Point startPoint = { .x = 0 , .y = 0 },
+		 const SDL_Point position = { .x = 0 , .y = 0 },
 		 Color background = Cell::DefaultBackgroundColor) noexcept;
 
 	/// <summary>
 	/// Отрисовка клетки
 	/// </summary>
-	void Show() noexcept override;
+	void Show() const noexcept override;
 	
 	/// <summary>
 	/// Отрисовка клетки в других координатах
 	/// </summary>
 	/// <param name="coordinates">- координаты начальной точки клетки</param>
-	void Show(const SDL_Point& coordinates) noexcept;
+	void Show(const SDL_Point& coordinates) const noexcept;
 
 	/// <summary>
 	/// Перемещение клетки

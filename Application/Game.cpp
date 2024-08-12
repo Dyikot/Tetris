@@ -2,6 +2,8 @@
 
 Game::Game()
 {
+	// Initialization
+
 	if(SDL_Init(SDL_INIT_VIDEO | SDL_INIT_EVENTS) < 0)
 	{
 		std::cout << SDL_GetError() << '\n';
@@ -17,11 +19,17 @@ Game::Game()
 		std::cout << SDL_GetError() << '\n';
 	}
 	
+	// Set window, render, audio
+
+
+	auto serializationData = SettinsDataSerializer().Deserialize();
+	auto settingsData = static_cast<SettingsData*>(serializationData.get());
+
 	_currentWindow = SDL_CreateWindow("Tetris",
 									  SDL_WINDOWPOS_CENTERED,
 									  SDL_WINDOWPOS_CENTERED,
-									  WindowWidth,
-									  WindowHeight,
+									  settingsData->WidndowWidth,
+									  settingsData->WidndowHeight,
 									  SDL_WINDOW_SHOWN);
 
 	if(_currentWindow == nullptr)
@@ -30,6 +38,9 @@ Game::Game()
 	}
 
 	_renderer = SDL_CreateRenderer(_currentWindow, -1, SDL_RENDERER_ACCELERATED);
+	SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "linear");
+	SDL_RenderSetLogicalSize(_renderer, WindowWidth, WindowHeight);
+
 	_isGameRunning = true;
 	_currentScene = new StartMenu();
 }

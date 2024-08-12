@@ -25,8 +25,6 @@ private:
 	static constexpr int CyclesToCompleteCellClearAnimation = HorizontalCellsNumber / 2;
 	static constexpr int FieldWidth = HorizontalCellsNumber * Cell::Size;
 	static constexpr int FieldHeight = VerticalCellsNumber * Cell::Size;
-	const int WidthScale = Application::Current()->WindowWidth / FieldWidth;
-	const int HeightScale = Application::Current()->WindowHeight / FieldHeight;
 	
 	Random _random;
 
@@ -41,17 +39,17 @@ private:
 								   "Resources/Textures/tile.png");
 
 	// —етка пол€
-	Grid _grid = Grid(/*startPoint*/ { .x = 0, .y = 0 },
+	Grid _grid = Grid(/*position*/ { .x = 0, .y = 0 },
 					  /*rowsAmount*/ VerticalCellsNumber,
 					  /*columnsAmount*/ HorizontalCellsNumber,
-					  /*width*/ FieldWidth * WidthScale,	
-					  /*height*/ FieldHeight * HeightScale,
+					  /*width*/ FieldWidth * Scale,	
+					  /*height*/ FieldHeight * Scale,
 					  /*backgound*/ Color::Grey);
 
 	// „исло пройденных циклов
 	int _ticksAmount = 0;
 	
-	// “етрамино
+	// “ипы тетрамино
 	std::array<Tetromino, 7> _tetrominos = 
 	{
 		Tetromino(TetrominoType::I,
@@ -143,6 +141,9 @@ private:
 	/// <returns>—лучаную тетрамино со случаный цветом</returns>
 	Tetromino SelectRandomTetromino();
 
+	/// <summary>
+	///  опирует активное тетрамино _activeTetromino с выбранным цветом
+	/// </summary>
 	/// <param name="color">color - цвет тетрамино</param>
 	/// <returns> опию активного тетрамино _activeTetromino с выбранным цветом</returns>
 	Tetromino GetCopyOfActiveTetrominoWith(Color color);
@@ -178,14 +179,23 @@ private:
 	/// </summary>
 	void DisplayCellStorage();
 
+	/// <summary>
+	/// ¬озращает клетку из хранилища, исход€ от координат клетки cell
+	/// </summary>
 	/// <param name="cell"> - клетка активного тетрамино</param>
 	/// <returns> летку в хранилище клеток упавших тетрамино</returns>
 	Cell& GetCellAtStotage(const Cell& cell);
 
+	/// <summary>
+	/// ¬озращает клетку ниже уровнем из хранилища, исход€ от координат клетки cell
+	/// </summary>
 	/// <param name="cell"> - клетка, ниже клетки активного тетрамино</param>
 	/// <returns> летку в хранилище клеток упавших тетрамино</returns>
 	Cell& GetLowerCellAtStorage(const Cell& cell);
 
+	/// <summary>
+	/// ¬озращает индекс р€да из хранилища, исход€ от координат клетки cell
+	/// </summary>
 	/// <param name="cell"> - клетка, ниже клетки активного тетрамино</param>
 	/// <returns>–€д в хранилище клеток упавших тетрамино</returns>
 	int GetLowerCellRow(const Cell& cell) const;

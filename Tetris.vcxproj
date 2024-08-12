@@ -19,7 +19,12 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Objects\Controls\Image.h" />
+    <ClInclude Include="Objects\Controls\Container.h" />
+    <ClInclude Include="Objects\Controls\Slider.h" />
     <ClInclude Include="resource.h" />
+    <ClInclude Include="Tools\Serialization\SettinsDataSerializer.h" />
+    <ClInclude Include="Tools\Serialization\ISerializable.h" />
     <ClInclude Include="Style\Animation.h" />
     <ClInclude Include="Application\Application.h" />
     <ClInclude Include="Events\HoldKeyEvent.h" />
@@ -30,7 +35,7 @@
     <ClInclude Include="Scenes\MenuScenes\GameOverMenu.h" />
     <ClInclude Include="Objects\GameObjects\Grid.h" />
     <ClInclude Include="Objects\Controls\Control.h" />
-    <ClInclude Include="Objects\Controls\Button.h" />
+    <ClInclude Include="Objects\Controls\Buttons\Button.h" />
     <ClInclude Include="Application\Game.h" />
     <ClInclude Include="Objects\Object.h" />
     <ClInclude Include="Scenes\GameScene.h" />
@@ -41,8 +46,13 @@
     <ClInclude Include="Scenes\MenuScenes\SettingsMenu.h" />
     <ClInclude Include="Objects\GameObjects\Tetromino.h" />
     <ClInclude Include="Objects\GameObjects\Cell.h" />
+    <ClInclude Include="Objects\Controls\Buttons\TextButton.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Objects\Controls\Image.cpp" />
+    <ClCompile Include="Objects\Controls\Container.cpp" />
+    <ClCompile Include="Objects\Controls\Slider.cpp" />
+    <ClCompile Include="Tools\Serialization\SettinsDataSerializer.cpp" />
     <ClCompile Include="Style\Animation.cpp" />
     <ClCompile Include="Application\Application.cpp" />
     <ClCompile Include="Events\HoldKeyEvent.cpp" />
@@ -53,7 +63,7 @@
     <ClCompile Include="Scenes\MenuScenes\GameOverMenu.cpp" />
     <ClCompile Include="Objects\GameObjects\Grid.cpp" />
     <ClCompile Include="Objects\Controls\Control.cpp" />
-    <ClCompile Include="Objects\Controls\Button.cpp" />
+    <ClCompile Include="Objects\Controls\Buttons\Button.cpp" />
     <ClCompile Include="Application\Game.cpp" />
     <ClCompile Include="Objects\Object.cpp" />
     <ClCompile Include="Scenes\GameScene.cpp" />
@@ -63,6 +73,7 @@
     <ClCompile Include="Scenes\MenuScenes\StartMenu.cpp" />
     <ClCompile Include="Objects\GameObjects\Tetromino.cpp" />
     <ClCompile Include="Objects\GameObjects\Cell.cpp" />
+    <ClCompile Include="Objects\Controls\Buttons\TextButton.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Resources\Icons\windosIcon.ico" />

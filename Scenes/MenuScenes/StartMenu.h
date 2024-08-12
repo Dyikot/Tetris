@@ -4,67 +4,71 @@
 
 #include "../Scene.h"
 #include "../GameScene.h"
-#include "../../Application/Application.h"
-#include "../../Objects/Controls/Button.h"
+#include "SettingsMenu.h"
+#include "../../Objects/Controls/Buttons/TextButton.h"
 #include "../../Objects/Controls/TextBlock.h"
-#include "Menu.h"
 
 class StartMenu : public Scene, protected Menu
 {
-private:
-	const int StartButtonOrder = 0;
+private:	
+	// Main title
+
+	TextBlock _title = TextBlock(MainTitlePosition,
+							     Object::DefaultBackgroundColor,
+							     "Tetris",
+							     TextBlock::ActiveTextColor,
+							     Header1TextSize);
+
+	// Start game button
+
 	const SDL_Point StartGameButtonPosition =
 	{
 		.x = DefaultButtonXPosition,
-		.y = CalculateButtonYPosition(StartButtonOrder)
+		.y = CalculateButtonVerticalPosition(/*order*/ 0)
 	};
 
-	const int SettingsButtonOrder = 1;
+	TextButton _startGameButton = TextButton(StartGameButtonPosition,
+											 DefaultButtonWidth,
+											 DefaultButtonHeight,
+											 Button::DefaultBackgroundColor,
+											 Button::DefaultBorderColor,
+											 "Play",
+											 TextBlock::ActiveTextColor,
+											 TextButton::DefaultTextSize);
+
+	// Settings button
+
 	const SDL_Point SettingsButtonPosition =
 	{
 		.x = DefaultButtonXPosition,
-		.y = CalculateButtonYPosition(SettingsButtonOrder)
+		.y = CalculateButtonVerticalPosition(/*order*/ 1)
 	};
 
-	const int ExitButtonOrder = 2;
-	const SDL_Point ExitButtonPosition = 
+	TextButton _settingsButton = TextButton(SettingsButtonPosition,
+											DefaultButtonWidth,
+											DefaultButtonHeight,
+											Button::DefaultBackgroundColor,
+											Button::DefaultBorderColor,
+											"Settings",
+											TextBlock::ActiveTextColor,
+											TextButton::DefaultTextSize);
+
+	// Exit button
+
+	const SDL_Point ExitButtonPosition =
 	{
 		.x = DefaultButtonXPosition,
-		.y = CalculateButtonYPosition(ExitButtonOrder)
+		.y = CalculateButtonVerticalPosition(/*order*/ 2)
 	};
-	
-	TextBlock _title = TextBlock(DefaultTitlePosition,
-								 Object::DefaultBackgroundColor,
-								 "Tetris",
-								 TextBlock::ActiveTextColor,
-								 DefaultTitleTextSize);
 
-	Button _startGameButton = Button(StartGameButtonPosition,
-									 DefaultButtonWidth,
-									 DefaultButtonHeight,
-									 Button::DefaultBackgroundColor,
-									 Button::DefaultBorderColor,
-									 "Play",
-									 Button::ActiveTextColor,
-									 Button::DefaultTextSize);
-
-	Button _settingsButton = Button(SettingsButtonPosition,
-									DefaultButtonWidth,
-									DefaultButtonHeight,
-									Button::DefaultBackgroundColor,
-									Button::DefaultBorderColor,
-									"Settins",
-									Button::InactiveTextColor,
-									Button::DefaultTextSize);
-
-	Button _exitButton = Button(ExitButtonPosition,
-								DefaultButtonWidth,
-								DefaultButtonHeight,
-								Button::DefaultBackgroundColor,
-								Button::DefaultBorderColor,
-								"Exit",
-								Button::ActiveTextColor,
-								Button::DefaultTextSize);
+	TextButton _exitButton = TextButton(ExitButtonPosition,
+										DefaultButtonWidth,
+										DefaultButtonHeight,
+										Button::DefaultBackgroundColor,
+										Button::DefaultBorderColor,
+										"Exit",
+										TextBlock::ActiveTextColor,
+										TextButton::DefaultTextSize);
 public:
 	StartMenu();
 

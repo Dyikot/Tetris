@@ -2,50 +2,71 @@
 
 #include "../Scene.h"
 #include "../../Application/Application.h"
-#include "../../Objects/Controls/Button.h"
+#include "../../Objects/Controls/Buttons/TextButton.h"
 #include "../../Objects/Controls/TextBlock.h"
-#include "Menu.h"
+#include "SettingsMenu.h"
 
 class PauseMenu: public Scene, protected Menu
 {
 private:
-	const int ContinueButtonOrder = 0;
+	// Main title
+
+	TextBlock _title = TextBlock(MainTitlePosition,
+								 Object::DefaultBackgroundColor,
+								 "Pause",
+								 TextBlock::ActiveTextColor,
+								 Header1TextSize);
+
+	// Continue button
+	
 	const SDL_Point ContinueButtonPosition =
 	{
 		.x = DefaultButtonXPosition,
-		.y = CalculateButtonYPosition(ContinueButtonOrder)
+		.y = CalculateButtonVerticalPosition(/*order*/ 0)
 	};
 
-	const int ExitButtonOrder = 1;
+	TextButton _continueButton = TextButton(ContinueButtonPosition,
+											DefaultButtonWidth,
+											DefaultButtonHeight,
+											Button::DefaultBackgroundColor,
+											Button::DefaultBorderColor,
+											"Continue",
+											TextBlock::ActiveTextColor,
+											TextButton::DefaultTextSize);
+
+	// Settings button
+
+	const SDL_Point SettingsButtonPosition =
+	{
+		.x = DefaultButtonXPosition,
+		.y = CalculateButtonVerticalPosition(/*order*/ 1)
+	};
+
+	TextButton _settingsButton = TextButton(SettingsButtonPosition,
+											DefaultButtonWidth,
+											DefaultButtonHeight,
+											Button::DefaultBackgroundColor,
+											Button::DefaultBorderColor,
+											"Settings",
+											TextBlock::ActiveTextColor,
+											TextButton::DefaultTextSize);
+
+	// Exit button
+
 	const SDL_Point ExitButtonPosition =
 	{
 		.x = DefaultButtonXPosition,
-		.y = CalculateButtonYPosition(ExitButtonOrder)
+		.y = CalculateButtonVerticalPosition(/*order*/ 2)
 	};
 
-	TextBlock _pauseTextBlock = TextBlock(DefaultTitlePosition,
-										  Object::DefaultBackgroundColor,
-										  "Pause",
-										  TextBlock::ActiveTextColor,
-										  DefaultTitleTextSize);
-
-	Button _continueButton = Button(ContinueButtonPosition,
-									DefaultButtonWidth,
-									DefaultButtonHeight,
-									Button::DefaultBackgroundColor,
-									Button::DefaultBorderColor,
-									"Continue",
-									Button::ActiveTextColor,
-									Button::DefaultTextSize);
-
-	Button _exitButton = Button(ExitButtonPosition,
-								DefaultButtonWidth,
-								DefaultButtonHeight,
-								Button::DefaultBackgroundColor,
-								Button::DefaultBorderColor,
-								"Exit",
-								Button::ActiveTextColor,
-								Button::DefaultTextSize);
+	TextButton _exitButton = TextButton(ExitButtonPosition,
+										DefaultButtonWidth,
+										DefaultButtonHeight,
+										Button::DefaultBackgroundColor,
+										Button::DefaultBorderColor,
+										"Exit",
+										TextBlock::ActiveTextColor,
+										TextButton::DefaultTextSize);
 public:
 	PauseMenu();
 

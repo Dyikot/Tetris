@@ -2,15 +2,13 @@
 
 StartMenu::StartMenu()
 {
-	_buttons = { &_startGameButton, &_exitButton };
+	_buttons = { &_startGameButton, &_settingsButton, &_exitButton };
+	_controls = { &_title, &_startGameButton, &_settingsButton, &_exitButton };
 }
 
 void StartMenu::Show()
 {
-	_title.Show();
-    _startGameButton.Show();
-    _settingsButton.Show();
-    _exitButton.Show();
+	ShowControls();
 }
 
 void StartMenu::HandleEvent(const SDL_Event& e)
@@ -22,7 +20,13 @@ void StartMenu::HandleEvent(const SDL_Event& e)
 			break;
 
 		case SDL_MOUSEBUTTONDOWN:
+			if(_hoverButton == nullptr)
+			{
+				break;
+			}
+
 			OnMouseDown(e);
+			Menu::OnMouseDown(e);
 			break;
 
 		case SDL_MOUSEMOTION:
@@ -41,11 +45,16 @@ void StartMenu::Process()
 
 void StartMenu::OnMouseDown(const SDL_Event& e)
 {
-	if(_startGameButton.IsInRange(e.button.x, e.button.y))
+	if(_hoverButton == &_startGameButton)
 	{
 		Application::Current()->SetNextScene(new GameScene());
 	}
-	else if(_exitButton.IsInRange(e.button.x, e.button.y))
+	else if(_hoverButton == &_settingsButton)
+	{
+		Application::Current()->SaveCurrentScene();
+		Application::Current()->SetNextScene(new SettingsMenu());
+	}
+	else if(_hoverButton == &_exitButton)
 	{
 		Application::Current()->Shutdown();
 	}
