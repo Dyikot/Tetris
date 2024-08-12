@@ -5,14 +5,23 @@
 class Scene
 {
 public:
+	static constexpr int Scale = 4;
+public:
 	virtual ~Scene() = default;
 
-	// Отрисовка сцены
+	/// <summary>
+	/// Отрисовка сцены
+	/// </summary>
 	virtual void Show() = 0;
 
-	// Обработка события
+	/// <summary>
+	/// Обработка события
+	/// </summary>
+	/// <param name="e"> - событие</param>
 	virtual void HandleEvent(const SDL_Event& e) = 0;
 
-	// Обработка сцены
+	/// <summary>
+	/// Обработка сцены
+	/// </summary>
 	virtual void Process() = 0;
 };

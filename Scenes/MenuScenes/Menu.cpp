@@ -1,8 +1,9 @@
 #include "Menu.h"
 
-int Menu::CalculateButtonYPosition(const int order)
+int Menu::CalculateButtonVerticalPosition(const int order)
 {
-    return DefaultButtonYPosition + order * ButtonSpacing;
+    return FirstControlVerticalPosition 
+		   + order * (DefaultButtonHeight + VerticalSpacing);
 }
 
 void Menu::OnMouseMove(const SDL_Event& e)
@@ -12,11 +13,31 @@ void Menu::OnMouseMove(const SDL_Event& e)
 		if(button->IsInRange(e.button.x, e.button.y))
 		{
 			button->OnHover();
+			_hoverButton = button;
 			break;
 		}
 		else
 		{
 			button->OnLeave();
+			_hoverButton = nullptr;
 		}
+	}
+}
+
+void Menu::OnMouseDown(const SDL_Event& e)
+{
+	if(_hoverButton == nullptr)
+	{
+		return;
+	}
+
+	_hoverButton->OnLeave();
+}
+
+void Menu::ShowControls() const noexcept
+{
+	for(auto control : _controls)
+	{
+		control->Show();
 	}
 }

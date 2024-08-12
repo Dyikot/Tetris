@@ -3,13 +3,12 @@
 GameOverMenu::GameOverMenu()
 {
 	_buttons = { &_retryButton, &_exitButton };
+	_controls = { &_title, &_retryButton, &_exitButton };
 }
 
 void GameOverMenu::Show()
 {
-	_gameOverTextBlock.Show();
-	_retryButton.Show();
-	_exitButton.Show();
+	ShowControls();
 }
 
 void GameOverMenu::HandleEvent(const SDL_Event& e)
@@ -21,7 +20,13 @@ void GameOverMenu::HandleEvent(const SDL_Event& e)
 			break;
 
 		case SDL_MOUSEBUTTONDOWN:
+			if(_hoverButton == nullptr)
+			{
+				break;
+			}
+
 			OnMouseDown(e);
+			Menu::OnMouseDown(e);
 			break;
 
 		case SDL_MOUSEMOTION:
@@ -34,15 +39,17 @@ void GameOverMenu::HandleEvent(const SDL_Event& e)
 }
 
 void GameOverMenu::Process()
-{}
+{
+
+}
 
 void GameOverMenu::OnMouseDown(const SDL_Event & e)
 {
-	if(_retryButton.IsInRange(e.button.x, e.button.y))
+	if(_hoverButton == &_retryButton)
 	{
 		Application::Current()->SetNextScene(new GameScene());
 	}
-	else if(_exitButton.IsInRange(e.button.x, e.button.y))
+	else if(_hoverButton == &_exitButton)
 	{
 		Application::Current()->Shutdown();
 	}

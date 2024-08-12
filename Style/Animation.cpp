@@ -24,8 +24,7 @@ void Animation::Process()
 	if(_cyclesComplated == CyclesAmount)
 	{
 		OnAnimationCompleted();
-		_cyclesComplated = 0;
-		_isActivated = false;
+		Stop();
 		return;
 	}
 
@@ -37,8 +36,15 @@ void Animation::Start() noexcept
 	_isActivated = true;
 }
 
+void Animation::Pause() noexcept
+{
+	_isActivated = false;
+}
+
 void Animation::Stop() noexcept
 {
+	_ticksCompleted = 0;
+	_cyclesComplated = 0;
 	_isActivated = false;
 }
 

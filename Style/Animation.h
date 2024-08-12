@@ -8,13 +8,13 @@ public:
 	const int TicksAmount;
 	const int CyclesAmount;
 private:
+	const std::function<void(void)> OnAnimationCompleted;
+	const std::function<void(void)> OnAnimationCycleComplete;
+
 	bool _isActivated = false;
 
 	int _ticksCompleted = 0;
 	int _cyclesComplated = 0;
-
-	const std::function<void(void)> OnAnimationCompleted;
-	const std::function<void(void)> OnAnimationCycleComplete;
 public:
 	Animation(const int ticksAmount,
 			  const int cyclesAmount,
@@ -24,6 +24,8 @@ public:
 	void Process();
 
 	void Start() noexcept;
+
+	void Pause() noexcept;
 
 	void Stop() noexcept;
 

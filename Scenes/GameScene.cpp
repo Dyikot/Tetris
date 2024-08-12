@@ -131,7 +131,7 @@ bool GameScene::IsTetrominoShouldMove()
 TetrominoState GameScene::GetTetrominoState()
 {
 	// Проверка не появилась ли новая тетрамино в уже заполненном поле
-	if(_activeTetromino.GetCells().front().StartPoint.y <= Cell::Size)
+	if(_activeTetromino.GetCells().front().Position.y <= Cell::Size)
 	{
 		bool isTetrominoInCells = std::ranges::any_of(_activeTetromino.GetCells(), 
 			[this](const Cell& cell)
@@ -166,8 +166,8 @@ TetrominoState GameScene::GetTetrominoState()
 std::vector<int> GameScene::FindFullRows() const
 {
 	std::vector<int> fullRowsIndexes;
-	int lowestRow = _activeTetromino.GetLowestCell().StartPoint.y / 10;
-	int highestRow = _activeTetromino.GetHighestCell().StartPoint.y / 10;
+	int lowestRow = _activeTetromino.GetLowestCell().Position.y / 10;
+	int highestRow = _activeTetromino.GetHighestCell().Position.y / 10;
 
 	if(highestRow == 0)
 	{
@@ -241,17 +241,17 @@ void GameScene::DisplayCellStorage()
 
 Cell& GameScene::GetCellAtStotage(const Cell& cell)
 {
-	return _cellsStorage[cell.StartPoint.y / Cell::Size][cell.StartPoint.x / Cell::Size];
+	return _cellsStorage[cell.Position.y / Cell::Size][cell.Position.x / Cell::Size];
 }
 
 Cell& GameScene::GetLowerCellAtStorage(const Cell& cell)
 {
-	return _cellsStorage[cell.StartPoint.y / Cell::Size + 1][cell.StartPoint.x / Cell::Size];
+	return _cellsStorage[cell.Position.y / Cell::Size + 1][cell.Position.x / Cell::Size];
 }
 
 int GameScene::GetLowerCellRow(const Cell& cell) const
 {
-	return cell.StartPoint.y / Cell::Size + 1;
+	return cell.Position.y / Cell::Size + 1;
 }
 
 bool GameScene::IsLocatedAtBottomOfStorage(const Cell& cell)

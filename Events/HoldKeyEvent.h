@@ -14,6 +14,7 @@ public:
 	const std::chrono::milliseconds InvokeTime = std::chrono::milliseconds(30);
 private:
 	bool _isActive = false;
+
 	std::chrono::steady_clock::time_point _startHoldKeyTime;
 public:
 	bool IsHold() noexcept;

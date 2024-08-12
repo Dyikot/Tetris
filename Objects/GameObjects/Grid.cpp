@@ -1,12 +1,12 @@
 #include "Grid.h"
 
-Grid::Grid(const SDL_Point& startPoint,
+Grid::Grid(const SDL_Point& position,
 		   int rowsAmount, 
 		   int columnsAmount,
 		   int width, 
 		   int height, 
 		   Color background) noexcept:
-	_startPoint(startPoint),
+	_startPoint(position),
 	RowsAmount(rowsAmount),
 	ColumnsAmount(columnsAmount),
 	Width(width),
@@ -16,7 +16,7 @@ Grid::Grid(const SDL_Point& startPoint,
 
 }
 
-void Grid::Show() noexcept
+void Grid::Show() const noexcept
 {
 	Colors::SetRenderColor(_renderer, _backgroud);
 

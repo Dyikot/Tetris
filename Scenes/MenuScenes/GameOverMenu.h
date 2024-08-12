@@ -3,51 +3,54 @@
 #include "../Scene.h"
 #include "../GameScene.h"
 #include "../../Application/Application.h"
-#include "../../Objects/Controls/Button.h"
+#include "../../Objects/Controls/Buttons/TextButton.h"
 #include "../../Objects/Controls/TextBlock.h"
 #include "Menu.h"
 
 class GameOverMenu: public Scene, protected Menu
 {
 private:
-	const int RetryButtonOrder = 0;
+	// Main title
+
+	TextBlock _title = TextBlock(MainTitlePosition,
+								 Object::DefaultBackgroundColor,
+								 "Game over",
+								 Color::Red,
+								 Header1TextSize);
+
+	// Retry button
+
 	const SDL_Point RetryButtonPosition =
 	{
 		.x = DefaultButtonXPosition,
-		.y = CalculateButtonYPosition(RetryButtonOrder)
+		.y = CalculateButtonVerticalPosition(/*order*/ 0)
 	};
 
-	const int ExitButtonOrder = 1;
+	TextButton _retryButton = TextButton(RetryButtonPosition,
+										 DefaultButtonWidth,
+										 DefaultButtonHeight,
+										 Button::DefaultBackgroundColor,
+										 Button::DefaultBorderColor,
+										 "Retry",
+										 TextBlock::ActiveTextColor,
+										 TextButton::DefaultTextSize);
+
+	// Exit button
+
 	const SDL_Point ExitButtonPosition =
 	{
 		.x = DefaultButtonXPosition,
-		.y = CalculateButtonYPosition(ExitButtonOrder)
+		.y = CalculateButtonVerticalPosition(/*order*/ 1)
 	};
 
-	TextBlock _gameOverTextBlock = TextBlock(DefaultTitlePosition,
-											 Object::DefaultBackgroundColor,
-											 "Game over",
-											 Color::Red,
-											 DefaultTitleTextSize);
-
-	Button _retryButton = Button(RetryButtonPosition,
-								 DefaultButtonWidth,
-								 DefaultButtonHeight,
-								 Button::DefaultBackgroundColor,
-								 Button::DefaultBorderColor,
-								 "Retry",
-								 Button::ActiveTextColor,
-								 Button::DefaultTextSize);
-
-	Button _exitButton = Button(ExitButtonPosition,
-								DefaultButtonWidth,
-								DefaultButtonHeight,
-								Button::DefaultBackgroundColor,
-								Button::DefaultBorderColor,
-								"Exit",
-								Button::ActiveTextColor,
-								Button::DefaultTextSize);
-
+	TextButton _exitButton = TextButton(ExitButtonPosition,
+										DefaultButtonWidth,
+										DefaultButtonHeight,
+										Button::DefaultBackgroundColor,
+										Button::DefaultBorderColor,
+										"Exit",
+										TextBlock::ActiveTextColor,
+										TextButton::DefaultTextSize);
 public:
 	GameOverMenu();
 

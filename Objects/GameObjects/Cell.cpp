@@ -1,26 +1,26 @@
 #include "Cell.h"
 
-Cell::Cell(Texture* cellTexture, const SDL_Point startPoint, Color background) noexcept:
+Cell::Cell(Texture* cellTexture, const SDL_Point position, Color background) noexcept:
 	_cellTexture(cellTexture),
-	StartPoint(startPoint),
+	Position(position),
 	Object(background)
 {
 
 }
 
-void Cell::Show() noexcept
+void Cell::Show() const noexcept
 {
-	Show(StartPoint);
+	Show(Position);
 }
 
-void Cell::Show(const SDL_Point& startPoint) noexcept
+void Cell::Show(const SDL_Point& position) const noexcept
 {
 	SDL_Rect rectangle =
 	{
-		.x = startPoint.x * 4,
-		.y = startPoint.y * 4,
-		.w = Size * 4,
-		.h = Size * 4
+		.x = position.x * Scene::Scale,
+		.y = position.y * Scene::Scale,
+		.w = Size * Scene::Scale,
+		.h = Size * Scene::Scale
 	};
 	
 	Colors::SetTextureColor(*_cellTexture, _backgroud);
@@ -33,19 +33,19 @@ void Cell::Move(MovementSide movementSide) noexcept
 	switch(movementSide)
 	{
 		case MovementSide::Left:
-			StartPoint.x -= Size;
+			Position.x -= Size;
 			break;
 
 		case MovementSide::Right:
-			StartPoint.x += Size;
+			Position.x += Size;
 			break;
 
 		case MovementSide::Down:
-			StartPoint.y += Size;
+			Position.y += Size;
 			break;
 
 		case MovementSide::Up:
-			StartPoint.y -= Size;
+			Position.y -= Size;
 			break;
 
 		default:
