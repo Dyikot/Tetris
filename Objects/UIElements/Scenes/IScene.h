@@ -2,17 +2,17 @@
 
 #include "SDL/SDL.h"
 
-class Scene
+class IScene
 {
 public:
 	static constexpr int Scale = 4;
 public:
-	virtual ~Scene() = default;
+	virtual ~IScene() = default;
 
 	/// <summary>
 	/// Отрисовка сцены
 	/// </summary>
-	virtual void Show() = 0;
+	virtual void Show() const = 0;
 
 	/// <summary>
 	/// Обработка события
@@ -24,4 +24,9 @@ public:
 	/// Обработка сцены
 	/// </summary>
 	virtual void Process() = 0;
+
+	/// <summary>
+	/// Устаналивает фон
+	/// </summary>
+	virtual void SetBackground() = 0;
 };

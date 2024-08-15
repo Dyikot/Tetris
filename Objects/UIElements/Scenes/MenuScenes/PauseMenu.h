@@ -1,12 +1,12 @@
 #pragma once
 
-#include "../Scene.h"
+#include "../IScene.h"
 #include "../../Application/Application.h"
-#include "../../Objects/Controls/Buttons/TextButton.h"
-#include "../../Objects/Controls/TextBlock.h"
+#include "../../Controls/Buttons/TextButton.h"
+#include "../../Controls/TextBlock.h"
 #include "SettingsMenu.h"
 
-class PauseMenu: public Scene, protected Menu
+class PauseMenu: public MenuScene
 {
 private:
 	// Main title
@@ -69,16 +69,12 @@ private:
 										TextButton::DefaultTextSize);
 public:
 	PauseMenu();
+private:
+	void OnKeyDown(Object* sender, const SDL_KeyboardEvent& e);
 
-	void Show() override;
+	void OnContinueButtonClick(Object* sender, const SDL_MouseButtonEvent& e);
 
-	void HandleEvent(const SDL_Event& e) override;
+	void OnSettingsButtonClick(Object* sender, const SDL_MouseButtonEvent& e);
 
-	void Process() override;
-
-	void OnMouseDown(const SDL_Event& e);
-
-	void OnQuit(const SDL_Event& e);
-
-	void OnKeyDown(const SDL_Event& e);
+	void OnExitButtonClick(Object* sender, const SDL_MouseButtonEvent& e);
 };

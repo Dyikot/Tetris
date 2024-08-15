@@ -2,7 +2,7 @@
 
 #include <stack>
 #include <filesystem>
-#include "../Scenes/Scene.h"
+#include "../Objects/UIElements/Scenes/IScene.h"
 
 class Application
 {
@@ -12,10 +12,10 @@ public:
 protected:
 	inline static Application* _current = nullptr;
 
-	Scene* _currentScene = nullptr;
-	Scene* _nextScene = nullptr;
+	IScene* _currentScene = nullptr;
+	IScene* _nextScene = nullptr;
 
-	std::stack<Scene*> _savedScenes = std::stack<Scene*>();
+	std::stack<IScene*> _savedScenes = std::stack<IScene*>();
 
 	SDL_Window* _currentWindow = nullptr;
 
@@ -31,7 +31,7 @@ public:
 
 	virtual void Shutdown() = 0;
 
-	void SetNextScene(Scene* next) noexcept;
+	void SetNextScene(IScene* next) noexcept;
 
 	void SaveCurrentScene() noexcept;
 

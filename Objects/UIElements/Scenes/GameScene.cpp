@@ -1,32 +1,23 @@
 #include "GameScene.h"
 
-void GameScene::Show()
+GameScene::GameScene() noexcept
 {
-	_grid.Show();
-	DisplayCellStorage();
-	_activeTetrominoPlaceHolder.Show();
-	_activeTetromino.Show();
+	using namespace std::placeholders;
+
+	_cellClearAnimation.AnimationCompleted = 
+		std::bind(&GameScene::OnCellClearAnimationCompleted, this, _1, _2);
+	_cellClearAnimation.AnimationCycleCompleted =
+		std::bind(&GameScene::OnCellClearAnimationCycleCompleted, this, _1, _2);
+	KeyDown = std::bind(&GameScene::OnKeyDown, this, _1, _2);
+	KeyHold = std::bind(&GameScene::OnKeyHold, this, _1, _2);
 }
 
-void GameScene::HandleEvent(const SDL_Event& e)
+void GameScene::Show() const
 {
-	switch(e.type)
-	{
-		case SDL_QUIT:
-			OnQuit(e);
-			break;
-
-		case SDL_KEYDOWN:
-			OnKeyDown(e);
-			break;
-
-		case SDL_KEYHOLD:
-			OnKeyHold(e);
-			break;
-
-		default:
-			break;
-	}
+	_grid.Show();
+	ShowCellStorage();
+	_activeTetrominoPlaceHolder.Show();
+	_activeTetromino.Show();
 }
 
 void GameScene::Process()
@@ -72,18 +63,22 @@ void GameScene::Process()
 	}
 }
 
-void GameScene::OnCellClearAnimationCompleted()
+void GameScene::SetBackground()
+{
+	Colors::SetRenderColor(_renderer, Color::Black);
+}
+
+void GameScene::OnCellClearAnimationCompleted(Animation* sender, const AnimationEventArgs& e)
 {
 	ClearRows(_fullRowIndeces);
 }
 
-void GameScene::OnCellClearAnimationCycleCompleted()
+void GameScene::OnCellClearAnimationCycleCompleted(Animation* sender, 
+												   const AnimationEventArgs& e)
 {
-	const int CellToClearAmount = 2 * (_cellClearAnimation.GetCompletedCyclesAmount() + 1);
-	const int StartColumn = HorizontalCellsNumber / 2
-							   - _cellClearAnimation.GetCompletedCyclesAmount() - 1;
-	const int EndColumn = HorizontalCellsNumber / 2
-						  + _cellClearAnimation.GetCompletedCyclesAmount() + 1;
+	const int CellToClearAmount = 2 * (e.CyclesCompleted + 1);
+	const int StartColumn = HorizontalCellsNumber / 2 - e.CyclesCompleted - 1;
+	const int EndColumn = HorizontalCellsNumber / 2 + e.CyclesCompleted + 1;
 
 	for(int row: _fullRowIndeces)
 	{
@@ -210,7 +205,7 @@ void GameScene::ClearRows(const std::vector<int>& removeRowsIndexes)
 						 std::vector(HorizontalCellsNumber, Cell(&_cellTexture)));
 }
 
-void GameScene::DisplayCellStorage()
+void GameScene::ShowCellStorage() const
 {
 	int cellsInRow = 1;
 
@@ -276,20 +271,41 @@ void GameScene::AddCellsToDroppedCellsStorage(const std::array<Cell, 4>& cells)
 	}
 }
 
-void GameScene::OnKeyDown(const SDL_Event& e)
+void GameScene::OnLeftKeyPressed()
 {
-	switch(e.key.keysym.sym)
+	if(!_activeTetromino.IsOutLeftBorder(0))
+	{
+		_activeTetromino.Move(MovementSide::Left);
+	}
+}
+
+void GameScene::OnRightKeyPressed()
+{
+	if(!_activeTetromino.IsOutRightBorder(FieldWidth))
+	{
+		_activeTetromino.Move(MovementSide::Right);
+	}
+}
+
+void GameScene::OnDownKeyPressed()
+{
+	_activeTetromino.Move(MovementSide::Down);
+}
+
+void GameScene::OnKeyDown(Object* sender, const SDL_KeyboardEvent& e)
+{
+	switch(e.keysym.sym)
 	{
 		case SDLK_LEFT:
-			OnLeftKeyDown(e);
+			OnLeftKeyPressed();
 			break;
 
 		case SDLK_RIGHT:
-			OnRightKeyDown(e);
+			OnRightKeyPressed();
 			break;
 
 		case SDLK_DOWN:
-			OnDownKeyDown(e);
+			OnDownKeyPressed();
 			break;
 
 		case SDLK_UP:
@@ -320,49 +336,23 @@ void GameScene::OnKeyDown(const SDL_Event& e)
 	}
 }
 
-void GameScene::OnKeyHold(const SDL_Event& e)
+void GameScene::OnKeyHold(Object* sender, const SDL_KeyboardEvent& e)
 {
-	switch(e.key.keysym.sym)
+	switch(e.keysym.sym)
 	{
 		case SDLK_LEFT:
-			OnLeftKeyDown(e);
+			OnLeftKeyPressed();
 			break;
 
 		case SDLK_RIGHT:
-			OnRightKeyDown(e);
+			OnRightKeyPressed();
 			break;
 
 		case SDLK_DOWN:
-			OnDownKeyDown(e);
+			OnDownKeyPressed();
 			break;
 
 		default:
 			break;
 	}
-}
-
-void GameScene::OnQuit(const SDL_Event & e)
-{
-	Application::Current()->Shutdown();
-}
-
-void GameScene::OnLeftKeyDown(const SDL_Event& e)
-{
-	if(!_activeTetromino.IsOutLeftBorder(0))
-	{
-		_activeTetromino.Move(MovementSide::Left);
-	}
-}
-
-void GameScene::OnRightKeyDown(const SDL_Event & e)
-{
-	if(!_activeTetromino.IsOutRightBorder(FieldWidth))
-	{
-		_activeTetromino.Move(MovementSide::Right);
-	}
-}
-
-void GameScene::OnDownKeyDown(const SDL_Event & e)
-{
-	_activeTetromino.Move(MovementSide::Down);
 }

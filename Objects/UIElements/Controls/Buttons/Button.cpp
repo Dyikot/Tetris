@@ -9,7 +9,6 @@ Button::Button(const SDL_Point& position,
 	Control* content) noexcept:
 	Control(position, width, height, background),
 	_borderColor(borderColor),
-	_backgroundSaved(background),
 	_content(content)
 {
 	
@@ -37,38 +36,21 @@ void Button::Show() const
 	_content->Show();
 }
 
-void Button::SetBackground(Color color) noexcept
-{
-	Object::SetBackground(color);
-	_backgroundSaved = color;
-}
-
-void Button::SetPosition(const SDL_Point& position) noexcept
-{
-	Control::SetPosition(position);
-}
 
 void Button::SetContent(Control* content) noexcept
 {
 	_content = content;
 }
 
-const Control* Button::GetContent() const
+Control* const Button::GetContent() const
 {
 	return _content;
 }
 
-Control* Button::GetContent() noexcept
+void Button::OnClick(const SDL_MouseButtonEvent& e)
 {
-	return _content;
-}
-
-void Button::OnHover() noexcept
-{
-	_backgroud = Color::Green;
-}
-
-void Button::OnLeave() noexcept
-{
-	_backgroud = _backgroundSaved;
+	if(Click)
+	{
+		Click(this, e);
+	}
 }

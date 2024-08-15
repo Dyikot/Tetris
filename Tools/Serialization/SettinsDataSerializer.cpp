@@ -18,19 +18,20 @@ void SettinsDataSerializer::Serialize(const std::filesystem::path& path,
 	{
 		std::cout << "Ошибка! Проверьте имя файла на корректность!\n";
 		return;
+	}	
+
+	const auto& settingsData = dynamic_cast<const SettingsData&>(data);
+
+	if(typeid(settingsData) != typeid(SettingsData))
+	{
+		return;
 	}
 
 	std::ofstream stream(path);
 
-	const auto& settingsData = static_cast<const SettingsData&>(data);
-
 	if(stream.is_open())
 	{
-		stream << settingsData.WidndowWidth << std::endl;
-		stream << settingsData.WidndowHeight << std::endl;
-		stream << settingsData.AcvtiveResolutionIndex << std::endl;
-		stream << settingsData.SoundEffectFilling << std::endl;
-		stream << settingsData.MusicFilling;
+		stream << settingsData.ToString();
 
 		stream.close();
 	}
@@ -58,38 +59,18 @@ std::unique_ptr<SerializationData> SettinsDataSerializer::Deserialize(const std:
 	}
 
 	std::ifstream stream(path);
-
-	std::vector<std::string> lines;
+	std::string buffer;
+	std::vector<std::string> values;
 
 	if(stream.is_open())
-	{
-		std::string line;
-
-		while(!stream.eof())
+	{		
+		while(std::getline(stream, buffer, settingsData->Delimetr))
 		{
-			std::getline(stream, line);
-			lines.push_back(std::move(line));
-		}
+			values.push_back(std::move(buffer));
+		} 
 
+		settingsData->Convert(values);
 		stream.close();
-	}
-
-	if(lines.size() == 5)
-	{
-		auto ToSize_t = [](std::string&& string)
-		{
-			size_t result;
-			std::stringstream ss(std::move(string));
-			ss >> result;
-
-			return result;
-		};
-
-		settingsData->WidndowWidth = ToSize_t(std::move(lines[0]));
-		settingsData->WidndowHeight = ToSize_t(std::move(lines[1]));
-		settingsData->AcvtiveResolutionIndex = ToSize_t(std::move(lines[2]));
-		settingsData->SoundEffectFilling = ToSize_t(std::move(lines[3]));
-		settingsData->MusicFilling = ToSize_t(std::move(lines[4]));
 	}
 
 	return settingsData;
@@ -106,4 +87,41 @@ bool SettinsDataSerializer::IsPathRelevant(const std::filesystem::path& path) co
 			path.has_filename() &&
 			path.has_extension() &&
 			path.extension() == GetFileExtension();
+}
+
+std::string SettingsData::ToString() const
+{
+	std::stringstream ss;
+	ss << WidndowWidth << Delimetr;
+	ss << WidndowHeight << Delimetr;
+	ss << AcvtiveResolutionIndex << Delimetr;
+	ss << SoundEffectFilling << Delimetr;
+	ss << MusicFilling << Delimetr;
+	
+	return ss.str();
+}
+
+void SettingsData::Convert(const std::vector<std::string>& values)
+{
+	if(values.size() != 5)
+	{
+		return;
+	}
+
+	auto ToSize_t = [](const std::string& string)
+	{
+		size_t result;
+		std::stringstream ss(string);
+		ss >> result;
+
+		return result;
+	};
+
+	auto properties = values | std::ranges::views::transform(ToSize_t);
+
+	WidndowWidth = properties[0];
+	WidndowHeight = properties[1];
+	AcvtiveResolutionIndex = properties[2];
+	SoundEffectFilling = properties[3];
+	MusicFilling = properties[4];
 }

@@ -5,7 +5,7 @@
 #include <iostream>
 
 #include "Application.h"
-#include "../Scenes/MenuScenes/StartMenu.h"
+#include "../Objects/UIElements/Scenes/MenuScenes/StartMenu.h"
 #include "../Events/HoldKeyEvent.h"
 #include "../Tools/Serialization/SettinsDataSerializer.h"
 #include "SDL/SDL.h"

@@ -1,13 +1,8 @@
 #include "Animation.h"
 
-Animation::Animation(const int ticksAmount,
-					 const int cyclesAmount,
-					 const std::function<void(void)> onAnimationCompleted,
-					 const std::function<void(void)> onAnimationCycleComplete) noexcept :
+Animation::Animation(int ticksAmount, int cyclesAmount) noexcept:
 	TicksAmount(ticksAmount),
-	CyclesAmount(cyclesAmount),
-	OnAnimationCompleted(onAnimationCompleted),
-	OnAnimationCycleComplete(onAnimationCycleComplete)
+	CyclesAmount(cyclesAmount)
 {
 
 }
@@ -16,14 +11,14 @@ void Animation::Process()
 {
 	if(_ticksCompleted == TicksAmount)
 	{
-		OnAnimationCycleComplete();
+		OnAnimationCycleCompleted({_ticksCompleted, _cyclesComplated});
 		_cyclesComplated++;
 		_ticksCompleted = 0;
 	}
 
 	if(_cyclesComplated == CyclesAmount)
 	{
-		OnAnimationCompleted();
+		OnAnimationCompleted({ _ticksCompleted, _cyclesComplated });
 		Stop();
 		return;
 	}
@@ -33,7 +28,7 @@ void Animation::Process()
 
 void Animation::Start() noexcept
 {
-	_isActivated = true;
+	_isActivated = AnimationCompleted && AnimationCycleCompleted;
 }
 
 void Animation::Pause() noexcept
@@ -53,7 +48,18 @@ bool Animation::IsActivated() const noexcept
 	return _isActivated;
 }
 
-int Animation::GetCompletedCyclesAmount() const noexcept
+void Animation::OnAnimationCompleted(const AnimationEventArgs& e)
 {
-	return _cyclesComplated;
+	if(AnimationCompleted)
+	{
+		AnimationCompleted(this, e);
+	}
+}
+
+void Animation::OnAnimationCycleCompleted(const AnimationEventArgs & e)
+{
+	if(AnimationCycleCompleted)
+	{
+		AnimationCycleCompleted(this, e);
+	}
 }

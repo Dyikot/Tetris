@@ -6,7 +6,6 @@ class Grid : public Object
 {
 private:
 	SDL_Point _startPoint;
-
 	const int RowsAmount;
 	const int ColumnsAmount;
 	const int Width;

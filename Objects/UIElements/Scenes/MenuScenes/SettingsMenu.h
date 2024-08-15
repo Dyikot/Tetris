@@ -5,13 +5,13 @@
 #include <algorithm>
 #include <ranges>
 
-#include "../Scene.h"
-#include "Menu.h"
-#include "../../Objects/Controls/Slider.h"
-#include "../../Objects/Controls/Container.h"
+#include "../IScene.h"
+#include "MenuScene.h"
+#include "../../Controls/Slider.h"
+#include "../../Controls/Container.h"
 #include "../../Tools/Serialization/SettinsDataSerializer.h"
 
-class SettingsMenu: public Scene, protected Menu
+class SettingsMenu: public MenuScene
 {
 private:
 	static constexpr int ResolutionContainerWidth = 280;
@@ -55,7 +55,7 @@ private:
 	std::unique_ptr<SerializationData> _serializationData = _settingsDataSerializer
 		.Deserialize();
 
-	SettingsData* _settingsData = static_cast<SettingsData*>(_serializationData.get());
+	SettingsData* _settingsData = dynamic_cast<SettingsData*>(_serializationData.get());
 
 	// Main title
 
@@ -94,7 +94,7 @@ private:
 	Container _resolutionContainer = Container(ResolutionContainerPosition,
 											   ResolutionContainerWidth,
 											   ResolutionContainerHeight,
-											   /*background*/ Color::None,
+											   Container::DefaultBackgroundColor,
 											   WindowResolutions,
 											   _activeResolutionIndex);
 
@@ -201,20 +201,16 @@ private:
 	const std::vector<Slider*> _sliders = { &_soundEffectsSlider, &_musicSlider };
 public:
 	SettingsMenu();
-
-	void Show() override;
-
-	void HandleEvent(const SDL_Event& e) override;
-
-	void Process() override;
 private:
 	void SaveSettingsAndQuit();
 
-	void OnMouseDown(const SDL_Event& e);
+	void OnMouseMove(Object* sender, const SDL_MouseButtonEvent& e);
 
-	void OnMouseMove(const SDL_Event& e);
+	void OnMouseDown(Object* sender, const SDL_MouseButtonEvent& e);
 
-	void OnKeyDown(const SDL_Event& e);
+	void OnKeyDown(Object* sender, const SDL_KeyboardEvent& e);
 
-	void OnQuit(const SDL_Event& e);
+	void OnApplyButtonClick(Object* sender, const SDL_MouseButtonEvent& e);
+
+	void OnBackButtonClick(Object* sender, const SDL_MouseButtonEvent& e);
 };

@@ -3,16 +3,16 @@
 #include <iostream>
 #include <ranges>
 
-#include "Scene.h"
+#include "IScene.h"
 #include "MenuScenes/GameOverMenu.h"
 #include "MenuScenes/PauseMenu.h"
-#include "../Application/Application.h"
-#include "../Objects/GameObjects/Cell.h"
-#include "../Objects/GameObjects/Grid.h"
-#include "../Objects/GameObjects/Tetromino.h"
-#include "../Events/HoldKeyEvent.h"
-#include "../Style/Texture.h"
-#include "../Style/Animation.h"
+#include "../../Application/Application.h"
+#include "../../GameObjects/Cell.h"
+#include "../../GameObjects/Grid.h"
+#include "../../GameObjects/Tetromino.h"
+#include "../../Events/HoldKeyEvent.h"
+#include "../../Style/Texture.h"
+#include "../../Style/Animation.h"
 #include "Random/Random.h"
 
 class GameScene: public Scene
@@ -118,23 +118,20 @@ private:
 	Tetromino _activeTetrominoPlaceHolder = GetCopyOfActiveTetrominoWith(Color::Grey);
 
 	Animation _cellClearAnimation = Animation(TicksAmountToClearCell,
-											  CyclesToCompleteCellClearAnimation,
-											  [this](){ OnCellClearAnimationCompleted(); },
-											  [this](){ OnCellClearAnimationCycleCompleted(); });
+											  CyclesToCompleteCellClearAnimation);
 
 	bool _isReselectAvaliable = true;
-	bool _isDropRequired = false;
-public:		
-	void Show() override;
 
-	void HandleEvent(const SDL_Event& e) override;
+	bool _isDropRequired = false;
+public:
+	GameScene() noexcept;
+
+	void Show() const override;
 
 	void Process() override;
+
+	void SetBackground() override;
 private:
-	void OnCellClearAnimationCompleted();
-
-	void OnCellClearAnimationCycleCompleted();
-
 	/// <summary>
 	/// ¬ыбирает из массива _tetrominos случаную тетрамино со случайным цветом
 	/// </summary>
@@ -177,7 +174,7 @@ private:
 	/// <summary>
 	/// ќтображает все упавшие тетрамино
 	/// </summary>
-	void DisplayCellStorage();
+	void ShowCellStorage() const;
 
 	/// <summary>
 	/// ¬озращает клетку из хранилища, исход€ от координат клетки cell
@@ -210,15 +207,17 @@ private:
 	/// <param name="cells">- клетки, которые требуетс€ сохранить</param>
 	void AddCellsToDroppedCellsStorage(const std::array<Cell, 4>& cells);
 
-	void OnKeyDown(const SDL_Event& e);
+	void OnLeftKeyPressed();
 
-	void OnKeyHold(const SDL_Event& e);
+	void OnRightKeyPressed();
 
-	void OnQuit(const SDL_Event& e);
+	void OnDownKeyPressed();
 
-	void OnLeftKeyDown(const SDL_Event& e);
+	void OnKeyDown(Object* sender, const SDL_KeyboardEvent& e);
 
-	void OnRightKeyDown(const SDL_Event& e);
+	void OnKeyHold(Object* sender, const SDL_KeyboardEvent& e);
 
-	void OnDownKeyDown(const SDL_Event& e);
+	void OnCellClearAnimationCompleted(Animation* sender, const AnimationEventArgs& e);
+
+	void OnCellClearAnimationCycleCompleted(Animation* sender, const AnimationEventArgs& e);
 };

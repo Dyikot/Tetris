@@ -128,7 +128,8 @@ const Cell& Tetromino::GetHighestCell() const noexcept
 
 void Tetromino::SetBackground(Color background) noexcept
 {
-	_backgroud = background;
+	Object::SetBackground(background);
+
 	for(auto& cell : _cells)
 	{
 		cell.SetBackground(background);

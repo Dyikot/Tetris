@@ -25,7 +25,6 @@ class Tetromino : public Object
 {
 private:
 	TetrominoType _type;
-
 	std::array<Cell, 4> _cells;
 public:
 	Tetromino(TetrominoType type, const std::array<Cell, 4>& cellStartPoints) noexcept;

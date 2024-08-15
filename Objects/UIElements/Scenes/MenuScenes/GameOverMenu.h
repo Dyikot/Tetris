@@ -1,13 +1,13 @@
 #pragma once
 
-#include "../Scene.h"
+#include "../IScene.h"
 #include "../GameScene.h"
 #include "../../Application/Application.h"
-#include "../../Objects/Controls/Buttons/TextButton.h"
-#include "../../Objects/Controls/TextBlock.h"
-#include "Menu.h"
+#include "../../Controls/Buttons/TextButton.h"
+#include "../../Controls/TextBlock.h"
+#include "MenuScene.h"
 
-class GameOverMenu: public Scene, protected Menu
+class GameOverMenu: public MenuScene
 {
 private:
 	// Main title
@@ -53,14 +53,8 @@ private:
 										TextButton::DefaultTextSize);
 public:
 	GameOverMenu();
+private:
+	void OnRetryButtonClick(Object* sender, const SDL_MouseButtonEvent& e);
 
-	void Show() override;
-
-	void HandleEvent(const SDL_Event& e) override;
-
-	void Process() override;
-
-	void OnMouseDown(const SDL_Event& e);
-
-	void OnQuit(const SDL_Event& e);
+	void OnExitButtonClick(Object* sender, const SDL_MouseButtonEvent& e);
 };

@@ -23,7 +23,7 @@ Game::Game()
 
 
 	auto serializationData = SettinsDataSerializer().Deserialize();
-	auto settingsData = static_cast<SettingsData*>(serializationData.get());
+	auto settingsData = dynamic_cast<SettingsData*>(serializationData.get());
 
 	_currentWindow = SDL_CreateWindow("Tetris",
 									  SDL_WINDOWPOS_CENTERED,
@@ -38,6 +38,7 @@ Game::Game()
 	}
 
 	_renderer = SDL_CreateRenderer(_currentWindow, -1, SDL_RENDERER_ACCELERATED);
+	SDL_SetRenderDrawBlendMode(_renderer, SDL_BLENDMODE_BLEND);
 	SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "linear");
 	SDL_RenderSetLogicalSize(_renderer, WindowWidth, WindowHeight);
 
@@ -72,9 +73,7 @@ void Game::Run()
 		}
 				
 		_currentScene->Process();
-
-		// Устанавливает цвет фона окна
-		Colors::SetRenderColor(_renderer, Color::Black);
+		_currentScene->SetBackground();
 		
 		SDL_RenderClear(_renderer);
 		_currentScene->Show();

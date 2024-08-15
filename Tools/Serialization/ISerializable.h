@@ -3,7 +3,13 @@
 #include <filesystem>
 #include <fstream>
 
-struct SerializationData {};
+struct SerializationData
+{
+	char Delimetr = '\n';
+
+	virtual std::string ToString() const = 0;
+	virtual void Convert(const std::vector<std::string>& values) = 0;
+};
 
 class ISerializable
 {

@@ -8,7 +8,6 @@ class Cell: public Object
 {
 public:
 	static constexpr int Size = 10;
-
 	SDL_Point Position;
 private:
 	Texture* _cellTexture;

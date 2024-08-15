@@ -12,6 +12,7 @@ TextButton::TextButton(const SDL_Point& position,
 	_textBlock(position, DefaultBackgroundColor, text, textColor, textSize)
 {
 	SetContent(&_textBlock);
+	BackgroundColorOnHover = Color::Green;
 }
 
 void TextButton::SetPosition(const SDL_Point& position) noexcept
@@ -28,9 +29,9 @@ void TextButton::SetContent(Control* content) noexcept
 
 void TextButton::OnContentOrPositionChange() noexcept
 {
-	if(GetContent() != nullptr)
+	if(_content != nullptr)
 	{
-		GetContent()->SetPosition({ .x = _position.x + _width / 2,
-									.y = _position.y + _height / 2 });
+		_content->SetPosition({ .x = _position.x + _width / 2,
+								.y = _position.y + _height / 2 });
 	}
 }

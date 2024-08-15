@@ -16,7 +16,7 @@ Application::~Application()
     SDL_Quit();
 }
 
-void Application::SetNextScene(Scene* next) noexcept
+void Application::SetNextScene(IScene* next) noexcept
 {
     _nextScene = next;
 }

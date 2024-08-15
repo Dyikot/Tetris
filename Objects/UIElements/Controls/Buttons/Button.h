@@ -9,10 +9,9 @@ class Button: public Control
 public:
 	static constexpr Color DefaultBorderColor = Color::Green;
 
+	MouseEventHandler Click;
 protected:
 	Color _borderColor;
-	Color _backgroundSaved;
-private:
 	Control* _content;
 public:
 	Button(const SDL_Point& position,
@@ -24,17 +23,9 @@ public:
 
 	void Show() const override;
 
-	void SetBackground(Color color) noexcept override;
-
-	void SetPosition(const SDL_Point& position) noexcept override;
-
 	void SetContent(Control* content) noexcept;
 
-	const Control* GetContent() const;
+	Control* const GetContent() const;
 
-	Control* GetContent() noexcept;
-	
-	virtual void OnHover() noexcept;
-
-	virtual void OnLeave() noexcept;
+	virtual void OnClick(const SDL_MouseButtonEvent& e);
 };

@@ -16,13 +16,14 @@ enum class Color
 	Orange,
 	White,
 	Grey,
-	Whitesmoke
+	Whitesmoke,
+	Lightgreen
 };
 
 class Colors
 {
 public:
-	static constexpr int Count = 12;
+	static constexpr int Count = 13;
 
 	static constexpr SDL_Color None = SDL_Color(0, 0, 0, 0);
 	static constexpr SDL_Color Black = SDL_Color(0, 0, 0, 255);
@@ -36,6 +37,7 @@ public:
 	static constexpr SDL_Color White = SDL_Color(255, 255, 255, 255);
 	static constexpr SDL_Color Grey = SDL_Color(105, 105, 105, 255);
 	static constexpr SDL_Color Whitesmoke = SDL_Color(230, 230, 230, 255);
+	static constexpr SDL_Color Lightgreen = SDL_Color(0, 175, 0, 255);
 private:
 	static constexpr std::array<SDL_Color, Count> _colors =
 	{
@@ -50,7 +52,8 @@ private:
 		Orange,
 		White,
 		Grey,
-		Whitesmoke
+		Whitesmoke,
+		Lightgreen
 	};
 public:
 	static constexpr SDL_Color ToSDL_Color(Color color) noexcept;

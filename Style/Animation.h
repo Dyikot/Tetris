@@ -2,24 +2,29 @@
 
 #include <functional>
 
+struct AnimationEventArgs
+{
+	int TicksCompleted;
+	int CyclesCompleted;
+};
+
 class Animation
 {
 public:
+	using AnimationEventHandler = std::function<void(Animation*, const AnimationEventArgs&)>;
+
+	AnimationEventHandler AnimationCompleted;
+	AnimationEventHandler AnimationCycleCompleted;
+
 	const int TicksAmount;
 	const int CyclesAmount;
 private:
-	const std::function<void(void)> OnAnimationCompleted;
-	const std::function<void(void)> OnAnimationCycleComplete;
-
 	bool _isActivated = false;
 
 	int _ticksCompleted = 0;
 	int _cyclesComplated = 0;
 public:
-	Animation(const int ticksAmount,
-			  const int cyclesAmount,
-			  std::function<void(void)> onAnimationCompleted,
-			  std::function<void(void)> onAnimationCycleComplete) noexcept;
+	Animation(int ticksAmount, int cyclesAmount) noexcept;
 
 	void Process();
 
@@ -30,6 +35,8 @@ public:
 	void Stop() noexcept;
 
 	bool IsActivated() const noexcept;
+protected:
+	virtual void OnAnimationCompleted(const AnimationEventArgs& e);
 
-	int GetCompletedCyclesAmount() const noexcept;
+	virtual void OnAnimationCycleCompleted(const AnimationEventArgs& e);
 };

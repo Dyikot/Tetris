@@ -17,10 +17,10 @@ void Cell::Show(const SDL_Point& position) const noexcept
 {
 	SDL_Rect rectangle =
 	{
-		.x = position.x * Scene::Scale,
-		.y = position.y * Scene::Scale,
-		.w = Size * Scene::Scale,
-		.h = Size * Scene::Scale
+		.x = position.x * IScene::Scale,
+		.y = position.y * IScene::Scale,
+		.w = Size * IScene::Scale,
+		.h = Size * IScene::Scale
 	};
 	
 	Colors::SetTextureColor(*_cellTexture, _backgroud);
