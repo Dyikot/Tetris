@@ -202,7 +202,7 @@ private:
 public:
 	SettingsMenu();
 private:
-	void SaveSettingsAndQuit();
+	void OnClose(Object* sender, const EventArgs& e);
 
 	void OnMouseMove(Object* sender, const SDL_MouseButtonEvent& e);
 

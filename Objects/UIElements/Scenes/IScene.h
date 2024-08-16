@@ -26,7 +26,17 @@ public:
 	virtual void Process() = 0;
 
 	/// <summary>
-	/// Устаналивает фон
+	/// Устаналивает фон сцены
 	/// </summary>
 	virtual void SetBackground() = 0;
+
+	/// <summary>
+	/// Закрывает сцену и освобождает ее ресурсы
+	/// </summary>
+	virtual void Close() = 0;
+
+	/// <summary>
+	/// Закрывает сцену и сохраняет ее ресурсы
+	/// </summary>
+	virtual void Hide() = 0;
 };

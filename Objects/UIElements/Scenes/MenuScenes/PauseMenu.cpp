@@ -18,23 +18,25 @@ void PauseMenu::OnKeyDown(Object* sender, const SDL_KeyboardEvent& e)
 	switch(e.keysym.sym)
 	{
 		case SDLK_ESCAPE:
-			Application::Current()->SetSavedSceneToNext();
+			Application::Current()->SetHiddenSceneToNext();
+			Close();
 			break;
 	}
 }
 
 void PauseMenu::OnContinueButtonClick(Object* sender, const SDL_MouseButtonEvent& e)
 {
-	Application::Current()->SetSavedSceneToNext();
+	Application::Current()->SetHiddenSceneToNext();
+	Close();
 }
 
 void PauseMenu::OnSettingsButtonClick(Object * sender, const SDL_MouseButtonEvent& e)
 {
-	Application::Current()->SaveCurrentScene();
 	Application::Current()->SetNextScene(new SettingsMenu());
+	Hide();
 }
 
 void PauseMenu::OnExitButtonClick(Object * sender, const SDL_MouseButtonEvent& e)
 {
-	OnQuit({.type = SDL_QUIT, .timestamp = e.timestamp});
+	Close();
 }

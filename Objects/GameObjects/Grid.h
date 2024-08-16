@@ -6,16 +6,17 @@ class Grid : public Object
 {
 private:
 	SDL_Point _startPoint;
-	const int RowsAmount;
-	const int ColumnsAmount;
+
+	const int Rows;
+	const int Columns;
 	const int Width;
 	const int Height;
-	const int ColumnWidth = Width / ColumnsAmount;
-	const int RowHeight = Height / RowsAmount;
+	const int ColumnWidth = Width / Columns;
+	const int RowHeight = Height / Rows;
 public:
 	Grid(const SDL_Point& position,
-		 int rowsAmount,
-		 int columnsAmount,
+		 int rows,
+		 int columns,
 		 int width,
 		 int height,
 		 Color background) noexcept;

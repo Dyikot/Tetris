@@ -21,7 +21,6 @@ Game::Game()
 	
 	// Set window, render, audio
 
-
 	auto serializationData = SettinsDataSerializer().Deserialize();
 	auto settingsData = dynamic_cast<SettingsData*>(serializationData.get());
 
@@ -38,6 +37,7 @@ Game::Game()
 	}
 
 	_renderer = SDL_CreateRenderer(_currentWindow, -1, SDL_RENDERER_ACCELERATED);
+
 	SDL_SetRenderDrawBlendMode(_renderer, SDL_BLENDMODE_BLEND);
 	SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "linear");
 	SDL_RenderSetLogicalSize(_renderer, WindowWidth, WindowHeight);
@@ -55,9 +55,7 @@ Game::~Game()
 void Game::Run()
 {		
 	SDL_Event event;
-
-	// Скорость падения
-	constexpr Uint32 Delay = 10;
+	constexpr Uint32 Delay = 6;
 
 	// Игровой цикл
 	while(_isGameRunning)
@@ -67,7 +65,7 @@ void Game::Run()
 			_currentScene->HandleEvent(event);
 		}
 
-		if(_nextScene != nullptr)
+		if(IsNextSceneSet())
 		{
 			SwitchToNextScene();
 		}

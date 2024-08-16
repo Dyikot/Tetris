@@ -11,12 +11,13 @@ GameOverMenu::GameOverMenu()
 	_exitButton.Click = std::bind(&GameOverMenu::OnExitButtonClick, this, _1, _2);
 }
 
-void GameOverMenu::OnRetryButtonClick(Object* sender, const SDL_MouseButtonEvent& e)
+void GameOverMenu::OnExitButtonClick(Object* sender, const SDL_MouseButtonEvent& e)
 {
-	Application::Current()->SetNextScene(new GameScene());
+	Close();
 }
 
-void GameOverMenu::OnExitButtonClick(Object * sender, const SDL_MouseButtonEvent& e)
+void GameOverMenu::OnRetryButtonClick(Object * sender, const SDL_MouseButtonEvent & e)
 {
-	OnQuit({.type = SDL_QUIT, .timestamp = e.timestamp});
+	Application::Current()->SetNextScene(new GameScene());
+	Close();
 }

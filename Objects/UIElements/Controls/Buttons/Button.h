@@ -12,6 +12,7 @@ public:
 	MouseEventHandler Click;
 protected:
 	Color _borderColor;
+
 	Control* _content;
 public:
 	Button(const SDL_Point& position,
@@ -20,6 +21,8 @@ public:
 		   Color background,
 		   Color borderColor,
 		   Control* content = nullptr) noexcept;
+
+	virtual ~Button() = default;
 
 	void Show() const override;
 

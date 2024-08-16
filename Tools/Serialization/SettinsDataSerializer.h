@@ -31,7 +31,8 @@ public:
 
 	void Serialize(const SerializationData& data) const;
 
-	std::unique_ptr<SerializationData> Deserialize(const std::filesystem::path& path) const override;
+	std::unique_ptr<SerializationData> 
+		Deserialize(const std::filesystem::path& path) const override;
 
 	std::unique_ptr<SerializationData> Deserialize() const;
 private:

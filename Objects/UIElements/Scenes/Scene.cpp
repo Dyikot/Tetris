@@ -7,9 +7,9 @@ Scene::Scene()
 
 void Scene::Show() const
 {
-	for(auto control : Objects)
+	for(auto object : Objects)
 	{
-		control->Show();
+		object->Show();
 	}
 }
 
@@ -42,12 +42,44 @@ void Scene::HandleEvent(const SDL_Event & e)
 	}
 }
 
+void Scene::Close()
+{
+	OnClose(EventArgs{ .Source = this });
+
+	if(!Application::Current()->IsNextSceneSet())
+	{
+		OnQuit({ .type = SDL_QUIT, .timestamp = SDL_GetTicks() });
+	}
+}
+
+void Scene::Hide()
+{
+	OnHide(EventArgs{ .Source = this });
+	Application::Current()->HideCurrentScene();
+}
+
 void Scene::OnQuit(const SDL_QuitEvent& e)
 {
-	Application::Current()->Shutdown();
-
 	if(Quit)
 	{
 		Quit(this, e);
+	}
+
+	Application::Current()->Shutdown();
+}
+
+void Scene::OnHide(const EventArgs& e)
+{
+	if(Hidden)
+	{
+		Hidden(this, e);
+	}
+}
+
+void Scene::OnClose(const EventArgs & e)
+{
+	if(Closed)
+	{
+		Closed(this, e);
 	}
 }

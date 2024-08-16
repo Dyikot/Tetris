@@ -31,13 +31,15 @@ public:
 protected:
 	Button* _hoverButton = nullptr;
 public:
+	virtual ~MenuScene() = default;
+
 	int CalculateButtonVerticalPosition(const int order);
 
 	void SetBackground() override;
 
 	void Process() override;
 protected:
-	void OnMouseMove(const SDL_MouseButtonEvent& e) override;
+	virtual void OnMouseMove(const SDL_MouseButtonEvent& e) override;
 
-	void OnMouseDown(const SDL_MouseButtonEvent& e) override;
+	virtual void OnMouseDown(const SDL_MouseButtonEvent& e) override;
 };

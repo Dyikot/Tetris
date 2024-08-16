@@ -25,6 +25,8 @@ public:
 			int height,
 			Color background) noexcept;
 
+	virtual ~Control() = default;
+
 	virtual void SetWidth(int width) noexcept;
 
 	virtual void SetHeight(int height) noexcept;

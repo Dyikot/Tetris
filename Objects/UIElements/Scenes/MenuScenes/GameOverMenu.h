@@ -54,7 +54,7 @@ private:
 public:
 	GameOverMenu();
 private:
-	void OnRetryButtonClick(Object* sender, const SDL_MouseButtonEvent& e);
-
 	void OnExitButtonClick(Object* sender, const SDL_MouseButtonEvent& e);
+
+	void OnRetryButtonClick(Object* sender, const SDL_MouseButtonEvent& e);
 };

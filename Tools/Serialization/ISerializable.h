@@ -14,6 +14,8 @@ struct SerializationData
 class ISerializable
 {
 public:
+	virtual ~ISerializable() = default;
+
 	virtual void 
 		Serialize(const std::filesystem::path& path, const SerializationData& data) const = 0;
 	

@@ -23,11 +23,12 @@ enum class TetrominoState
 
 class Tetromino : public Object
 {
-private:
+protected:
 	TetrominoType _type;
+
 	std::array<Cell, 4> _cells;
 public:
-	Tetromino(TetrominoType type, const std::array<Cell, 4>& cellStartPoints) noexcept;
+	Tetromino(TetrominoType type, const std::array<Cell, 4>& cells) noexcept;
 
 	void Show() const noexcept override;
 
@@ -58,6 +59,8 @@ public:
 	void CorrectCoordinates(int left, int right, int top);
 
 	const std::array<Cell, 4>& GetCells() const noexcept;
+
+	TetrominoType GetType() const noexcept;
 
 	/// <summary>
 	/// Поиск самой низкой клетки

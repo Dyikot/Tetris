@@ -1,8 +1,8 @@
 #include "Tetromino.h"
 
-Tetromino::Tetromino(TetrominoType type, const std::array<Cell, 4>& cellStartPoints) noexcept:
+Tetromino::Tetromino(TetrominoType type, const std::array<Cell, 4>& cells) noexcept:
 	_type(type),
-	_cells(cellStartPoints)
+	_cells(cells)
 {
 
 }
@@ -108,6 +108,11 @@ void Tetromino::CorrectCoordinates(int left, int right, int top)
 const std::array<Cell, 4>& Tetromino::GetCells() const noexcept
 {
 	return _cells;
+}
+
+TetrominoType Tetromino::GetType() const noexcept
+{
+	return _type;
 }
 
 const Cell& Tetromino::GetLowestCell() const noexcept

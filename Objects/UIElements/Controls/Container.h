@@ -92,6 +92,8 @@ public:
 			  const std::vector<std::string>& items = {},
 			  size_t currentItemIndex = 0) noexcept;
 
+	virtual ~Container() = default;
+
 	void Show() const noexcept override;
 
 	const std::string* GetCurrentItem() const;
@@ -108,7 +110,7 @@ public:
 
 	const Button& GetLeftButton() const noexcept;
 protected:
-	void OnCurrentItemChanged(const CurrentItemEventArgs& e) noexcept;
+	virtual void OnCurrentItemChanged(const CurrentItemEventArgs& e) noexcept;
 private:
 	bool IsIndexInRange(size_t index) const noexcept;
 

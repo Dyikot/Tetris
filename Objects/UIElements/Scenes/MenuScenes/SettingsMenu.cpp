@@ -16,9 +16,10 @@ SettingsMenu::SettingsMenu()
 	KeyDown = std::bind(&SettingsMenu::OnKeyDown, this, _1, _2);
 	_applyButton.Click = std::bind(&SettingsMenu::OnApplyButtonClick, this, _1, _2);
 	_backButton.Click = std::bind(&SettingsMenu::OnBackButtonClick, this, _1, _2);
+	Closed = std::bind(&SettingsMenu::OnClose, this, _1, _2);
 }
 
-void SettingsMenu::SaveSettingsAndQuit()
+void SettingsMenu::OnClose(Object* sender, const EventArgs& e)
 {
 	const auto& [width, height] = WindowResolutionMap.at(*_resolutionContainer.GetCurrentItem());
 
@@ -29,8 +30,6 @@ void SettingsMenu::SaveSettingsAndQuit()
 	_settingsData->MusicFilling = _musicSlider.GetFilling();
 
 	_settingsDataSerializer.Serialize(*_settingsData);
-
-	Application::Current()->SetSavedSceneToNext();
 }
 
 void SettingsMenu::OnApplyButtonClick(Object* sender, const SDL_MouseButtonEvent& e)
@@ -44,7 +43,8 @@ void SettingsMenu::OnApplyButtonClick(Object* sender, const SDL_MouseButtonEvent
 
 void SettingsMenu::OnBackButtonClick(Object * sender, const SDL_MouseButtonEvent& e)
 {
-	SaveSettingsAndQuit();
+	Application::Current()->SetHiddenSceneToNext();
+	Close();
 }
 
 void SettingsMenu::OnMouseDown(Object* sender, const SDL_MouseButtonEvent& e)
@@ -81,7 +81,8 @@ void SettingsMenu::OnKeyDown(Object* sender, const SDL_KeyboardEvent& e)
 	switch(e.keysym.sym)
 	{
 		case SDLK_ESCAPE:
-			SaveSettingsAndQuit();
+			Application::Current()->SetHiddenSceneToNext();
+			Close();
 			break;
 
 		default:

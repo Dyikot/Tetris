@@ -15,15 +15,16 @@ StartMenu::StartMenu()
 void StartMenu::OnStartButtonClick(Object* sender, const SDL_MouseButtonEvent& e)
 {
 	Application::Current()->SetNextScene(new GameScene());
+	Close();
 }
 
 void StartMenu::OnSettingsButtonClick(Object* sender, const SDL_MouseButtonEvent& e)
 {
-	Application::Current()->SaveCurrentScene();
 	Application::Current()->SetNextScene(new SettingsMenu());
+	Hide();
 }
 
 void StartMenu::OnExitButtonClick(Object* sender, const SDL_MouseButtonEvent& e)
 {
-	OnQuit({.type = SDL_QUIT, .timestamp = e.timestamp});
+	Close();
 }

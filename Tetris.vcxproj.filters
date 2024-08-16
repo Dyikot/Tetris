@@ -75,7 +75,7 @@
     <ClInclude Include="Style\Texture.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Style\Animation.h">
+    <ClInclude Include="Tools\Actions\Animation.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="resource.h">
@@ -102,10 +102,19 @@
     <ClInclude Include="Objects\UIElements\Scenes\Scene.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Events\Events.h">
+    <ClInclude Include="Objects\UIElements\UIElement.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Objects\UIElements\UIElement.h">
+    <ClInclude Include="Objects\GameObjects\CellStorage.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Tools\Actions\Action.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Tools\Actions\ActionBase.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Objects\GameObjects\ActiveTetromino.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -167,7 +176,7 @@
     <ClCompile Include="Style\Texture.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Style\Animation.cpp">
+    <ClCompile Include="Tools\Actions\Animation.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Objects\UIElements\Controls\Slider.cpp">
@@ -189,6 +198,18 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Objects\UIElements\UIElement.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Objects\GameObjects\CellStorage.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Tools\Actions\Action.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Tools\Actions\ActionBase.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Objects\GameObjects\ActiveTetromino.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

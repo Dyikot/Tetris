@@ -6,12 +6,12 @@ Grid::Grid(const SDL_Point& position,
 		   int width, 
 		   int height, 
 		   Color background) noexcept:
+	Object(background),
 	_startPoint(position),
-	RowsAmount(rowsAmount),
-	ColumnsAmount(columnsAmount),
+	Rows(rowsAmount),
+	Columns(columnsAmount),
 	Width(width),
-	Height(height),
-	Object(background)
+	Height(height)	
 {
 
 }

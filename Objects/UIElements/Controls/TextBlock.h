@@ -23,7 +23,7 @@ public:
 			  Color textColor,
 			  int textSize) noexcept;	
 
-	virtual ~TextBlock();
+	~TextBlock();
 
 	void Show() const noexcept override;
 

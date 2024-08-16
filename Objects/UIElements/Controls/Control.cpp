@@ -57,20 +57,20 @@ bool Control::IsMouseOver(const SDL_MouseButtonEvent& e) noexcept
 
 void Control::OnMouseEnter(const SDL_MouseButtonEvent& e)
 {
-    _backgroud = BackgroundColorOnHover;
-
     if(MouseEnter)
     {
         MouseEnter(this, e);
     }
+
+    _backgroud = BackgroundColorOnHover;
 }
 
 void Control::OnMouseLeave(const SDL_MouseButtonEvent& e)
 {
-    _backgroud = _savedBackground;
-
     if(MouseLeave)
     {
         MouseLeave(this, e);
     }
+
+    _backgroud = _savedBackground;
 }

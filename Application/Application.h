@@ -15,7 +15,7 @@ protected:
 	IScene* _currentScene = nullptr;
 	IScene* _nextScene = nullptr;
 
-	std::stack<IScene*> _savedScenes = std::stack<IScene*>();
+	std::stack<IScene*> _hiddenScenes = std::stack<IScene*>();
 
 	SDL_Window* _currentWindow = nullptr;
 
@@ -33,15 +33,17 @@ public:
 
 	void SetNextScene(IScene* next) noexcept;
 
-	void SaveCurrentScene() noexcept;
+	void HideCurrentScene() noexcept;
 
-	void SetSavedSceneToNext() noexcept;
+	void SetHiddenSceneToNext() noexcept;
 
-	SDL_Window* GetCurrentWindow();
+	SDL_Window* GetCurrentWindow() noexcept;
 
-	SDL_Renderer* GetRenderer() const;
+	SDL_Renderer* GetRenderer() const noexcept;
 
-	void SetWindowSize(size_t width, size_t height);
+	bool IsNextSceneSet() const noexcept;
+
+	void SetWindowSize(size_t width, size_t height) noexcept;
 protected:
 	void SwitchToNextScene() noexcept;
 };

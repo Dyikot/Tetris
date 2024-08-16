@@ -19,7 +19,10 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Events\Events.h" />
+    <ClInclude Include="Objects\GameObjects\ActiveTetromino.h" />
+    <ClInclude Include="Tools\Actions\ActionBase.h" />
+    <ClInclude Include="Tools\Actions\Action.h" />
+    <ClInclude Include="Objects\GameObjects\CellStorage.h" />
     <ClInclude Include="Objects\UIElements\Controls\Image.h" />
     <ClInclude Include="Objects\UIElements\Controls\Container.h" />
     <ClInclude Include="Objects\UIElements\Controls\Slider.h" />
@@ -27,7 +30,7 @@
     <ClInclude Include="Objects\UIElements\Scenes\Scene.h" />
     <ClInclude Include="Tools\Serialization\SettinsDataSerializer.h" />
     <ClInclude Include="Tools\Serialization\ISerializable.h" />
-    <ClInclude Include="Style\Animation.h" />
+    <ClInclude Include="Tools\Actions\Animation.h" />
     <ClInclude Include="Application\Application.h" />
     <ClInclude Include="Events\HoldKeyEvent.h" />
     <ClInclude Include="Style\Texture.h" />
@@ -52,13 +55,17 @@
     <ClInclude Include="Objects\UIElements\UIElement.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Objects\GameObjects\ActiveTetromino.cpp" />
+    <ClCompile Include="Tools\Actions\ActionBase.cpp" />
+    <ClCompile Include="Tools\Actions\Action.cpp" />
+    <ClCompile Include="Objects\GameObjects\CellStorage.cpp" />
     <ClCompile Include="Objects\UIElements\Controls\Image.cpp" />
     <ClCompile Include="Objects\UIElements\Controls\Container.cpp" />
     <ClCompile Include="Objects\UIElements\Controls\Slider.cpp" />
     <ClCompile Include="Objects\UIElements\UIElement.cpp" />
     <ClCompile Include="Objects\UIElements\Scenes\Scene.cpp" />
     <ClCompile Include="Tools\Serialization\SettinsDataSerializer.cpp" />
-    <ClCompile Include="Style\Animation.cpp" />
+    <ClCompile Include="Tools\Actions\Animation.cpp" />
     <ClCompile Include="Application\Application.cpp" />
     <ClCompile Include="Events\HoldKeyEvent.cpp" />
     <ClCompile Include="Style\Texture.cpp" />
