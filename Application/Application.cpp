@@ -18,17 +18,18 @@ Application::~Application()
 
 void Application::SetNextScene(IScene* next) noexcept
 {
-    _nextScene = next;
-}
+    if(_nextScene != nullptr)
+    {
+        delete _nextScene;
+    }
 
-void Application::HideCurrentScene() noexcept
-{
-    _hiddenScenes.push(_currentScene);
+    _nextScene = next;
 }
 
 void Application::SetHiddenSceneToNext() noexcept
 {
     _nextScene = _hiddenScenes.top();
+    _nextScene->SetVisibility(SceneVisibility::Visible);
     _hiddenScenes.pop();
 }
 
@@ -54,6 +55,11 @@ void Application::SetWindowSize(size_t width, size_t height) noexcept
 
 void Application::SwitchToNextScene() noexcept
 {
+    if(_currentScene->GetVisibility() == SceneVisibility::Hidden)
+    {
+        _hiddenScenes.push(_currentScene);
+    }
+
     if(_hiddenScenes.empty() || _currentScene != _hiddenScenes.top())
     {
         delete _currentScene;

@@ -56,7 +56,6 @@ bool Tetromino::IsOutRightBorder(int right) const noexcept
 	});
 }
 
-
 bool Tetromino::IsOutLeftBorder(int left) const noexcept
 {
 	return std::ranges::any_of(_cells, [left](const auto& cell) noexcept

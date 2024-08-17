@@ -33,8 +33,6 @@ public:
 
 	void SetNextScene(IScene* next) noexcept;
 
-	void HideCurrentScene() noexcept;
-
 	void SetHiddenSceneToNext() noexcept;
 
 	SDL_Window* GetCurrentWindow() noexcept;

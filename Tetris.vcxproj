@@ -19,7 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Objects\GameObjects\ActiveTetromino.h" />
+    <ClInclude Include="Objects\GameObjects\Tetromino\ActiveTetromino.h" />
     <ClInclude Include="Tools\Actions\ActionBase.h" />
     <ClInclude Include="Tools\Actions\Action.h" />
     <ClInclude Include="Objects\GameObjects\CellStorage.h" />
@@ -49,13 +49,13 @@
     <ClInclude Include="Objects\UIElements\Controls\TextBlock.h" />
     <ClInclude Include="Objects\UIElements\Scenes\MenuScenes\PauseMenu.h" />
     <ClInclude Include="Objects\UIElements\Scenes\MenuScenes\SettingsMenu.h" />
-    <ClInclude Include="Objects\GameObjects\Tetromino.h" />
+    <ClInclude Include="Objects\GameObjects\Tetromino\Tetromino.h" />
     <ClInclude Include="Objects\GameObjects\Cell.h" />
     <ClInclude Include="Objects\UIElements\Controls\Buttons\TextButton.h" />
     <ClInclude Include="Objects\UIElements\UIElement.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Objects\GameObjects\ActiveTetromino.cpp" />
+    <ClCompile Include="Objects\GameObjects\Tetromino\ActiveTetromino.cpp" />
     <ClCompile Include="Tools\Actions\ActionBase.cpp" />
     <ClCompile Include="Tools\Actions\Action.cpp" />
     <ClCompile Include="Objects\GameObjects\CellStorage.cpp" />
@@ -83,7 +83,7 @@
     <ClCompile Include="Objects\UIElements\Scenes\MenuScenes\SettingsMenu.cpp" />
     <ClCompile Include="Source.cpp" />
     <ClCompile Include="Objects\UIElements\Scenes\MenuScenes\StartMenu.cpp" />
-    <ClCompile Include="Objects\GameObjects\Tetromino.cpp" />
+    <ClCompile Include="Objects\GameObjects\Tetromino\Tetromino.cpp" />
     <ClCompile Include="Objects\GameObjects\Cell.cpp" />
     <ClCompile Include="Objects\UIElements\Controls\Buttons\TextButton.cpp" />
   </ItemGroup>

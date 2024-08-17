@@ -12,6 +12,7 @@ void Action::Process()
 	{
 		OnActionCompleted({ .Period = Period });
 		_time = std::chrono::milliseconds(0);
+		_tickStartTime = std::chrono::steady_clock::now();
 	}
 
 	_time += GetTickDuration();

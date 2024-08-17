@@ -2,7 +2,7 @@
 
 GameScene::GameScene() noexcept
 {
-	Objects = { &_grid, &_cellStorage, &_activeTetromino.PlaceHolder, &_activeTetromino };
+	Objects = { &_grid, &_cellStorage, &_activeTetromino };
 
 	using namespace std::placeholders;
 	
@@ -21,32 +21,23 @@ void GameScene::Process()
 	}
 
 	_activeTetromino.Movement.TryProcess();
+	_activeTetromino.UpdatePlaceholderPosition();
+	_activeTetromino.MovePlaceholderAtBottomOf(_cellStorage);
 
-	_activeTetromino.UpdatePlaceHolder();
-
-	while(!_cellStorage.IsLocatedAtBottom(_activeTetromino.PlaceHolder))
+	if(HasActiveTetrominoFallen())
 	{
-		_activeTetromino.PlaceHolder.Move(MovementSide::Down);
-	}
+		if(_cellStorage.AreRowsFull(_activeTetromino))
+		{
+			_cellStorage.RowClearAnimation.Start();
+		}
 
-	switch(GetTetrominoState())
-	{
-		case TetrominoState::BeyoundUppedBorder:
+		_activeTetromino = SelectRandomTetromino();
+
+		if(_cellStorage.IsLocatedInCells(_activeTetromino))
+		{
 			Application::Current()->SetNextScene(new GameOverMenu());
-			break;
-
-		case TetrominoState::Dropped:
-			if(_cellStorage.AreFull(_cellStorage.GetLowestRowOf(_activeTetromino),
-									_cellStorage.GetHighestRowOf(_activeTetromino)))
-			{
-				_cellStorage.RowClearAnimation.Start();
-			}
-			
-			_activeTetromino = SelectRandomTetromino();
-			_canReselectTetromino = true;
-
-		case TetrominoState::Moving:
-			break;
+			Close();
+		}
 	}
 }
 
@@ -66,45 +57,30 @@ Tetromino GameScene::SelectRandomTetromino()
 	return tetromino;
 }
 
-TetrominoState GameScene::GetTetrominoState()
+bool GameScene::HasActiveTetrominoFallen()
 {
-	// Проверка не появилась ли новая тетрамино в уже заполненном поле
-	if(_activeTetromino.GetCells().front().Position.y <= Cell::Size)
+	if(_activeTetromino.NeedsToFall)
 	{
-		bool isTetrominoInCells = std::ranges::any_of(_activeTetromino.GetCells(), 
-			[this](const Cell& cell)
-			{
-				return _cellStorage.GetCellAt(cell).GetBackground() != Color::None;
-			});
-
-		if(isTetrominoInCells)
-		{
-			return TetrominoState::BeyoundUppedBorder;
-		}
-	}
-
-	if(_isTetrominoNeedsDrop)
-	{
-		_isTetrominoNeedsDrop = false;
-		_activeTetromino.CopyCoordinates(_activeTetromino.PlaceHolder);
+		_activeTetromino.NeedsToFall = false;
+		_activeTetromino.CopyCoordinates(_activeTetromino.Placeholder);
 		_cellStorage.Add(_activeTetromino);
 
-		return TetrominoState::Dropped;
+		return true;
 	}
 	
 	if(_cellStorage.IsLocatedAtBottom(_activeTetromino))
 	{
 		_cellStorage.Add(_activeTetromino);
 
-		return TetrominoState::Dropped;
+		return true;
 	}
 
-	return TetrominoState::Moving;
+	return false;
 }
 
 void GameScene::OnLeftKeyPressed()
 {
-	if(!_activeTetromino.IsOutLeftBorder(0))
+	if(!_activeTetromino.IsOutLeftBorder(LeftBorder))
 	{
 		_activeTetromino.Move(MovementSide::Left);
 	}
@@ -112,7 +88,7 @@ void GameScene::OnLeftKeyPressed()
 
 void GameScene::OnRightKeyPressed()
 {
-	if(!_activeTetromino.IsOutRightBorder(FieldWidth))
+	if(!_activeTetromino.IsOutRightBorder(RightBorder))
 	{
 		_activeTetromino.Move(MovementSide::Right);
 	}
@@ -141,19 +117,19 @@ void GameScene::OnKeyDown(Object* sender, const SDL_KeyboardEvent& e)
 
 		case SDLK_UP:
 			_activeTetromino.Rotate();
-			_activeTetromino.CorrectCoordinates(/*left*/ 0, /*right*/ FieldWidth, /*top*/ 0);
+			_activeTetromino.CorrectCoordinates(LeftBorder, RightBorder, TopBorder);
 			break;
 
 		case SDLK_SPACE:
-			_isTetrominoNeedsDrop = true;
+			_activeTetromino.NeedsToFall = true;
 			break;
 
 		case SDLK_c:
-			if(_canReselectTetromino)
+			if(_activeTetromino.CanReselected)
 			{
 				_activeTetromino = SelectRandomTetromino();
-				_canReselectTetromino = false;
 			}
+
 			break;
 
 		case SDLK_ESCAPE:

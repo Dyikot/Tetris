@@ -6,19 +6,12 @@
 #include <functional>
 #include <algorithm>
 
-#include "Cell.h"
+#include "../Cell.h"
 #include "../../Style/Texture.h"
 
 enum class TetrominoType
 {
 	I, J, L, O, S, T, Z
-};
-
-enum class TetrominoState
-{
-	Moving,
-	Dropped,
-	BeyoundUppedBorder
 };
 
 class Tetromino : public Object
@@ -36,6 +29,19 @@ public:
 
 	void Rotate();
 
+	void SetBackground(Color background) noexcept override;
+
+	void CopyCoordinates(const Tetromino& tetromino) noexcept;
+
+	/// <summary>
+	/// Проверка на то, не зашло ли тетрамино за границу игрового поля.
+	/// И если зашло то, корректирует положение, перемещая в границы игрового поля
+	/// </summary>
+	/// <param name="left">- левая граница игрового поля</param>
+	/// <param name="right">- правая граница игрового поля</param>
+	/// <param name="top">- верхняя граница игрового поля</param>
+	void CorrectCoordinates(int left, int right, int top);
+
 	/// <summary>
 	/// Проверка на то, не зашло ли тетрамино за левую границу игрового поля
 	/// </summary>
@@ -50,17 +56,11 @@ public:
 	bool IsOutRightBorder(int right) const noexcept;
 
 	/// <summary>
-	/// Проверка на то, не зашло ли тетрамино за границу игрового поля.
-	/// И если зашло то, корректирует положение, перемещая в границы игрового поля
+	/// Выбирается точка вокруг которой происходит вращение
 	/// </summary>
-	/// <param name="left">- левая граница игрового поля</param>
-	/// <param name="right">- правая граница игрового поля</param>
-	/// <param name="top">- верхняя граница игрового поля</param>
-	void CorrectCoordinates(int left, int right, int top);
-
-	const std::array<Cell, 4>& GetCells() const noexcept;
-
-	TetrominoType GetType() const noexcept;
+	/// <param name="tetrominoType">- тип тетрамино</param>
+	/// <returns>Возвращает индекс точки массива _cells </returns>
+	int SelectRotationCenter(TetrominoType tetrominoType) const;
 
 	/// <summary>
 	/// Поиск самой низкой клетки
@@ -74,14 +74,7 @@ public:
 	/// <returns>Возвращает найденную клетку</returns>
 	const Cell& GetHighestCell() const noexcept;
 
-	void SetBackground(Color background) noexcept override;
+	const std::array<Cell, 4>& GetCells() const noexcept;
 
-	void CopyCoordinates(const Tetromino& tetromino) noexcept;
-
-	/// <summary>
-	/// Выбирается точка вокруг которой происходит вращение
-	/// </summary>
-	/// <param name="tetrominoType">- тип тетрамино</param>
-	/// <returns>Возвращает индекс точки массива _cells </returns>
-	int SelectRotationCenter(TetrominoType tetrominoType) const;
+	TetrominoType GetType() const noexcept;	
 };

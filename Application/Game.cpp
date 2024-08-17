@@ -65,7 +65,7 @@ void Game::Run()
 			_currentScene->HandleEvent(event);
 		}
 
-		if(IsNextSceneSet())
+		if(IsNextSceneSet() && _currentScene->GetVisibility() != SceneVisibility::Visible)
 		{
 			SwitchToNextScene();
 		}
@@ -121,5 +121,4 @@ bool Game::PollEvents(SDL_Event* e) noexcept
 	}
 	
 	return false;
-
 }

@@ -9,7 +9,7 @@
 #include "../../Application/Application.h"
 #include "../../GameObjects/Cell.h"
 #include "../../GameObjects/Grid.h"
-#include "../../GameObjects/ActiveTetromino.h"
+#include "../../GameObjects/Tetromino/ActiveTetromino.h"
 #include "../../GameObjects/CellStorage.h"
 #include "../../Events/HoldKeyEvent.h"
 #include "../../Style/Texture.h"
@@ -24,6 +24,10 @@ private:
 	static constexpr int VerticalCellsNumber = 20;
 	static constexpr int FieldWidth = HorizontalCellsNumber * Cell::Size;
 	static constexpr int FieldHeight = VerticalCellsNumber * Cell::Size;
+	static constexpr int LeftBorder = 0;
+	static constexpr int RightBorder = LeftBorder + FieldWidth;
+	static constexpr int TopBorder = 0;
+	static constexpr int BottomBorder = TopBorder + FieldHeight;
 	static constexpr int ActionsForCellClearAnimation = HorizontalCellsNumber / 2;
 	
 	Random _random;
@@ -115,13 +119,6 @@ private:
 	/// ”правл€емое игроком тетрамино
 	/// </summary>
 	ActiveTetromino _activeTetromino = SelectRandomTetromino();
-
-	/// <summary>
-	/// ¬озможно ли перевыбрать тетромино при нажатии на клавишу "—"
-	/// </summary>
-	bool _canReselectTetromino = true;
-
-	bool _isTetrominoNeedsDrop = false;
 public:
 	GameScene() noexcept;
 
@@ -135,12 +132,7 @@ private:
 	/// <returns>—лучаную тетрамино со случаный цветом</returns>
 	Tetromino SelectRandomTetromino();
 
-	/// <summary>
-	/// ќпредел€ет состо€ние тетрамино, путем проверки дошла ли тетрамино
-	/// до упавших тетрамино и если дошла, то требуетс€ ли очистить строки,
-	/// низа игрового пол€, вверхней границы игрового пол€
-	/// </summary>
-	TetrominoState GetTetrominoState();
+	bool HasActiveTetrominoFallen();
 
 	void OnLeftKeyPressed();
 

@@ -1,10 +1,5 @@
 #include "Scene.h"
 
-Scene::Scene()
-{
-
-}
-
 void Scene::Show() const
 {
 	for(auto object : Objects)
@@ -44,6 +39,8 @@ void Scene::HandleEvent(const SDL_Event & e)
 
 void Scene::Close()
 {
+	_visibility = SceneVisibility::Closed;
+
 	OnClose(EventArgs{ .Source = this });
 
 	if(!Application::Current()->IsNextSceneSet())
@@ -54,8 +51,35 @@ void Scene::Close()
 
 void Scene::Hide()
 {
+	_visibility = SceneVisibility::Hidden;
+
 	OnHide(EventArgs{ .Source = this });
-	Application::Current()->HideCurrentScene();
+}
+
+SceneVisibility Scene::GetVisibility() const
+{
+	return _visibility;
+}
+
+void Scene::SetVisibility(SceneVisibility visibility)
+{
+	switch(visibility)
+	{
+		case SceneVisibility::Visible:
+			_visibility = visibility;
+			break;
+
+		case SceneVisibility::Hidden:
+			Hide();
+			break;
+
+		case SceneVisibility::Closed:
+			Close();
+			break;
+
+		default:
+			break;
+	}
 }
 
 void Scene::OnQuit(const SDL_QuitEvent& e)

@@ -13,6 +13,7 @@ void Animation::Process()
 	{
 		OnActionCompleted({ Period, _actionsCompleted });
 		_time = std::chrono::milliseconds(0);
+		_tickStartTime = std::chrono::steady_clock::now();
 		_actionsCompleted++;
 	}
 	

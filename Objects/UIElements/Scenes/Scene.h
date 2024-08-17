@@ -17,9 +17,9 @@ public:
 	EventHandler Closed;
 
 	std::vector<Object*> Objects;
+protected:
+	SceneVisibility _visibility = SceneVisibility::Visible;
 public:
-	Scene();
-
 	virtual ~Scene() = default;
 
 	void Show() const override;
@@ -29,6 +29,10 @@ public:
 	void Close() override;
 
 	void Hide() override;
+
+	SceneVisibility GetVisibility() const override;
+
+	void SetVisibility(SceneVisibility visibility) override;
 protected:
 	virtual void OnQuit(const SDL_QuitEvent& e);
 

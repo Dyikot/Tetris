@@ -45,7 +45,7 @@
     <ClInclude Include="Application\Application.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Objects\GameObjects\Tetromino.h">
+    <ClInclude Include="Objects\GameObjects\Tetromino\Tetromino.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Objects\Object.h">
@@ -114,7 +114,7 @@
     <ClInclude Include="Tools\Actions\ActionBase.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Objects\GameObjects\ActiveTetromino.h">
+    <ClInclude Include="Objects\GameObjects\Tetromino\ActiveTetromino.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -146,7 +146,7 @@
     <ClCompile Include="Application\Application.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Objects\GameObjects\Tetromino.cpp">
+    <ClCompile Include="Objects\GameObjects\Tetromino\Tetromino.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Objects\Object.cpp">
@@ -209,7 +209,7 @@
     <ClCompile Include="Tools\Actions\ActionBase.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Objects\GameObjects\ActiveTetromino.cpp">
+    <ClCompile Include="Objects\GameObjects\Tetromino\ActiveTetromino.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -3,31 +3,46 @@
 ActiveTetromino::ActiveTetromino(TetrominoType type,
 								 const std::array<Cell, 4>& cells) noexcept:
 	Tetromino(type, cells),
-	PlaceHolder(type, cells)
+	Placeholder(type, cells)
 {
 	BindMovement();
-	PlaceHolder.SetBackground(PlaceHolderColor);
+	Placeholder.SetBackground(PlaceholderColor);
 }
 
 ActiveTetromino::ActiveTetromino(const Tetromino& other):
 	Tetromino(other),
-	PlaceHolder(other)
+	Placeholder(other)
 {
 	BindMovement();
-	PlaceHolder.SetBackground(PlaceHolderColor);
+	Placeholder.SetBackground(PlaceholderColor);
 }
 
-void ActiveTetromino::UpdatePlaceHolder()
+void ActiveTetromino::Show() const noexcept
 {
-	PlaceHolder.CopyCoordinates(*this);
+	Placeholder.Show();
+	Tetromino::Show();
+}
+
+void ActiveTetromino::UpdatePlaceholderPosition()
+{
+	Placeholder.CopyCoordinates(*this);
+}
+
+void ActiveTetromino::MovePlaceholderAtBottomOf(const CellStorage& cellStorage)
+{
+	while(!cellStorage.IsLocatedAtBottom(Placeholder))
+	{
+		Placeholder.Move(MovementSide::Down);
+	}
 }
 
 Tetromino& ActiveTetromino::operator=(const Tetromino& other) noexcept
 {
 	_cells = other.GetCells();
 	_type = other.GetType();
-	PlaceHolder = other;
-	PlaceHolder.SetBackground(PlaceHolderColor);
+	Placeholder = other;
+	Placeholder.SetBackground(PlaceholderColor);
+	CanReselected = true;
 
 	return *this;
 }

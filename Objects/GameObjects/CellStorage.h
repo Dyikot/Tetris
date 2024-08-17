@@ -4,7 +4,7 @@
 #include <ranges>
 
 #include "Cell.h"
-#include "Tetromino.h"
+#include "Tetromino/Tetromino.h"
 #include "../../Tools/Actions/Animation.h"
 
 class CellStorage: public Object
@@ -27,27 +27,33 @@ public:
 
 	void Show() const override;
 
-	bool AreFull(int lowestRow, int highestRow);
-
 	void ClearFullRows();
+
+	void Add(const std::array<Cell, 4>& cells);
+
+	void Add(const Tetromino& tetromino);
+
+	bool AreRowsFull(int lowestRow, int highestRow);
+
+	bool AreRowsFull(const Tetromino& tetromino);
+
+	bool IsLocatedAtBottom(const Cell& cell) const;
+
+	bool IsLocatedAtBottom(const Tetromino& tetromino) const;
+
+	bool IsLocatedInCells(const Tetromino& tetromino);
 
 	Cell& GetCellAt(const Cell& cell);
 
 	Cell& GetLowerCellAt(const Cell& cell);
+
+	const Cell& GetLowerCellAt(const Cell& cell) const;
 
 	int GetLowerCellRow(const Cell& cell) const;
 
 	int GetLowestRowOf(const Tetromino& tetromino) const;
 
 	int GetHighestRowOf(const Tetromino& tetromino) const;
-
-	bool IsLocatedAtBottom(const Cell& cell);
-
-	bool IsLocatedAtBottom(const Tetromino& tetromino);
-
-	void Add(const std::array<Cell, 4>& cells);
-
-	void Add(const Tetromino& tetromino);
 
 	const std::vector<int>& GetFullRowsIndices() const;
 

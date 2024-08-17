@@ -43,7 +43,7 @@ void CellStorage::Show() const
 	}
 }
 
-bool CellStorage::AreFull(int lowestRow, int highestRow)
+bool CellStorage::AreRowsFull(int lowestRow, int highestRow)
 {
 	_fullRowsIndices.clear();
 
@@ -56,6 +56,14 @@ bool CellStorage::AreFull(int lowestRow, int highestRow)
 	}
 
 	return !_fullRowsIndices.empty();
+}
+
+bool CellStorage::AreRowsFull(const Tetromino& tetromino)
+{
+	auto lowestRow = GetLowestRowOf(tetromino);
+	auto highestRow = GetHighestRowOf(tetromino);
+
+	return AreRowsFull(lowestRow, highestRow);
 }
 
 void CellStorage::ClearFullRows()
@@ -85,6 +93,11 @@ Cell& CellStorage::GetLowerCellAt(const Cell& cell)
 	return _storage[cell.Position.y / Cell::Size + 1][cell.Position.x / Cell::Size];
 }
 
+const Cell& CellStorage::GetLowerCellAt(const Cell& cell) const
+{
+	return _storage[cell.Position.y / Cell::Size + 1][cell.Position.x / Cell::Size];
+}
+
 int CellStorage::GetLowerCellRow(const Cell& cell) const
 {
 	return cell.Position.y / Cell::Size + 1;
@@ -100,17 +113,25 @@ int CellStorage::GetHighestRowOf(const Tetromino& tetromino) const
 	return tetromino.GetHighestCell().Position.y / Cell::Size;
 }
 
-bool CellStorage::IsLocatedAtBottom(const Cell& cell)
+bool CellStorage::IsLocatedAtBottom(const Cell& cell) const
 {
 	return GetLowerCellRow(cell) >= Rows ||
 		   GetLowerCellAt(cell).GetBackground() != Color::None;
 }
 
-bool CellStorage::IsLocatedAtBottom(const Tetromino& tetromino)
+bool CellStorage::IsLocatedAtBottom(const Tetromino& tetromino) const
 {
 	return std::ranges::any_of(tetromino.GetCells(), [this](const auto& cell)
 	{
 		return IsLocatedAtBottom(cell);
+	});
+}
+
+bool CellStorage::IsLocatedInCells(const Tetromino& tetromino)
+{
+	return std::ranges::any_of(tetromino.GetCells(), [this](const Cell& cell)
+	{
+		return GetCellAt(cell).GetBackground() != Color::None;
 	});
 }
 

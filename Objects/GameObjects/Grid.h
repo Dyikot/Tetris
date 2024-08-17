@@ -4,8 +4,8 @@
 
 class Grid : public Object
 {
-private:
-	SDL_Point _startPoint;
+public:
+	const SDL_Point Position;
 
 	const int Rows;
 	const int Columns;
