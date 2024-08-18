@@ -6,12 +6,12 @@ Grid::Grid(const SDL_Point& position,
 		   int width, 
 		   int height, 
 		   Color background) noexcept:
-	_startPoint(position),
-	RowsAmount(rowsAmount),
-	ColumnsAmount(columnsAmount),
+	Object(background),
+	Position(position),
+	Rows(rowsAmount),
+	Columns(columnsAmount),
 	Width(width),
-	Height(height),
-	Object(background)
+	Height(height)	
 {
 
 }
@@ -22,11 +22,11 @@ void Grid::Show() const noexcept
 
 	for(int x = ColumnWidth; x < Width; x += ColumnWidth)
 	{
-		SDL_RenderDrawLine(_renderer, x, _startPoint.y, x, Height);
+		SDL_RenderDrawLine(_renderer, x, Position.y, x, Height);
 	}
 
 	for(int y = RowHeight; y < Height; y += RowHeight)
 	{
-		SDL_RenderDrawLine(_renderer, _startPoint.x, y, Width, y);
+		SDL_RenderDrawLine(_renderer, Position.x, y, Width, y);
 	}
 }
