@@ -32,6 +32,7 @@ void GameScene::Process()
 		}
 
 		_activeTetromino = SelectRandomTetromino();
+		_activeTetromino.CanReselected = true;
 
 		if(_cellStorage.IsLocatedInCells(_activeTetromino))
 		{
@@ -127,6 +128,7 @@ void GameScene::OnKeyDown(Object* sender, const SDL_KeyboardEvent& e)
 		case SDLK_c:
 			if(_activeTetromino.CanReselected)
 			{
+				_activeTetromino.CanReselected = false;
 				_activeTetromino = SelectRandomTetromino();
 			}
 

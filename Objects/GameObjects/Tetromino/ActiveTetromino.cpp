@@ -42,7 +42,6 @@ Tetromino& ActiveTetromino::operator=(const Tetromino& other) noexcept
 	_type = other.GetType();
 	Placeholder = other;
 	Placeholder.SetBackground(PlaceholderColor);
-	CanReselected = true;
 
 	return *this;
 }
