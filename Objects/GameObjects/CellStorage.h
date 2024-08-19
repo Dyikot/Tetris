@@ -11,18 +11,13 @@ class CellStorage: public Object
 {
 public:
 	const int Rows;
-
 	const int Columns;
-
 	const int ActionsForCellClearAnimation = Columns / 2;
-
 	Texture* const CellTexture;
-
 	Animation RowClearAnimation = Animation(/*period*/ std::chrono::milliseconds(70),
 											ActionsForCellClearAnimation);
 private:
 	std::vector<std::vector<Cell>> _storage;
-
 	std::vector<int> _fullRowsIndices = std::vector<int>();
 public:
 	CellStorage(int rows, int columns, Texture* const cellTexture) noexcept;

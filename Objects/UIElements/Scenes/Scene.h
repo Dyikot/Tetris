@@ -10,15 +10,11 @@ class Scene: public UIElement, public IScene
 {
 public:
 	using QuitEventHandler = std::function<void(Object* sender, const SDL_QuitEvent&)>;
-
 	using EventHandler = std::function<void(Object* sender, const EventArgs&)>;
 
 	QuitEventHandler Quit;
-
 	EventHandler Hidden;
-
 	EventHandler Closed;
-
 	std::vector<Object*> Objects;
 protected:
 	SceneVisibility _visibility = SceneVisibility::Visible;

@@ -8,11 +8,9 @@ class Button: public Control
 {
 public:
 	static constexpr Color DefaultBorderColor = Color::Green;
-
 	MouseEventHandler Click;
 protected:
 	Color _borderColor;
-
 	Control* _content;
 public:
 	Button(const SDL_Point& position,

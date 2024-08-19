@@ -18,7 +18,6 @@ private:
 							     "Tetris",
 							     TextBlock::ActiveTextColor,
 							     Header1TextSize);
-
 	// Start game button
 
 	const SDL_Point StartGameButtonPosition =
@@ -26,7 +25,6 @@ private:
 		.x = DefaultButtonXPosition,
 		.y = CalculateButtonVerticalPosition(/*order*/ 0)
 	};
-
 	TextButton _startGameButton = TextButton(StartGameButtonPosition,
 											 DefaultButtonWidth,
 											 DefaultButtonHeight,
@@ -43,7 +41,6 @@ private:
 		.x = DefaultButtonXPosition,
 		.y = CalculateButtonVerticalPosition(/*order*/ 1)
 	};
-
 	TextButton _settingsButton = TextButton(SettingsButtonPosition,
 											DefaultButtonWidth,
 											DefaultButtonHeight,
@@ -60,7 +57,6 @@ private:
 		.x = DefaultButtonXPosition,
 		.y = CalculateButtonVerticalPosition(/*order*/ 2)
 	};
-
 	TextButton _exitButton = TextButton(ExitButtonPosition,
 										DefaultButtonWidth,
 										DefaultButtonHeight,

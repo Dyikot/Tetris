@@ -56,6 +56,5 @@ bool ActionBase::IsPaused() const noexcept
 std::chrono::milliseconds ActionBase::GetTickDuration() const noexcept
 {
 	return std::chrono::duration_cast<std::chrono::milliseconds>(
-		std::chrono::steady_clock::now() - _tickStartTime
-	);
+		   std::chrono::steady_clock::now() - _tickStartTime);
 }

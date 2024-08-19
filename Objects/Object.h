@@ -10,7 +10,6 @@ public:
 	static constexpr Color DefaultBackgroundColor = Color::None;
 protected:
 	Color _backgroud;
-
 	SDL_Renderer* _renderer = Application::Current()->GetRenderer();
 public:
 	Object(Color background = DefaultBackgroundColor) noexcept;

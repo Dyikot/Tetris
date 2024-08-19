@@ -24,7 +24,6 @@ private:
 		.x = DefaultButtonXPosition,
 		.y = CalculateButtonVerticalPosition(/*order*/ 0)
 	};
-
 	TextButton _continueButton = TextButton(ContinueButtonPosition,
 											DefaultButtonWidth,
 											DefaultButtonHeight,
@@ -41,7 +40,6 @@ private:
 		.x = DefaultButtonXPosition,
 		.y = CalculateButtonVerticalPosition(/*order*/ 1)
 	};
-
 	TextButton _settingsButton = TextButton(SettingsButtonPosition,
 											DefaultButtonWidth,
 											DefaultButtonHeight,
@@ -58,7 +56,6 @@ private:
 		.x = DefaultButtonXPosition,
 		.y = CalculateButtonVerticalPosition(/*order*/ 2)
 	};
-
 	TextButton _exitButton = TextButton(ExitButtonPosition,
 										DefaultButtonWidth,
 										DefaultButtonHeight,

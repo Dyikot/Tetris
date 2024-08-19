@@ -7,15 +7,11 @@ class TextBlock: public Control
 {
 public:
 	static constexpr Color ActiveTextColor = Color::Whitesmoke;
-
 	static constexpr Color InactiveTextColor = Color::Grey;
 protected:
 	std::string _text;
-
 	Color _textColor;
-
 	TTF_Font* _font;
-
 	SDL_Texture* _textTexture;
 public:
 	TextBlock(const SDL_Point& position,

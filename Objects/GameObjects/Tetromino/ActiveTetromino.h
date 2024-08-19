@@ -10,11 +10,8 @@ public:
 	static constexpr Color PlaceholderColor = Color::Grey;
 
 	Tetromino Placeholder;
-
 	Action Movement = Action(/*period*/ std::chrono::milliseconds(700));
-
 	bool CanReselected = true;
-
 	bool NeedsToFall = false;
 public:
 	ActiveTetromino(TetrominoType type, const std::array<Cell, 4>& cells) noexcept;

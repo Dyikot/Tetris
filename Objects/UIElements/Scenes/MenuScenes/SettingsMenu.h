@@ -15,13 +15,10 @@ class SettingsMenu: public MenuScene
 {
 private:
 	static constexpr int ResolutionContainerWidth = 280;
-
 	static constexpr int ResolutionContainerHeight = 50;
 
 	const int DefaultSliderWidth = 200;
-
 	const int DefaultSliderHeight = 30;
-
 	const int DefaultSliderHorizontalPosition = Application::Current()->WindowWidth / 2
 												- DefaultSliderWidth / 2;
 
@@ -38,7 +35,6 @@ private:
 		{"900x1800",  {900, 1800}},
 		{"1000x2000", {1000, 2000}}
 	};
-
 	const std::vector<std::string> WindowResolutions =
 	{
 		"300x600",
@@ -54,10 +50,8 @@ private:
 	// Settings data serialization
 
 	SettinsDataSerializer _settingsDataSerializer = SettinsDataSerializer();
-
 	std::unique_ptr<SerializationData> _serializationData = _settingsDataSerializer
-		.Deserialize();
-
+															.Deserialize();
 	SettingsData* _settingsData = dynamic_cast<SettingsData*>(_serializationData.get());
 
 	// Main title
@@ -75,7 +69,6 @@ private:
 		.x = MainTitlePosition.x,
 		.y = FirstControlVerticalPosition
 	};
-
 	TextBlock _resolutionTitle = TextBlock(ResolutionContainerTitlePosition,
 										   Object::DefaultBackgroundColor,
 										   "Window resolution",
@@ -85,7 +78,6 @@ private:
 	// Resolution container
 	
 	size_t _activeResolutionIndex = _settingsData->AcvtiveResolutionIndex;
-
 	const SDL_Point ResolutionContainerPosition =
 	{
 		.x = MainTitlePosition.x - ResolutionContainerWidth / 2,
@@ -93,7 +85,6 @@ private:
 			 + _resolutionTitle.GetHeight() 
 			 + VerticalSpacing
 	};
-
 	Container _resolutionContainer = Container(ResolutionContainerPosition,
 											   ResolutionContainerWidth,
 											   ResolutionContainerHeight,
@@ -108,7 +99,6 @@ private:
 		.x = DefaultButtonXPosition,
 		.y = ResolutionContainerPosition.y + _resolutionContainer.GetHeight() + VerticalSpacing
 	};
-
 	TextButton _applyButton = TextButton(ApplyButtonPosition,
 										 DefaultButtonWidth,
 										 DefaultButtonHeight,
@@ -127,7 +117,6 @@ private:
 			 + static_cast<int>(_applyButton.GetHeight() * 1.5)
 			 + 3 * VerticalSpacing
 	};
-
 	TextBlock _soundEffectTitle = TextBlock(SoundEffectsTitlePosition,
 											Object::DefaultBackgroundColor,
 											"Sound effects",
@@ -143,7 +132,6 @@ private:
 			 + _soundEffectTitle.GetHeight() 
 			 + VerticalSpacing
 	};
-
 	Slider _soundEffectsSlider = Slider(SoundEffectsSliderPosition,
 										DefaultSliderWidth,
 										DefaultSliderHeight,
@@ -159,7 +147,6 @@ private:
 			 + static_cast<int>(_soundEffectsSlider.GetHeight() * 1.5)
 			 + 3 * VerticalSpacing
 	};
-
 	TextBlock _musicTitle = TextBlock(MusicTitlePosition,
 									  Object::DefaultBackgroundColor,
 									  "Music",
@@ -175,7 +162,6 @@ private:
 			 + _musicTitle.GetHeight() 
 			 + VerticalSpacing
 	};	
-
 	Slider _musicSlider = Slider(MusicSliderPosition,
 								 DefaultSliderWidth,
 								 DefaultSliderHeight,
@@ -191,7 +177,6 @@ private:
 			 + static_cast<int>(_musicSlider.GetHeight() * 1.5)
 			 + 3 * VerticalSpacing
 	};
-
 	TextButton _backButton = TextButton(BackButtonPosition,
 										DefaultButtonWidth,
 										DefaultButtonHeight,

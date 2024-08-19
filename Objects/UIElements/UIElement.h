@@ -12,18 +12,14 @@ class UIElement: public Object
 {
 public:
 	using MouseEventHandler = std::function<void(Object*, const SDL_MouseButtonEvent& e)>;
-
 	using KeyEventHandler = std::function<void(Object*, const SDL_KeyboardEvent& e)>;
 
 	MouseEventHandler MouseDown;
-
 	MouseEventHandler MouseMove;
-
 	KeyEventHandler KeyDown;
-
 	KeyEventHandler KeyHold;
 public:
-	UIElement(Color backgound = DefaultBackgroundColor) noexcept;
+	UIElement(Color background = DefaultBackgroundColor) noexcept;
 
 	virtual ~UIElement() = default;
 

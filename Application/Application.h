@@ -8,19 +8,14 @@ class Application
 {
 public:
 	static constexpr int WindowWidth = 400;
-
 	static constexpr int WindowHeight = 800;
 protected:
 	inline static Application* _current = nullptr;
 
 	IScene* _currentScene = nullptr;
-
 	IScene* _nextScene = nullptr;
-
 	std::stack<IScene*> _hiddenScenes = std::stack<IScene*>();
-
 	SDL_Window* _currentWindow = nullptr;
-
 	SDL_Renderer* _renderer = nullptr;
 public:
 	static Application* const Current();

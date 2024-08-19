@@ -9,17 +9,12 @@ class Control : public UIElement
 {
 public:
 	Color BackgroundColorOnHover;
-
 	MouseEventHandler MouseEnter;
-
 	MouseEventHandler MouseLeave;
 protected:
 	SDL_Point _position;
-
 	int _width;
-
 	int _height;
-
 	Color _savedBackground;
 public:
 	Control(const SDL_Point& position,

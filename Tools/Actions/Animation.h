@@ -16,11 +16,9 @@ class Animation: public ActionBase
 public:
 	using AnimationEventHandler = std::function<void(Animation*, const AnimationEventArgs&)>;
 
-	AnimationEventHandler AnimationCompleted;
-
-	AnimationEventHandler ActionCompleted;
-
 	const size_t Actions;
+	AnimationEventHandler AnimationCompleted;
+	AnimationEventHandler ActionCompleted;
 protected:
 	size_t _actionsCompleted = 0;
 public:

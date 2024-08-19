@@ -16,7 +16,6 @@ class Game : public Application
 {
 private:
 	bool _isGameRunning = false;
-
 	HoldKeyEvent _holdKeyEvent;
 public:
 	Game();

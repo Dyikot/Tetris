@@ -21,35 +21,24 @@ class GameScene: public Scene
 {
 private:
 	static constexpr int HorizontalCellsNumber = 10;
-
 	static constexpr int VerticalCellsNumber = 20;
-
 	static constexpr int FieldWidth = HorizontalCellsNumber * Cell::Size;
-
 	static constexpr int FieldHeight = VerticalCellsNumber * Cell::Size;
-
 	static constexpr int LeftBorder = 0;
-
 	static constexpr int RightBorder = LeftBorder + FieldWidth;
-
 	static constexpr int TopBorder = 0;
-
 	static constexpr int BottomBorder = TopBorder + FieldHeight;
-
 	static constexpr int ActionsForCellClearAnimation = HorizontalCellsNumber / 2;
 	
 	Random _random;
-
 	Texture _cellTexture = Texture(Application::Current()->GetRenderer(),
 								   "Resources/Textures/tile.png");
-
 	/// <summary>
 	/// Клетки упавших тетрамино
 	/// </summary>
 	CellStorage _cellStorage = CellStorage(VerticalCellsNumber,
 										   HorizontalCellsNumber,
 										   &_cellTexture);
-
 	/// <summary>
 	/// Сетка поля
 	/// </summary>
@@ -58,8 +47,7 @@ private:
 					  /*columns*/ HorizontalCellsNumber,
 					  /*width*/ FieldWidth * Scale,	
 					  /*height*/ FieldHeight * Scale,
-					  /*backgound*/ Color::Darkgrey);
-	
+					  /*backgound*/ Color::Darkgrey);	
 	/// <summary>
 	/// Типы тетрамино
 	/// </summary>
@@ -122,7 +110,6 @@ private:
 					  Cell(&_cellTexture, SDL_Point{ .x = 60, .y = 10 })
 				  })
 	};
-
 	/// <summary>
 	/// Управляемое игроком тетрамино
 	/// </summary>

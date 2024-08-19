@@ -25,7 +25,6 @@ private:
 		.x = DefaultButtonXPosition,
 		.y = CalculateButtonVerticalPosition(/*order*/ 0)
 	};
-
 	TextButton _retryButton = TextButton(RetryButtonPosition,
 										 DefaultButtonWidth,
 										 DefaultButtonHeight,
@@ -42,7 +41,6 @@ private:
 		.x = DefaultButtonXPosition,
 		.y = CalculateButtonVerticalPosition(/*order*/ 1)
 	};
-
 	TextButton _exitButton = TextButton(ExitButtonPosition,
 										DefaultButtonWidth,
 										DefaultButtonHeight,

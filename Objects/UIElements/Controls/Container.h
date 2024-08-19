@@ -17,27 +17,21 @@ public:
 	using CurrentItemChangedEventHanler = std::function<void(Object*, const CurrentItemEventArgs&)>;
 
 	CurrentItemChangedEventHanler CurrentItemChanged;
-
 	const std::vector<std::string> const Items;
 protected:
 	Button* _hoverButton = nullptr;
-
 	const int ButtonWidth = _height * 0.75;
-
 	const int ButtonHeight = _height;
 
 	// Left button
 
 	const SDL_Point LeftButtonPosition = _position;
-
 	Texture _leftTexture = Texture(_renderer, "Resources/Textures/left.png");
-
 	Image _leftButtonImage = Image(LeftButtonPosition,
 								   ButtonWidth,
 								   ButtonHeight,
 								   Color::Green,
-								   &_leftTexture);	
-
+								   &_leftTexture);
 	Button _leftButton = Button(LeftButtonPosition,
 								ButtonWidth,
 								ButtonHeight,
@@ -52,7 +46,6 @@ protected:
 		.x = _position.x + _width / 2,
 		.y = _position.y + _height / 2
 	};
-
 	TextBlock _textBlock = TextBlock(TextBlockPosition,
 									 _backgroud,
 									 "",
@@ -66,15 +59,12 @@ protected:
 		.x = _position.x + _width - ButtonWidth,
 		.y = _position.y
 	};
-
 	Texture _rightTexture = Texture(_renderer, "Resources/Textures/right.png");
-
 	Image _rightButtonImage = Image(RightButtonPosition,
 									ButtonWidth,
 									ButtonHeight,
 									Color::Green,
 									&_rightTexture);
-
 	Button _rightButton = Button(RightButtonPosition,
 								 ButtonWidth,
 								 ButtonHeight,
@@ -83,7 +73,6 @@ protected:
 								 &_rightButtonImage);
 
 	size_t _currentItemIndex;
-
 	const std::vector<Button*> _buttons = { &_rightButton, &_leftButton };
 public:
 	Container(const SDL_Point& position,
