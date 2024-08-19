@@ -81,7 +81,7 @@ bool GameScene::HasActiveTetrominoFallen()
 
 void GameScene::OnLeftKeyPressed()
 {
-	if(!_activeTetromino.IsOutLeftBorder(LeftBorder))
+	if(!_activeTetromino.IsOnLeftBorder(LeftBorder))
 	{
 		_activeTetromino.Move(MovementSide::Left);
 	}
@@ -89,7 +89,7 @@ void GameScene::OnLeftKeyPressed()
 
 void GameScene::OnRightKeyPressed()
 {
-	if(!_activeTetromino.IsOutRightBorder(RightBorder))
+	if(!_activeTetromino.IsOnRightBorder(RightBorder))
 	{
 		_activeTetromino.Move(MovementSide::Right);
 	}

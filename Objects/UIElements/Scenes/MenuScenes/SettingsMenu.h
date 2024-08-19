@@ -15,10 +15,13 @@ class SettingsMenu: public MenuScene
 {
 private:
 	static constexpr int ResolutionContainerWidth = 280;
+
 	static constexpr int ResolutionContainerHeight = 50;
 
 	const int DefaultSliderWidth = 200;
+
 	const int DefaultSliderHeight = 30;
+
 	const int DefaultSliderHorizontalPosition = Application::Current()->WindowWidth / 2
 												- DefaultSliderWidth / 2;
 

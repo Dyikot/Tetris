@@ -8,11 +8,13 @@ class Application
 {
 public:
 	static constexpr int WindowWidth = 400;
+
 	static constexpr int WindowHeight = 800;
 protected:
 	inline static Application* _current = nullptr;
 
 	IScene* _currentScene = nullptr;
+
 	IScene* _nextScene = nullptr;
 
 	std::stack<IScene*> _hiddenScenes = std::stack<IScene*>();
@@ -35,13 +37,13 @@ public:
 
 	void SetHiddenSceneToNext() noexcept;
 
+	void SetWindowSize(size_t width, size_t height) noexcept;
+
 	SDL_Window* GetCurrentWindow() noexcept;
 
 	SDL_Renderer* GetRenderer() const noexcept;
 
-	bool IsNextSceneSet() const noexcept;
-
-	void SetWindowSize(size_t width, size_t height) noexcept;
+	bool IsNextSceneSet() const noexcept;	
 protected:
 	void SwitchToNextScene() noexcept;
 };

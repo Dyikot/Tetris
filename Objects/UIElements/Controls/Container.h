@@ -23,6 +23,7 @@ protected:
 	Button* _hoverButton = nullptr;
 
 	const int ButtonWidth = _height * 0.75;
+
 	const int ButtonHeight = _height;
 
 	// Left button
@@ -96,15 +97,15 @@ public:
 
 	void Show() const noexcept override;
 
-	const std::string* GetCurrentItem() const;
-
-	size_t GetCurrentItemIndex() const;
-
 	void MoveCurrentItemRight() noexcept;
 
 	void MoveCurrentItemLeft() noexcept;
 
 	void MoveCurrentItemAt(size_t index) noexcept;
+
+	const std::string* GetCurrentItem() const;
+
+	size_t GetCurrentItemIndex() const;
 
 	const Button& GetRightButton() const noexcept;
 
@@ -112,8 +113,6 @@ public:
 protected:
 	virtual void OnCurrentItemChanged(const CurrentItemEventArgs& e) noexcept;
 private:
-	bool IsIndexInRange(size_t index) const noexcept;
-
 	void OnHover(Object* sender, const SDL_MouseButtonEvent& e);
 
 	void OnClick(Object* sender, const SDL_MouseButtonEvent& e);
@@ -121,5 +120,7 @@ private:
 	void OnLeftButtonClick(Object* sender, const SDL_MouseButtonEvent& e);
 
 	void OnRightButtonClick(Object* sender, const SDL_MouseButtonEvent& e);
+
+	bool IsIndexInRange(size_t index) const noexcept;
 };
 

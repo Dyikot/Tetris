@@ -73,10 +73,12 @@ void Slider::MoveThumbTo(const int x) noexcept
 
 size_t Slider::GetFilling() const noexcept
 {
-	return (_thumbPosition.x - StartThumbXPosition) * 100 / (EndThumbXPosition - StartThumbXPosition);
+	return (_thumbPosition.x - StartThumbXPosition) * 100
+		   / (EndThumbXPosition - StartThumbXPosition);
 }
 
 void Slider::SetFilling(size_t filling) noexcept
 {
-	MoveThumbTo(filling * (EndThumbXPosition - StartThumbXPosition) / 100 + StartThumbXPosition);
+	MoveThumbTo(filling * (EndThumbXPosition - StartThumbXPosition) / 100 
+				+ StartThumbXPosition);
 }

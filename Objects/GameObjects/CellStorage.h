@@ -11,7 +11,9 @@ class CellStorage: public Object
 {
 public:
 	const int Rows;
+
 	const int Columns;
+
 	const int ActionsForCellClearAnimation = Columns / 2;
 
 	Texture* const CellTexture;
@@ -59,9 +61,9 @@ public:
 
 	std::vector<Cell>& operator[](int row);
 private:
-	bool IsRowFull(int row);
-
 	void OnRowClearAnimationCompleted(Animation* sender, const AnimationEventArgs& e);
 
 	void OnRowClearAnimationActionCompleted(Animation* sender, const AnimationEventArgs& e);
+
+	bool IsRowFull(int row);
 };

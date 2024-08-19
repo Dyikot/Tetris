@@ -6,15 +6,19 @@ class Slider: public Control
 {
 public:
 	static constexpr Color DefaultColor = Color::Green;
+
 	static constexpr size_t Full = 100;
 protected:
 	const Color ThumbColor = Color::Whitesmoke;
+
 	const Color BorderColor = Color::Green;
 
 	const int ThumbWidth;
+
 	const int ThumbHeight;
 	
 	const int StartThumbXPosition;
+
 	const int EndThumbXPosition;
 
 	SDL_Point _thumbPosition;
@@ -29,8 +33,8 @@ public:
 
 	void MoveThumbTo(const int x) noexcept;
 
+	void SetFilling(size_t filling) noexcept;
+
 	/// <returns>процент заполнения 0 - 100 %</returns>
 	size_t GetFilling() const noexcept;
-
-	void SetFilling(size_t filling) noexcept;
 };

@@ -11,11 +11,13 @@ public:
 	Color BackgroundColorOnHover;
 
 	MouseEventHandler MouseEnter;
+
 	MouseEventHandler MouseLeave;
 protected:
 	SDL_Point _position;
 
 	int _width;
+
 	int _height;
 
 	Color _savedBackground;
@@ -35,6 +37,10 @@ public:
 
 	virtual void SetBackground(Color color) noexcept override;
 
+	virtual void OnMouseEnter(const SDL_MouseButtonEvent& e);
+
+	virtual void OnMouseLeave(const SDL_MouseButtonEvent& e);
+
 	virtual int GetWight() const noexcept;
 
 	virtual int GetHeight() const noexcept;
@@ -42,8 +48,4 @@ public:
 	virtual const SDL_Point& GetPosition() const noexcept;
 
 	virtual bool IsMouseOver(const SDL_MouseButtonEvent& e) noexcept;
-
-	virtual void OnMouseEnter(const SDL_MouseButtonEvent& e);
-
-	virtual void OnMouseLeave(const SDL_MouseButtonEvent& e);
 };

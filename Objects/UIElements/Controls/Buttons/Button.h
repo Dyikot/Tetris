@@ -28,7 +28,7 @@ public:
 
 	void SetContent(Control* content) noexcept;
 
-	Control* const GetContent() const;
-
 	virtual void OnClick(const SDL_MouseButtonEvent& e);
+
+	Control* const GetContent() const;
 };

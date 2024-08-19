@@ -42,25 +42,22 @@ public:
 	/// <param name="top">- верхняя граница игрового поля</param>
 	void CorrectCoordinates(int left, int right, int top);
 
-	/// <summary>
-	/// Проверка на то, не зашло ли тетрамино за левую границу игрового поля
-	/// </summary>
-	/// <param name="left">- левая граница игрового поля</param>
+	bool IsOnRightBorder(int right) const noexcept;
+
+	bool IsOnLeftBorder(int left) const noexcept;
+
 	bool IsOutLeftBorder(int left) const noexcept;
 
-	/// <summary>
-	/// Проверка на то, не зашло ли тетрамино за правую границу игрового поля
-	/// </summary>
-	/// <param name="right">- правая граница игрового поля</param>
-	/// <returns></returns>
 	bool IsOutRightBorder(int right) const noexcept;
+
+	bool IsOutTopBorder(int top) const noexcept;
 
 	/// <summary>
 	/// Выбирается точка вокруг которой происходит вращение
 	/// </summary>
 	/// <param name="tetrominoType">- тип тетрамино</param>
-	/// <returns>Возвращает индекс точки массива _cells </returns>
-	int SelectRotationCenter(TetrominoType tetrominoType) const;
+	/// <returns>Возвращает точку вращения</returns>
+	const SDL_Point& GetRotationCenter(TetrominoType tetrominoType) const;
 
 	/// <summary>
 	/// Поиск самой низкой клетки
