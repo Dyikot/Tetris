@@ -48,16 +48,16 @@ public:
 	virtual void Hide() = 0;
 
 	/// <summary>
-	/// Возращает текущее отображение сцены.
-	/// Отображение может быть: Visible, Hidden и Closed.
-	/// </summary>
-	/// <returns>Отображение сцены SceneVisibility</returns>
-	virtual SceneVisibility GetVisibility() const = 0;
-
-	/// <summary>
 	/// Задает текущее отображение сцены.
 	/// Отображение может быть: Visible, Hidden и Closed.
 	/// </summary>
 	/// <param name="visibility">- отображение сцены</param>
 	virtual void SetVisibility(SceneVisibility visibility) = 0;
+
+	/// <summary>
+	/// Возращает текущее отображение сцены.
+	/// Отображение может быть: Visible, Hidden и Closed.
+	/// </summary>
+	/// <returns>Отображение сцены SceneVisibility</returns>
+	virtual SceneVisibility GetVisibility() const = 0;
 };

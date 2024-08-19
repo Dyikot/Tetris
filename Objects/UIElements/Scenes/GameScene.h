@@ -21,13 +21,21 @@ class GameScene: public Scene
 {
 private:
 	static constexpr int HorizontalCellsNumber = 10;
+
 	static constexpr int VerticalCellsNumber = 20;
+
 	static constexpr int FieldWidth = HorizontalCellsNumber * Cell::Size;
+
 	static constexpr int FieldHeight = VerticalCellsNumber * Cell::Size;
+
 	static constexpr int LeftBorder = 0;
+
 	static constexpr int RightBorder = LeftBorder + FieldWidth;
+
 	static constexpr int TopBorder = 0;
+
 	static constexpr int BottomBorder = TopBorder + FieldHeight;
+
 	static constexpr int ActionsForCellClearAnimation = HorizontalCellsNumber / 2;
 	
 	Random _random;
@@ -50,7 +58,7 @@ private:
 					  /*columns*/ HorizontalCellsNumber,
 					  /*width*/ FieldWidth * Scale,	
 					  /*height*/ FieldHeight * Scale,
-					  /*backgound*/ Color::Grey);
+					  /*backgound*/ Color::Darkgrey);
 	
 	/// <summary>
 	/// Типы тетрамино

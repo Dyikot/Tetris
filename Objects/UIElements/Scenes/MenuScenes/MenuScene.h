@@ -10,12 +10,19 @@ class MenuScene: public Scene
 {
 public:
 	static constexpr int DefaultButtonWidth = 120;
+
 	static constexpr int DefaultButtonHeight = 40;
+
 	static constexpr int FirstControlVerticalPosition = 300;	
+
 	static constexpr int Header1TextSize = 72;
+
 	static constexpr int Header2TextSize = 60;
+
 	static constexpr int Header3TextSize = 48;
+
 	static constexpr int Header4TextSize = 36;
+
 	static constexpr int VerticalSpacing = 10;
 
 	const int DefaultButtonXPosition = Application::Current()->WindowWidth / 2
@@ -33,11 +40,11 @@ protected:
 public:
 	virtual ~MenuScene() = default;
 
-	int CalculateButtonVerticalPosition(const int order);
-
 	void SetBackground() override;
 
 	void Process() override;
+
+	int CalculateButtonVerticalPosition(const int order);
 protected:
 	virtual void OnMouseMove(const SDL_MouseButtonEvent& e) override;
 

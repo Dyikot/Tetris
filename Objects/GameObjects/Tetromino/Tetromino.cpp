@@ -30,21 +30,17 @@ void Tetromino::Rotate()
 		return;
 	}
 
-	auto angle = std::numbers::pi / 2;
-	SDL_Point newCoordinates;
-	int rotationCenterIndex = SelectRotationCenter(_type);
-	int shiftByY = _cells[rotationCenterIndex].Position.y;
-	int shiftByX = _cells[rotationCenterIndex].Position.x;
+	SDL_Point newPosition;
+
+	const auto [x, y] = GetRotationCenter(_type);
+	const auto cos90 = cos(std::numbers::pi / 2);
+	const auto sin90 = sin(std::numbers::pi / 2);
 
 	for(auto& cell : _cells)
 	{
-		newCoordinates.x = static_cast<int>((cell.Position.x - shiftByX) * cos(angle))
-						   - static_cast<int>((cell.Position.y - shiftByY) * sin(angle))
-						   + shiftByX;
-		newCoordinates.y = static_cast<int>((cell.Position.x - shiftByX) * sin(angle))
-						   + static_cast<int>((cell.Position.y - shiftByY) * cos(angle))
-						   + shiftByY;
-		cell.Position = newCoordinates;
+		newPosition.x = (cell.Position.x - x) * cos90 - (cell.Position.y - y) * sin90 + x;
+		newPosition.y = (cell.Position.x - x) * sin90 + (cell.Position.y - y) * cos90 + y;
+		cell.Position = newPosition;
 	}
 }
 
@@ -52,7 +48,15 @@ bool Tetromino::IsOutRightBorder(int right) const noexcept
 {
 	return std::ranges::any_of(_cells, [right](const Cell& cell) noexcept
 	{
-		return cell.Position.x + Cell::Size >= right;
+		return cell.Position.x + Cell::Size > right;
+	});
+}
+
+bool Tetromino::IsOutTopBorder(int top) const noexcept
+{
+	return std::ranges::any_of(_cells, [top](const Cell& cell) noexcept
+	{
+		return cell.Position.y < top;
 	});
 }
 
@@ -60,48 +64,52 @@ bool Tetromino::IsOutLeftBorder(int left) const noexcept
 {
 	return std::ranges::any_of(_cells, [left](const auto& cell) noexcept
 	{
-		return cell.Position.x <= left;
+		return cell.Position.x < left;
 	});
 }
 
 void Tetromino::CorrectCoordinates(int left, int right, int top)
 {
-	for(int i = 0; i < _cells.size(); i++)
+	if(IsOutLeftBorder(left))
 	{
-		if(_cells[i].Position.x <= left)
+		do
 		{
-			for(int j = i; j < _cells.size(); j++)
-			{
-				if(_cells[j].Position.x <= left)
-				{
-					Move(MovementSide::Right);
-					j--;
-				}				
-			}
-		}
-		else if(_cells[i].Position.x >= right)
-		{
-			for(int j = i; j < _cells.size(); j++)
-			{
-				if(_cells[i].Position.x >= right)
-				{
-					Move(MovementSide::Left);
-					j--;
-				}
-			}
-		}
-		else if(_cells[i].Position.y <= top)
-		{
-			for(int j = i; j < _cells.size(); j++)
-			{
-				if(_cells[i].Position.y <= top)
-				{
-					Move(MovementSide::Down);
-					j--;
-				}
-			}
-		}
+			Move(MovementSide::Right);
+		} 
+		while(IsOutLeftBorder(left));
 	}
+	else if(IsOutRightBorder(right))
+	{
+		do
+		{
+			Move(MovementSide::Left);
+		} 
+		while(IsOutRightBorder(right));
+	}
+	else if(IsOutTopBorder(top))
+	{
+		do
+		{
+			Move(MovementSide::Down);
+		} 
+		while(IsOutLeftBorder(top));
+	}
+}
+
+bool Tetromino::IsOnRightBorder(int right) const noexcept
+{
+	return std::ranges::any_of(_cells, [right](const Cell& cell) noexcept
+	{
+		return cell.Position.x + Cell::Size == right;
+	});
+}
+
+bool Tetromino::IsOnLeftBorder(int left) const noexcept
+{
+	return std::ranges::any_of(_cells, [left](const auto& cell) noexcept
+	{
+		return cell.Position.x == left;
+	});
 }
 
 const std::array<Cell, 4>& Tetromino::GetCells() const noexcept
@@ -148,24 +156,24 @@ void Tetromino::CopyCoordinates(const Tetromino& tetromino) noexcept
 	}
 }
 
-int Tetromino::SelectRotationCenter(TetrominoType tetrominoType) const
+const SDL_Point& Tetromino::GetRotationCenter(TetrominoType tetrominoType) const
 {
 	switch(tetrominoType)
 	{
 		case TetrominoType::L:
-			return 1;
+			return _cells[1].Position;
 
 		case TetrominoType::I:
 		case TetrominoType::J:
 		case TetrominoType::S:
 		case TetrominoType::T:
 		case TetrominoType::Z:
-			return 2;	
+			return _cells[2].Position;
 
 		case TetrominoType::O:
-			return 3;
+			return _cells[3].Position;
 		
 		default:
-			throw std::exception();
+			return _cells[0].Position;
 	}
 }

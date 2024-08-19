@@ -1,6 +1,6 @@
 #include "UIElement.h"
 
-UIElement::UIElement(Color backgound):
+UIElement::UIElement(Color backgound) noexcept:
 	Object(backgound)
 {
 

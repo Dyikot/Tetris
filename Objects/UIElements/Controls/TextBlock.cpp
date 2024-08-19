@@ -3,6 +3,7 @@
 void TextBlock::SetText(const std::string& text) noexcept
 {
     _text = text;
+
     SDL_DestroyTexture(_textTexture);
     _textTexture = GenerateTextureByText();
     SDL_QueryTexture(_textTexture, NULL, NULL, &_width, &_height);

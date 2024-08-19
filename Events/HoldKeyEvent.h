@@ -11,6 +11,7 @@ class HoldKeyEvent: public SDL_KeyboardEvent
 {
 public:
 	const std::chrono::milliseconds ActivationTime = std::chrono::milliseconds(140);
+
 	const std::chrono::milliseconds InvokeTime = std::chrono::milliseconds(30);
 private:
 	bool _isActive = false;
