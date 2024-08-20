@@ -1,8 +1,8 @@
 #include "Texture.h"
 
-Texture::Texture(SDL_Renderer* renderer, std::string_view string_view) noexcept
+Texture::Texture(SDL_Renderer* renderer, std::string_view path) noexcept
 {
-	_texture = IMG_LoadTexture(renderer, string_view.data());
+	_texture = IMG_LoadTexture(renderer, path.data());
 	
 	if(_texture == nullptr)
 	{

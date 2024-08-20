@@ -19,7 +19,9 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Audio\Music.h" />
     <ClInclude Include="Objects\GameObjects\Tetromino\ActiveTetromino.h" />
+    <ClInclude Include="Audio\SoundEffect.h" />
     <ClInclude Include="Tools\Actions\ActionBase.h" />
     <ClInclude Include="Tools\Actions\Action.h" />
     <ClInclude Include="Objects\GameObjects\CellStorage.h" />
@@ -55,7 +57,9 @@
     <ClInclude Include="Objects\UIElements\UIElement.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Audio\Music.cpp" />
     <ClCompile Include="Objects\GameObjects\Tetromino\ActiveTetromino.cpp" />
+    <ClCompile Include="Audio\SoundEffect.cpp" />
     <ClCompile Include="Tools\Actions\ActionBase.cpp" />
     <ClCompile Include="Tools\Actions\Action.cpp" />
     <ClCompile Include="Objects\GameObjects\CellStorage.cpp" />
@@ -81,7 +85,7 @@
     <ClCompile Include="Objects\UIElements\Scenes\GameScene.cpp" />
     <ClCompile Include="Objects\UIElements\Scenes\MenuScenes\PauseMenu.cpp" />
     <ClCompile Include="Objects\UIElements\Scenes\MenuScenes\SettingsMenu.cpp" />
-    <ClCompile Include="Source.cpp" />
+    <ClCompile Include="Main.cpp" />
     <ClCompile Include="Objects\UIElements\Scenes\MenuScenes\StartMenu.cpp" />
     <ClCompile Include="Objects\GameObjects\Tetromino\Tetromino.cpp" />
     <ClCompile Include="Objects\GameObjects\Cell.cpp" />
@@ -180,13 +184,13 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalIncludeDirectories>$(SolutionDir)External\Include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\Include</AdditionalIncludeDirectories>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)External\Libraries</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)Dependencies\Libraries</AdditionalLibraryDirectories>
       <AdditionalDependencies>SDL2_mixer.lib;SDL2_image.lib;SDL2_ttf.lib;SDL2.lib; SDL2main.lib;$(CoreLibraryDependencies);%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
@@ -198,7 +202,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)External\Include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\Include</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
@@ -208,7 +212,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)External\Libraries</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)Dependencies\Libraries</AdditionalLibraryDirectories>
       <AdditionalDependencies>SDL2_mixer.lib;SDL2_image.lib;SDL2_ttf.lib;SDL2.lib; SDL2main.lib;$(CoreLibraryDependencies);%(AdditionalDependencies)</AdditionalDependencies>
       <EntryPointSymbol>
       </EntryPointSymbol>

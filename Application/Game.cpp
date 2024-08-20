@@ -2,25 +2,8 @@
 
 Game::Game()
 {
-	// Initialization
-
-	if(SDL_Init(SDL_INIT_VIDEO | SDL_INIT_EVENTS) < 0)
-	{
-		std::cout << SDL_GetError() << '\n';
-	}
-
-	if(TTF_Init() < 0)
-	{
-		std::cout << SDL_GetError() << '\n';
-	}
+	InitSDL();
 	
-	if(!IMG_Init(IMG_InitFlags::IMG_INIT_PNG | IMG_InitFlags::IMG_INIT_JPG))
-	{
-		std::cout << SDL_GetError() << '\n';
-	}
-	
-	// Set window, render, audio
-
 	auto serializationData = SettinsDataSerializer().Deserialize();
 	auto settingsData = dynamic_cast<SettingsData*>(serializationData.get());
 
@@ -38,11 +21,11 @@ Game::Game()
 
 	_renderer = SDL_CreateRenderer(_currentWindow, -1, SDL_RENDERER_ACCELERATED);
 
-	SDL_SetRenderDrawBlendMode(_renderer, SDL_BLENDMODE_BLEND);
 	SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "linear");
+	SDL_SetRenderDrawBlendMode(_renderer, SDL_BLENDMODE_BLEND);
 	SDL_RenderSetLogicalSize(_renderer, WindowWidth, WindowHeight);
 
-	_isGameRunning = true;
+	_isRunning = true;
 	_currentScene = new StartMenu();
 }
 
@@ -50,15 +33,14 @@ Game::~Game()
 {
 	TTF_Quit();
 	IMG_Quit();
+	Mix_Quit();
 }
 
 void Game::Run()
 {		
-	SDL_Event event;
-	constexpr Uint32 Delay = 6;
+	SDL_Event event;	
 
-	// Игровой цикл
-	while(_isGameRunning)
+	while(_isRunning)
 	{
 		while(PollEvents(&event))
 		{
@@ -83,7 +65,7 @@ void Game::Run()
 
 void Game::Shutdown() noexcept
 {
-	_isGameRunning = false;
+	_isRunning = false;
 }
 
 bool Game::PollEvents(SDL_Event* e) noexcept
@@ -121,4 +103,27 @@ bool Game::PollEvents(SDL_Event* e) noexcept
 	}
 	
 	return false;
+}
+
+void Game::InitSDL() const
+{
+	if(SDL_Init(SDL_INIT_VIDEO | SDL_INIT_EVENTS | SDL_INIT_AUDIO) < 0)
+	{
+		std::cout << SDL_GetError() << '\n';
+	}
+
+	if(TTF_Init() < 0)
+	{
+		std::cout << SDL_GetError() << '\n';
+	}
+
+	if(!IMG_Init(IMG_InitFlags::IMG_INIT_PNG | IMG_InitFlags::IMG_INIT_JPG))
+	{
+		std::cout << SDL_GetError() << '\n';
+	}
+
+	if(Mix_OpenAudio(48000, MIX_DEFAULT_FORMAT, MIX_DEFAULT_CHANNELS, 2048) < 0)
+	{
+		std::cout << SDL_GetError() << '\n';
+	}
 }

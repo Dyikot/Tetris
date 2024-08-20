@@ -13,8 +13,10 @@
 
 class Game : public Application
 {
+public:
+	static constexpr Uint32 Delay = 6;
 private:
-	bool _isGameRunning = false;
+	bool _isRunning = false;
 	HoldKeyEvent _holdKeyEvent;
 public:
 	Game();
@@ -26,4 +28,6 @@ public:
 	void Shutdown() noexcept override;
 
 	bool PollEvents(SDL_Event* e) noexcept;
+private:
+	void InitSDL() const;
 };

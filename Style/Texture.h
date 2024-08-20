@@ -10,7 +10,7 @@ class Texture
 private:
 	SDL_Texture* _texture;
 public:
-	Texture(SDL_Renderer* renderer, std::string_view string_view) noexcept;
+	Texture(SDL_Renderer* renderer, std::string_view path) noexcept;
 
 	~Texture() noexcept;
 

@@ -56,7 +56,7 @@ void Scene::Hide()
 	OnHide(EventArgs{ .Source = this });
 }
 
-SceneVisibility Scene::GetVisibility() const
+SceneVisibility Scene::GetVisibility() const noexcept
 {
 	return _visibility;
 }

@@ -31,7 +31,7 @@ public:
 
 	void SetVisibility(SceneVisibility visibility) override;
 	
-	SceneVisibility GetVisibility() const override;
+	SceneVisibility GetVisibility() const noexcept override;
 protected:
 	virtual void OnQuit(const SDL_QuitEvent& e);
 
