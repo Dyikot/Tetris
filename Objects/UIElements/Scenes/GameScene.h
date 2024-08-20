@@ -10,12 +10,12 @@
 #include "../../GameObjects/Cell.h"
 #include "../../GameObjects/Grid.h"
 #include "../../GameObjects/Tetromino/ActiveTetromino.h"
+#include "../../GameObjects/Tetromino/TetrominoCollection.h"
 #include "../../GameObjects/CellStorage.h"
 #include "../../../Events/HoldKeyEvent.h"
 #include "../../../Style/Texture.h"
 #include "../../../Tools/Actions/Animation.h"
 #include "../../../Tools/Actions/Action.h"
-#include "Random/Random.h"
 
 class GameScene: public Scene
 {
@@ -30,7 +30,6 @@ private:
 	static constexpr int BottomBorder = TopBorder + FieldHeight;
 	static constexpr int ActionsForCellClearAnimation = HorizontalCellsNumber / 2;
 	
-	Random _random;
 	Texture _cellTexture = Texture(Application::Current()->GetRenderer(),
 								   "Resources/Textures/tile.png");
 	/// <summary>
@@ -49,71 +48,13 @@ private:
 					  /*height*/ FieldHeight * Scale,
 					  /*backgound*/ Color::Darkgrey);	
 	/// <summary>
-	/// Типы тетрамино
+	/// Коллекция всех видов тетрамино
 	/// </summary>
-	std::array<Tetromino, 7> _tetrominos = 
-	{
-		Tetromino(TetrominoType::I,
-				  std::array<Cell, 4>
-				  {
-					  Cell(&_cellTexture, SDL_Point{ .x = 30, .y = 0 }),
-					  Cell(&_cellTexture, SDL_Point{ .x = 40, .y = 0 }),
-					  Cell(&_cellTexture, SDL_Point{ .x = 50, .y = 0 }),
-					  Cell(&_cellTexture, SDL_Point{ .x = 60, .y = 0 })
-				  }),
-		Tetromino(TetrominoType::J,
-				  std::array<Cell, 4>
-				  {
-				  	  Cell(&_cellTexture, SDL_Point{ .x = 40, .y = 0 }),
-					  Cell(&_cellTexture, SDL_Point{ .x = 40, .y = 10 }),
-					  Cell(&_cellTexture, SDL_Point{ .x = 50, .y = 10 }),
-					  Cell(&_cellTexture, SDL_Point{ .x = 60, .y = 10 })
-				  }),
-		Tetromino(TetrominoType::L,
-				  std::array<Cell, 4>
-				  {
-				  	  Cell(&_cellTexture, SDL_Point{ .x = 60, .y = 0 }),
-					  Cell(&_cellTexture, SDL_Point{ .x = 60, .y = 10 }),
-					  Cell(&_cellTexture, SDL_Point{ .x = 50, .y = 10 }),
-					  Cell(&_cellTexture, SDL_Point{ .x = 40, .y = 10 })
-				  }),
-		Tetromino(TetrominoType::O,
-				  std::array<Cell, 4>
-				  {
-				  	  Cell(&_cellTexture, SDL_Point{ .x = 40, .y = 0 }),
-					  Cell(&_cellTexture, SDL_Point{ .x = 50, .y = 0 }),
-					  Cell(&_cellTexture, SDL_Point{ .x = 40, .y = 10 }),
-					  Cell(&_cellTexture, SDL_Point{ .x = 50, .y = 10 })
-				  }),
-		Tetromino(TetrominoType::S,
-				  std::array<Cell, 4>
-				  {
-				  	  Cell(&_cellTexture, SDL_Point{ .x = 50, .y = 0 }),
-					  Cell(&_cellTexture, SDL_Point{ .x = 60, .y = 0 }),
-					  Cell(&_cellTexture, SDL_Point{ .x = 40, .y = 10 }),
-					  Cell(&_cellTexture, SDL_Point{ .x = 50, .y = 10 })
-				  }),
-		Tetromino(TetrominoType::T,
-				  std::array<Cell, 4>
-				  {
-				  	  Cell(&_cellTexture, SDL_Point{ .x = 50, .y = 0 }),
-					  Cell(&_cellTexture, SDL_Point{ .x = 40, .y = 10 }),
-					  Cell(&_cellTexture, SDL_Point{ .x = 50, .y = 10 }),
-					  Cell(&_cellTexture, SDL_Point{ .x = 60, .y = 10 })
-				  }),
-		Tetromino(TetrominoType::Z,
-				  std::array<Cell, 4>
-				  {
-				  	  Cell(&_cellTexture, SDL_Point{ .x = 40, .y = 0 }),
-					  Cell(&_cellTexture, SDL_Point{ .x = 50, .y = 0 }),
-					  Cell(&_cellTexture, SDL_Point{ .x = 50, .y = 10 }),
-					  Cell(&_cellTexture, SDL_Point{ .x = 60, .y = 10 })
-				  })
-	};
+	TetrominoCollection _tetrominos = TetrominoCollection(&_cellTexture);
 	/// <summary>
 	/// Управляемое игроком тетрамино
 	/// </summary>
-	ActiveTetromino _activeTetromino = SelectRandomTetromino();
+	ActiveTetromino _activeTetromino = _tetrominos.SelectRandom();
 public:
 	GameScene() noexcept;
 
@@ -121,14 +62,6 @@ public:
 
 	void SetBackground() override;
 private:
-	/// <summary>
-	/// Выбирает из массива _tetrominos случаную тетрамино со случайным цветом
-	/// </summary>
-	/// <returns>Случаную тетрамино со случаный цветом</returns>
-	Tetromino SelectRandomTetromino();
-
-	bool HasActiveTetrominoFallen();
-
 	void OnLeftKeyPressed();
 
 	void OnRightKeyPressed();

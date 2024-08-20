@@ -26,6 +26,8 @@ public:
 
 	void MovePlaceholderAtBottomOf(const CellStorage& cellStorage);
 
+	bool IsLocatedAtBottomOf(const CellStorage& cellStorage);
+
 	Tetromino& operator=(const Tetromino& other) noexcept;
 protected:
 	virtual void OnActiveTetrominoActionCompleted(Action* sender, const ActionEventArgs& e);

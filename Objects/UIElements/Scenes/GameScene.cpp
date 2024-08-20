@@ -24,14 +24,16 @@ void GameScene::Process()
 	_activeTetromino.UpdatePlaceholderPosition();
 	_activeTetromino.MovePlaceholderAtBottomOf(_cellStorage);
 
-	if(HasActiveTetrominoFallen())
+	if(_activeTetromino.IsLocatedAtBottomOf(_cellStorage))
 	{
+		_cellStorage.Add(_activeTetromino);
+
 		if(_cellStorage.AreRowsFull(_activeTetromino))
 		{
 			_cellStorage.RowClearAnimation.Start();
 		}
 
-		_activeTetromino = SelectRandomTetromino();
+		_activeTetromino = _tetrominos.SelectRandom();
 		_activeTetromino.CanReselected = true;
 
 		if(_cellStorage.IsLocatedInCells(_activeTetromino))
@@ -45,38 +47,6 @@ void GameScene::Process()
 void GameScene::SetBackground()
 {
 	Colors::SetRenderColor(_renderer, Color::Black);
-}
-
-Tetromino GameScene::SelectRandomTetromino()
-{
-	auto index = _random.NextInt(0, 6);
-	auto color = Color(_random.NextInt(2, 8));
-
-	auto tetromino = _tetrominos[index];
-	tetromino.SetBackground(color);
-
-	return tetromino;
-}
-
-bool GameScene::HasActiveTetrominoFallen()
-{
-	if(_activeTetromino.NeedsToFall)
-	{
-		_activeTetromino.NeedsToFall = false;
-		_activeTetromino.CopyCoordinates(_activeTetromino.Placeholder);
-		_cellStorage.Add(_activeTetromino);
-
-		return true;
-	}
-	
-	if(_cellStorage.IsLocatedAtBottom(_activeTetromino))
-	{
-		_cellStorage.Add(_activeTetromino);
-
-		return true;
-	}
-
-	return false;
 }
 
 void GameScene::OnLeftKeyPressed()
@@ -129,7 +99,7 @@ void GameScene::OnKeyDown(Object* sender, const SDL_KeyboardEvent& e)
 			if(_activeTetromino.CanReselected)
 			{
 				_activeTetromino.CanReselected = false;
-				_activeTetromino = SelectRandomTetromino();
+				_activeTetromino = _tetrominos.SelectRandom();
 			}
 
 			break;

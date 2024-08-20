@@ -36,6 +36,19 @@ void ActiveTetromino::MovePlaceholderAtBottomOf(const CellStorage& cellStorage)
 	}
 }
 
+bool ActiveTetromino::IsLocatedAtBottomOf(const CellStorage& cellStorage)
+{
+	if(NeedsToFall)
+	{
+		NeedsToFall = false;
+		CopyCoordinates(Placeholder);
+
+		return true;
+	}
+
+	return cellStorage.IsLocatedAtBottom(*this);
+}
+
 Tetromino& ActiveTetromino::operator=(const Tetromino& other) noexcept
 {
 	_cells = other.GetCells();

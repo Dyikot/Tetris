@@ -11,13 +11,13 @@ class HoldKeyEvent: public SDL_KeyboardEvent
 {
 public:
 	const std::chrono::milliseconds ActivationTime = std::chrono::milliseconds(140);
-
 	const std::chrono::milliseconds InvokeTime = std::chrono::milliseconds(30);
 private:
 	bool _isActive = false;
-
 	std::chrono::steady_clock::time_point _startHoldKeyTime;
 public:
+	HoldKeyEvent() = default;
+
 	bool IsHold() noexcept;
 
 	HoldKeyEvent& operator=(const SDL_KeyboardEvent& event) noexcept;

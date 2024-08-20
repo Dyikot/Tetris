@@ -42,7 +42,7 @@ void Game::Run()
 
 	while(_isRunning)
 	{
-		while(PollEvents(&event))
+		while(PollEvent(&event))
 		{
 			_currentScene->HandleEvent(event);
 		}
@@ -66,43 +66,6 @@ void Game::Run()
 void Game::Shutdown() noexcept
 {
 	_isRunning = false;
-}
-
-bool Game::PollEvents(SDL_Event* e) noexcept
-{
-	if(SDL_PollEvent(e))
-	{
-		switch(e->type)
-		{
-			case SDL_KEYDOWN:
-				if(e->key.repeat)
-				{
-					if(_holdKeyEvent.IsHold())
-					{
-						e->key = _holdKeyEvent;
-						return true;
-					}
-
-					return false;
-				}
-
-			case SDL_KEYUP:
-				_holdKeyEvent = e->key;
-				break;
-
-			default:
-				break;
-		}
-
-		return true;
-	}
-	else if(_holdKeyEvent.IsHold())
-	{
-		e->key = _holdKeyEvent;
-		return true;
-	}
-	
-	return false;
 }
 
 void Game::InitSDL() const
