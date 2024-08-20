@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Control.h"
-#include "../../Style/Texture.h"
+#include "../../../Style/Texture.h"
 
 class Image: public Control
 {

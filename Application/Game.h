@@ -5,12 +5,11 @@
 #include <iostream>
 
 #include "Application.h"
+#include "SDL/SDL_ttf.h"
+#include "SDL/SDL_mixer.h"
 #include "../Objects/UIElements/Scenes/MenuScenes/StartMenu.h"
 #include "../Events/HoldKeyEvent.h"
 #include "../Tools/Serialization/SettinsDataSerializer.h"
-#include "SDL/SDL.h"
-#include "SDL/SDL_ttf.h"
-#include "SDL/SDL_image.h"
 
 class Game : public Application
 {
