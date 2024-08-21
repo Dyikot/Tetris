@@ -11,7 +11,7 @@ public:
 	Image(const SDL_Point& position,
 		  int width,
 		  int height,
-		  Color background,
+		  const SDL_Color& background,
 		  Texture* texture) noexcept;
 
 	void Show() const override;

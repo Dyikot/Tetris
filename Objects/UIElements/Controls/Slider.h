@@ -5,11 +5,11 @@
 class Slider: public Control
 {
 public:
-	static constexpr Color DefaultColor = Color::Green;
+	static constexpr SDL_Color DefaultColor = Colors::Green;
 	static constexpr size_t Full = 100;
 protected:
-	const Color ThumbColor = Color::Whitesmoke;
-	const Color BorderColor = Color::Green;
+	const SDL_Color ThumbColor = Colors::Whitesmoke;
+	const SDL_Color BorderColor = Colors::Green;
 	const int ThumbWidth;
 	const int ThumbHeight;	
 	const int StartThumbXPosition;
@@ -19,7 +19,7 @@ public:
 	Slider(const SDL_Point& position,
 		   int width,
 		   int height,
-		   Color background,
+		   const SDL_Color& background,
 		   size_t filling = Full) noexcept;
 
 	void Show() const noexcept override;

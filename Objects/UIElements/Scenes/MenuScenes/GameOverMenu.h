@@ -15,7 +15,7 @@ private:
 	TextBlock _title = TextBlock(MainTitlePosition,
 								 Object::DefaultBackgroundColor,
 								 "Game over",
-								 Color::Red,
+								 Colors::Red,
 								 Header1TextSize);
 
 	// Retry button

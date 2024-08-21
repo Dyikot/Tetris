@@ -3,7 +3,7 @@
 Slider::Slider(const SDL_Point& position,
 			   int width, 
 			   int height, 
-			   Color background,
+			   const SDL_Color& background,
 			   size_t filling) noexcept:
 	Control(position, width, height, background),
 	ThumbWidth(width / 10),
@@ -19,7 +19,7 @@ Slider::Slider(const SDL_Point& position,
 	_thumbPosition = 
 	{ 
 		.x = StartThumbXPosition + static_cast<int>(static_cast<double>(filling) 
-													/ static_cast<double>(Full) * width),
+												    / static_cast<double>(Full) * width),
 		.y = position.y + height / 2 - ThumbHeight / 2 
 	};
 }
@@ -51,15 +51,15 @@ void Slider::Show() const noexcept
 	};
 
 	// Bar
-	Colors::SetRenderColor(_renderer, _backgroud);
+	SetRenderColor(_renderer, _backgroud);
 	SDL_RenderFillRect(_renderer, &bar);
 
 	// Border
-	Colors::SetRenderColor(_renderer, BorderColor);
+	SetRenderColor(_renderer, BorderColor);
 	SDL_RenderDrawRect(_renderer, &border);
 
 	// Thumb
-	Colors::SetRenderColor(_renderer, ThumbColor);
+	SetRenderColor(_renderer, ThumbColor);
 	SDL_RenderFillRect(_renderer, &thumb);
 }
 

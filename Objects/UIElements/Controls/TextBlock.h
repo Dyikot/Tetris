@@ -6,19 +6,19 @@
 class TextBlock: public Control
 {
 public:
-	static constexpr Color ActiveTextColor = Color::Whitesmoke;
-	static constexpr Color InactiveTextColor = Color::Grey;
+	static constexpr SDL_Color ActiveTextColor = Colors::Whitesmoke;
+	static constexpr SDL_Color InactiveTextColor = Colors::Grey;
 protected:
-	std::string _text;
-	Color _textColor;
 	TTF_Font* _font;
+	SDL_Color _fontColor;
+	std::string _text;
 	SDL_Texture* _textTexture;
 public:
 	TextBlock(const SDL_Point& position,
-			  Color background,
+			  const SDL_Color& background,
 			  const std::string& text,
-			  Color textColor,
-			  int textSize) noexcept;	
+			  const SDL_Color& fontColor,
+			  int fontSize) noexcept;	
 
 	~TextBlock();
 
@@ -26,21 +26,21 @@ public:
 
 	void SetText(const std::string& text) noexcept;
 
-	void SetTextColor(Color textColor) noexcept;	
+	void SetFontColor(const SDL_Color& fontColor) noexcept;	
 
 	const std::string& GetText() const noexcept;
 
-	Color GetTextColor() const noexcept;
+	SDL_Color GetTextColor() const noexcept;
 
 	SDL_Point GetRealPosition() const;
 protected:
 	TextBlock(const SDL_Point& position,
 			  int width,
 			  int height,
-			  Color background,
+			  const SDL_Color& background,
 			  const std::string& text,
-			  Color textColor,
-			  int textSize) noexcept;
+			  const SDL_Color& fontColor,
+			  int fontSize) noexcept;
 
 	SDL_Texture* GenerateTextureByText() const noexcept;
 };

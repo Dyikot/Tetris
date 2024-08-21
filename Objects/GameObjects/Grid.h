@@ -18,7 +18,7 @@ public:
 		 int columns,
 		 int width,
 		 int height,
-		 Color background) noexcept;
+		 const SDL_Color& background) noexcept;
 
 	void Show() const noexcept override;
 };

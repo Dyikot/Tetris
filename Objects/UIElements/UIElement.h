@@ -19,7 +19,7 @@ public:
 	KeyEventHandler KeyDown;
 	KeyEventHandler KeyHold;
 public:
-	UIElement(Color background = DefaultBackgroundColor) noexcept;
+	UIElement(const SDL_Color& background = DefaultBackgroundColor) noexcept;
 
 	virtual ~UIElement() = default;
 

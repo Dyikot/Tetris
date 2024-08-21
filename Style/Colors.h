@@ -1,30 +1,11 @@
 #pragma once
 
 #include "SDL/SDL.h"
-#include <array>
-
-enum class Color
-{
-	None,
-	Black,
-	Green,
-	Blue,
-	Red,
-	Cyan,
-	Yellow,
-	Pink,
-	Orange,
-	White,
-	Grey,
-	Whitesmoke,
-	Lightgreen,
-	Darkgrey
-};
+#include "Random/Random.h"
 
 class Colors
 {
 public:
-	static constexpr int Count = 14;
 	static constexpr SDL_Color None = SDL_Color(0, 0, 0, 0);
 	static constexpr SDL_Color Black = SDL_Color(20, 20, 20, 255);
 	static constexpr SDL_Color Green = SDL_Color(0, 128, 0, 255);
@@ -39,28 +20,22 @@ public:
 	static constexpr SDL_Color Whitesmoke = SDL_Color(230, 230, 230, 255);
 	static constexpr SDL_Color Lightgreen = SDL_Color(0, 175, 0, 255);
 	static constexpr SDL_Color Darkgrey = SDL_Color(70, 70, 70, 255);
-private:
-	static constexpr std::array<SDL_Color, Count> _colors =
-	{
-		None,
-		Black,
-		Green,
-		Blue,
-		Red,
-		Cyan,
-		Yellow,
-		Pink,
-		Orange,
-		White,
-		Grey,
-		Whitesmoke,
-		Lightgreen,
-		Darkgrey
-	};
-public:
-	static constexpr SDL_Color ToSDL_Color(Color color) noexcept;
-
-	static void SetRenderColor(SDL_Renderer* renderer, Color color) noexcept;
-
-	static void SetTextureColor(SDL_Texture* texture, Color color) noexcept;
 };
+
+static bool operator==(const SDL_Color& left, const SDL_Color& right)
+{
+	return left.r == right.r &&
+		   left.g == right.g &&
+		   left.b == right.b &&
+		   left.a == right.a;
+}
+
+static bool operator!=(const SDL_Color& left, const SDL_Color& right)
+{
+	return !operator==(left, right);
+}
+
+static void SetRenderColor(SDL_Renderer* renderer, const SDL_Color& color) noexcept
+{
+	SDL_SetRenderDrawColor(renderer, color.r, color.g, color.b, color.a);
+}

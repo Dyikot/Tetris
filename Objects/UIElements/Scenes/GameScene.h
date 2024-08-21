@@ -46,7 +46,7 @@ private:
 					  /*columns*/ HorizontalCellsNumber,
 					  /*width*/ FieldWidth * Scale,	
 					  /*height*/ FieldHeight * Scale,
-					  /*backgound*/ Color::Darkgrey);	
+					  /*backgound*/ Colors::Darkgrey);	
 	/// <summary>
 	/// Коллекция всех видов тетрамино
 	/// </summary>

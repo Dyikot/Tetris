@@ -1,17 +1,17 @@
 #include "Object.h"
 
-Object::Object(Color background) noexcept:
+Object::Object(const SDL_Color& background) noexcept:
 	_backgroud(background)
 {
 	
 }
 
-Color Object::GetBackground() const noexcept
+const SDL_Color& Object::GetBackground() const noexcept
 {
 	return _backgroud;
 }
 
-void Object::SetBackground(Color color) noexcept
+void Object::SetBackground(const SDL_Color& color) noexcept
 {
 	_backgroud = color;
 }

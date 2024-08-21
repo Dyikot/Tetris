@@ -3,16 +3,16 @@
 TextButton::TextButton(const SDL_Point& position,
 	int width, 
 	int height,
-	Color background,
-	Color borderColor,
+	const SDL_Color& background,
+	SDL_Color borderColor,
 	const std::string& text, 
-	Color textColor,
-	int textSize) noexcept:
+	const SDL_Color& fontColor,
+	int fontSize) noexcept:
 	Button(position, width, height, background, borderColor),
-	_textBlock(position, DefaultBackgroundColor, text, textColor, textSize)
+	_textBlock(position, DefaultBackgroundColor, text, fontColor, fontSize)
 {
 	SetContent(&_textBlock);
-	BackgroundColorOnHover = Color::Green;
+	BackgroundOnHover = Colors::Green;
 }
 
 void TextButton::SetPosition(const SDL_Point& position) noexcept

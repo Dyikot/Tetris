@@ -18,7 +18,7 @@ Game::Game()
 	{
 		std::cout << SDL_GetError() << '\n';
 	}
-
+	
 	_renderer = SDL_CreateRenderer(_currentWindow, -1, SDL_RENDERER_ACCELERATED);
 
 	SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "linear");

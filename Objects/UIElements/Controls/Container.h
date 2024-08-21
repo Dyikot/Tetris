@@ -30,13 +30,13 @@ protected:
 	Image _leftButtonImage = Image(LeftButtonPosition,
 								   ButtonWidth,
 								   ButtonHeight,
-								   Color::Green,
+								   Colors::Green,
 								   &_leftTexture);
 	Button _leftButton = Button(LeftButtonPosition,
 								ButtonWidth,
 								ButtonHeight,
 								DefaultBackgroundColor,
-								/*border*/ Color::None,
+								/*border*/ Colors::None,
 								&_leftButtonImage);
 
 	// Text block
@@ -49,8 +49,8 @@ protected:
 	TextBlock _textBlock = TextBlock(TextBlockPosition,
 									 _backgroud,
 									 "",
-									 /*textColor*/ Color::Whitesmoke,
-									 /*textSize*/ 36);
+									 /*fontColor*/ Colors::Whitesmoke,
+									 /*fontSize*/ 36);
 
 	// Right button
 
@@ -63,13 +63,13 @@ protected:
 	Image _rightButtonImage = Image(RightButtonPosition,
 									ButtonWidth,
 									ButtonHeight,
-									Color::Green,
+									Colors::Green,
 									&_rightTexture);
 	Button _rightButton = Button(RightButtonPosition,
 								 ButtonWidth,
 								 ButtonHeight,
 								 DefaultBackgroundColor,
-								 /*border*/ Color::None,
+								 /*border*/ Colors::None,
 								 &_rightButtonImage);
 
 	size_t _currentItemIndex;
@@ -78,7 +78,7 @@ public:
 	Container(const SDL_Point& position,
 			  int width,
 			  int height,
-			  Color background,
+			  const SDL_Color& background,
 			  const std::vector<std::string>& items = {},
 			  size_t currentItemIndex = 0) noexcept;
 

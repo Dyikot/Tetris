@@ -28,7 +28,7 @@ public:
 
 	void Rotate();
 
-	void SetBackground(Color background) noexcept override;
+	void SetBackground(const SDL_Color& background) noexcept override;
 
 	void CopyCoordinates(const Tetromino& tetromino) noexcept;
 

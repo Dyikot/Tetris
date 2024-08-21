@@ -4,8 +4,8 @@
 Button::Button(const SDL_Point& position,
 	int width, 
 	int height, 
-	Color background,
-	Color borderColor, 
+	const SDL_Color& background,
+	SDL_Color borderColor, 
 	Control* content) noexcept:
 	Control(position, width, height, background),
 	_borderColor(borderColor),
@@ -25,11 +25,11 @@ void Button::Show() const
 	};
 
 	// Border
-	Colors::SetRenderColor(_renderer, _borderColor);
+	SetRenderColor(_renderer, _borderColor);
 	SDL_RenderDrawRect(_renderer, &rectangle);
 
 	// Backgroud
-	Colors::SetRenderColor(_renderer, _backgroud);
+	SetRenderColor(_renderer, _backgroud);
 	SDL_RenderFillRect(_renderer, &rectangle);
 
 	// Content

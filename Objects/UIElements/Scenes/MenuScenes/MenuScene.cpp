@@ -8,7 +8,7 @@ int MenuScene::CalculateButtonVerticalPosition(const int order)
 
 void MenuScene::SetBackground()
 {
-	Colors::SetRenderColor(_renderer, Color::Black);
+	SetRenderColor(_renderer, Colors::Black);
 }
 
 void MenuScene::Process()

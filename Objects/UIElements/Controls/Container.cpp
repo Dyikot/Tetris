@@ -4,7 +4,7 @@
 Container::Container(const SDL_Point& position,
 					 int width,
 					 int height,
-					 Color background,
+					 const SDL_Color& background,
 					 const std::vector<std::string>& items,
 					 size_t currentItemIndex) noexcept:
 	Control(position, width, height, background),
@@ -14,8 +14,8 @@ Container::Container(const SDL_Point& position,
 	auto currentItem = GetCurrentItem();
 	_textBlock.SetText(currentItem == nullptr ? "" : *currentItem);
 
-	_rightButtonImage.BackgroundColorOnHover = Color::Lightgreen;
-	_leftButtonImage.BackgroundColorOnHover = Color::Lightgreen;
+	_rightButtonImage.BackgroundOnHover = Colors::Lightgreen;
+	_leftButtonImage.BackgroundOnHover = Colors::Lightgreen;
 
 	using namespace std::placeholders;
 
@@ -36,7 +36,7 @@ void Container::Show() const noexcept
 	};
 
 	// Backgroud
-	Colors::SetRenderColor(_renderer, _backgroud);
+	SetRenderColor(_renderer, _backgroud);
 	SDL_RenderFillRect(_renderer, &rectangle);
 
 	_leftButton.Show();

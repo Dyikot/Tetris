@@ -1,6 +1,6 @@
 #include "UIElement.h"
 
-UIElement::UIElement(Color background) noexcept:
+UIElement::UIElement(const SDL_Color& background) noexcept:
 	Object(background)
 {
 

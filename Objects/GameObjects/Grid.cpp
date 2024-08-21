@@ -5,7 +5,7 @@ Grid::Grid(const SDL_Point& position,
 		   int columnsAmount,
 		   int width, 
 		   int height, 
-		   Color background) noexcept:
+		   const SDL_Color& background) noexcept:
 	Object(background),
 	Position(position),
 	Rows(rowsAmount),
@@ -18,7 +18,7 @@ Grid::Grid(const SDL_Point& position,
 
 void Grid::Show() const noexcept
 {
-	Colors::SetRenderColor(_renderer, _backgroud);
+	SetRenderColor(_renderer, _backgroud);
 
 	for(int x = ColumnWidth; x < Width; x += ColumnWidth)
 	{

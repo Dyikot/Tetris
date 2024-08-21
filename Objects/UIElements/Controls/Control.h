@@ -8,19 +8,19 @@
 class Control : public UIElement
 {
 public:
-	Color BackgroundColorOnHover;
+	SDL_Color BackgroundOnHover;
 	MouseEventHandler MouseEnter;
 	MouseEventHandler MouseLeave;
 protected:
 	SDL_Point _position;
 	int _width;
 	int _height;
-	Color _savedBackground;
+	SDL_Color _backgroundOffHover;
 public:
 	Control(const SDL_Point& position,
 			int width,
 			int height,
-			Color background) noexcept;
+			const SDL_Color& background) noexcept;
 
 	virtual ~Control() = default;
 
@@ -30,7 +30,7 @@ public:
 
 	virtual void SetPosition(const SDL_Point& position) noexcept;
 
-	virtual void SetBackground(Color color) noexcept override;
+	virtual void SetBackground(const SDL_Color& color) noexcept override;
 
 	virtual void OnMouseEnter(const SDL_MouseButtonEvent& e);
 

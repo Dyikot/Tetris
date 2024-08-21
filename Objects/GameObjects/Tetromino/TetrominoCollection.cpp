@@ -66,10 +66,8 @@ TetrominoCollection::TetrominoCollection(Texture* const cellTexture) noexcept:
 
 Tetromino TetrominoCollection::SelectRandom()
 {
-	auto index = _random.NextInt(0, 6);
-	auto color = Color(_random.NextInt(2, 8));
-
-	auto tetromino = _Elems[index];
+	auto color = TetrominoColors[_random.NextInt(0, 6)];
+	auto tetromino = _Elems[_random.NextInt(0, 6)];
 	tetromino.SetBackground(color);
 
 	return tetromino;

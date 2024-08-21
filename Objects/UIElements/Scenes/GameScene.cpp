@@ -46,7 +46,7 @@ void GameScene::Process()
 
 void GameScene::SetBackground()
 {
-	Colors::SetRenderColor(_renderer, Color::Black);
+	SetRenderColor(_renderer, Colors::Black);
 }
 
 void GameScene::OnLeftKeyPressed()

@@ -7,17 +7,17 @@
 class Button: public Control
 {
 public:
-	static constexpr Color DefaultBorderColor = Color::Green;
+	static constexpr SDL_Color DefaultBorderColor = Colors::Green;
 	MouseEventHandler Click;
 protected:
-	Color _borderColor;
+	SDL_Color _borderColor;
 	Control* _content;
 public:
 	Button(const SDL_Point& position,
 		   int width,
 		   int height,
-		   Color background,
-		   Color borderColor,
+		   const SDL_Color& background,
+		   SDL_Color borderColor,
 		   Control* content = nullptr) noexcept;
 
 	virtual ~Button() = default;

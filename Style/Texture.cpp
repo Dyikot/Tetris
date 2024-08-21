@@ -20,7 +20,8 @@ void Texture::Render(SDL_Renderer* renderer, const SDL_Rect& rectangle) const no
 	SDL_RenderCopy(renderer, _texture, NULL, &rectangle);
 }
 
-Texture::operator SDL_Texture*()
+void Texture::SetColor(const SDL_Color& color)
 {
-	return _texture;
+	SDL_SetTextureColorMod(_texture, color.r, color.g, color.b);
+	SDL_SetTextureAlphaMod(_texture, color.a);
 }

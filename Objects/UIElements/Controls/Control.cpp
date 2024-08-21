@@ -1,12 +1,12 @@
 #include "Control.h"
 
-Control::Control(const SDL_Point& position, int width, int height, Color background) noexcept:
+Control::Control(const SDL_Point& position, int width, int height, const SDL_Color& background) noexcept:
     UIElement(background),
     _position(position),
     _width(width),
     _height(height),
-    _savedBackground(background),
-    BackgroundColorOnHover(background)
+    _backgroundOffHover(background),
+    BackgroundOnHover(background)
 {
 
 }
@@ -26,10 +26,10 @@ void Control::SetPosition(const SDL_Point& position) noexcept
     _position = position;
 }
 
-void Control::SetBackground(Color color) noexcept
+void Control::SetBackground(const SDL_Color& color) noexcept
 {
     Object::SetBackground(color);
-    _savedBackground = color;
+    _backgroundOffHover = color;
 }
 
 int Control::GetWight() const noexcept
@@ -62,7 +62,7 @@ void Control::OnMouseEnter(const SDL_MouseButtonEvent& e)
         MouseEnter(this, e);
     }
 
-    _backgroud = BackgroundColorOnHover;
+    _backgroud = BackgroundOnHover;
 }
 
 void Control::OnMouseLeave(const SDL_MouseButtonEvent& e)
@@ -72,5 +72,5 @@ void Control::OnMouseLeave(const SDL_MouseButtonEvent& e)
         MouseLeave(this, e);
     }
 
-    _backgroud = _savedBackground;
+    _backgroud = _backgroundOffHover;
 }

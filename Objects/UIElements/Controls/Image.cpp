@@ -3,7 +3,7 @@
 Image::Image(const SDL_Point& position,
 	int width,
 	int height, 
-	Color background,
+	const SDL_Color& background,
 	Texture* texture) noexcept:
 	Control(position, width, height, background),
 	_texture(texture)
@@ -21,7 +21,7 @@ void Image::Show() const
 		.h = _height
 	};
 
-	Colors::SetTextureColor(*_texture, _backgroud);
+	_texture->SetColor(_backgroud);
 	_texture->Render(_renderer, rectangle);
 }
 

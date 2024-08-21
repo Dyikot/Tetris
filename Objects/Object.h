@@ -2,23 +2,23 @@
 
 #include "SDL/SDL.h"
 #include "../Application/Application.h"
-#include "../Style/Color.h"
+#include "../Style/Colors.h"
 
 class Object
 {
 public:
-	static constexpr Color DefaultBackgroundColor = Color::None;
+	static constexpr SDL_Color DefaultBackgroundColor = Colors::None;
 protected:
-	Color _backgroud;
+	SDL_Color _backgroud;
 	SDL_Renderer* _renderer = Application::Current()->GetRenderer();
 public:
-	Object(Color background = DefaultBackgroundColor) noexcept;
+	Object(const SDL_Color& background = DefaultBackgroundColor) noexcept;
 
 	virtual ~Object() = default;
 
 	virtual void Show() const = 0;
 		
-	virtual Color GetBackground() const noexcept;
+	virtual const SDL_Color& GetBackground() const noexcept;
 
-	virtual void SetBackground(Color color) noexcept;
+	virtual void SetBackground(const SDL_Color& color) noexcept;
 };

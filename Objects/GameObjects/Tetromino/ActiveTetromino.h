@@ -7,7 +7,7 @@
 class ActiveTetromino: public Tetromino
 {
 public:
-	static constexpr Color PlaceholderColor = Color::Grey;
+	static constexpr SDL_Color PlaceholderColor = Colors::Grey;
 
 	Tetromino Placeholder;
 	Action Movement = Action(/*period*/ std::chrono::milliseconds(700));

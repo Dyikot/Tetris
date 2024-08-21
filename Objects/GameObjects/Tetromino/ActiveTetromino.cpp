@@ -69,6 +69,6 @@ void ActiveTetromino::BindMovement()
 {
 	using namespace std::placeholders;
 
-	Movement.ActionCompleted =
-		std::bind(&ActiveTetromino::OnActiveTetrominoActionCompleted, this, _1, _2);
+	Movement.ActionCompleted = std::bind(&ActiveTetromino::OnActiveTetrominoActionCompleted,
+										 this, _1, _2);
 }

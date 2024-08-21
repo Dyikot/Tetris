@@ -1,24 +1,11 @@
 #include "TextBlock.h"
 
-void TextBlock::SetText(const std::string& text) noexcept
-{
-    _text = text;
-
-    SDL_DestroyTexture(_textTexture);
-    _textTexture = GenerateTextureByText();
-    SDL_QueryTexture(_textTexture, NULL, NULL, &_width, &_height);
-}
-
-void TextBlock::SetTextColor(Color textColor) noexcept
-{
-    _textColor = textColor;
-}
-
 TextBlock::TextBlock(const SDL_Point& position,
-                     Color background, 
+                     const SDL_Color& background, 
                      const std::string& text, 
-                     Color textColor, int textSize) noexcept:
-    TextBlock(position, NULL, NULL, background, text, textColor, textSize)
+                     const SDL_Color& fontColor,
+                     int fontSize) noexcept:
+    TextBlock(position, NULL, NULL, background, text, fontColor, fontSize)
 {
     SDL_QueryTexture(_textTexture, NULL, NULL, &_width, &_height);
 }
@@ -45,14 +32,28 @@ void TextBlock::Show() const noexcept
     SDL_RenderCopy(_renderer, _textTexture, NULL, &textRectangle);
 }
 
+void TextBlock::SetText(const std::string& text) noexcept
+{
+    _text = text;
+
+    SDL_DestroyTexture(_textTexture);
+    _textTexture = GenerateTextureByText();
+    SDL_QueryTexture(_textTexture, NULL, NULL, &_width, &_height);
+}
+
+void TextBlock::SetFontColor(const SDL_Color& fontColor) noexcept
+{
+    _fontColor = fontColor;
+}
+
 const std::string& TextBlock::GetText() const noexcept
 {
     return _text;
 }
 
-Color TextBlock::GetTextColor() const noexcept
+SDL_Color TextBlock::GetTextColor() const noexcept
 {
-    return _textColor;
+    return _fontColor;
 }
 
 SDL_Point TextBlock::GetRealPosition() const
@@ -63,14 +64,14 @@ SDL_Point TextBlock::GetRealPosition() const
 TextBlock::TextBlock(const SDL_Point& position,
                      int width, 
                      int height,
-                     Color background,
+                     const SDL_Color& background,
                      const std::string& text,
-                     Color textColor,
-                     int textSize) noexcept:
+                     const SDL_Color& fontColor,
+                     int fontSize) noexcept:
     Control(position, width, height, background),
     _text(text),
-    _textColor(textColor),
-    _font(TTF_OpenFont("Resources/Fonts/CreteRound-Regular.ttf", textSize)),
+    _fontColor(fontColor),
+    _font(TTF_OpenFont("Resources/Fonts/CreteRound-Regular.ttf", fontSize)),
     _textTexture(GenerateTextureByText())
 {
 
@@ -78,7 +79,7 @@ TextBlock::TextBlock(const SDL_Point& position,
 
 SDL_Texture* TextBlock::GenerateTextureByText() const noexcept
 {
-    auto surface = TTF_RenderText_Blended(_font, _text.c_str(), Colors::ToSDL_Color(_textColor));
+    auto surface = TTF_RenderText_Blended(_font, _text.c_str(), _fontColor);
     auto texture = SDL_CreateTextureFromSurface(_renderer, surface);
     SDL_FreeSurface(surface);
     return texture;

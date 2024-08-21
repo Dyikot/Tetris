@@ -16,6 +16,6 @@ public:
 
 	void Render(SDL_Renderer* renderer, const SDL_Rect& rectangle) const noexcept;
 
-	operator SDL_Texture*();
+	void SetColor(const SDL_Color& color);
 };
 

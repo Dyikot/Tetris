@@ -1,6 +1,6 @@
 #include "Cell.h"
 
-Cell::Cell(Texture* cellTexture, const SDL_Point position, Color background) noexcept:
+Cell::Cell(Texture* cellTexture, const SDL_Point position, const SDL_Color& background) noexcept:
 	_cellTexture(cellTexture),
 	Position(position),
 	Object(background)
@@ -23,7 +23,7 @@ void Cell::Show(const SDL_Point& position) const noexcept
 		.h = Size * IScene::Scale
 	};
 	
-	Colors::SetTextureColor(*_cellTexture, _backgroud);
+	_cellTexture->SetColor(_backgroud);
 	_cellTexture->Render(_renderer, rectangle);
 }
 

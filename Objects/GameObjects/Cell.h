@@ -14,7 +14,7 @@ private:
 public:
 	Cell(Texture* cellTexture = nullptr,
 		 const SDL_Point position = { .x = 0 , .y = 0 },
-		 Color background = Cell::DefaultBackgroundColor) noexcept;
+		 const SDL_Color& background = Cell::DefaultBackgroundColor) noexcept;
 
 	/// <summary>
 	/// Отрисовка клетки

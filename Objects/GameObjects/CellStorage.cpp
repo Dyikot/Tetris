@@ -30,7 +30,7 @@ void CellStorage::Show() const
 		// Отображение упавший фигур
 		for(int column = 0; column < Columns; column++)
 		{
-			if(_storage[row][column].GetBackground() != Color::None)
+			if(_storage[row][column].GetBackground() != Colors::None)
 			{
 				_storage[row][column].Show(
 					{
@@ -116,7 +116,7 @@ int CellStorage::GetHighestRowOf(const Tetromino& tetromino) const
 bool CellStorage::IsLocatedAtBottom(const Cell& cell) const
 {
 	return GetLowerCellRow(cell) >= Rows ||
-		   GetLowerCellAt(cell).GetBackground() != Color::None;
+		   GetLowerCellAt(cell).GetBackground() != Colors::None;
 }
 
 bool CellStorage::IsLocatedAtBottom(const Tetromino& tetromino) const
@@ -131,7 +131,7 @@ bool CellStorage::IsLocatedInCells(const Tetromino& tetromino)
 {
 	return std::ranges::any_of(tetromino.GetCells(), [this](const Cell& cell)
 	{
-		return GetCellAt(cell).GetBackground() != Color::None;
+		return GetCellAt(cell).GetBackground() != Colors::None;
 	});
 }
 
@@ -162,7 +162,7 @@ bool CellStorage::IsRowFull(int row)
 {
 	return !std::ranges::any_of(_storage[row], [](const Cell& cell)
 	{
-		return cell.GetBackground() == Color::None;
+		return cell.GetBackground() == Colors::None;
 	});
 }
 
@@ -182,7 +182,7 @@ void CellStorage::OnRowClearAnimationActionCompleted(Animation* sender,
 	{
 		for(int column = StartColumn; column < EndColumn; column++)
 		{
-			_storage[row][column].SetBackground(Color::None);
+			_storage[row][column].SetBackground(Colors::None);
 		}
 	}
 }

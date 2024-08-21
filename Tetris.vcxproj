@@ -39,7 +39,7 @@
     <ClInclude Include="Events\HoldKeyEvent.h" />
     <ClInclude Include="Style\Texture.h" />
     <ClInclude Include="Objects\UIElements\Scenes\MenuScenes\MenuScene.h" />
-    <ClInclude Include="Style\Color.h" />
+    <ClInclude Include="Style\Colors.h" />
     <ClInclude Include="BasicStructs\MovementSide.h" />
     <ClInclude Include="Objects\UIElements\Scenes\MenuScenes\GameOverMenu.h" />
     <ClInclude Include="Objects\GameObjects\Grid.h" />
@@ -77,7 +77,6 @@
     <ClCompile Include="Events\HoldKeyEvent.cpp" />
     <ClCompile Include="Style\Texture.cpp" />
     <ClCompile Include="Objects\UIElements\Scenes\MenuScenes\MenuScene.cpp" />
-    <ClCompile Include="Style\Color.cpp" />
     <ClCompile Include="Objects\UIElements\Controls\TextBlock.cpp" />
     <ClCompile Include="Objects\UIElements\Scenes\MenuScenes\GameOverMenu.cpp" />
     <ClCompile Include="Objects\GameObjects\Grid.cpp" />

@@ -138,7 +138,7 @@ const Cell& Tetromino::GetHighestCell() const noexcept
 	}).operator*();
 }
 
-void Tetromino::SetBackground(Color background) noexcept
+void Tetromino::SetBackground(const SDL_Color& background) noexcept
 {
 	Object::SetBackground(background);
 

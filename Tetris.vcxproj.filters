@@ -63,7 +63,7 @@
     <ClInclude Include="Objects\UIElements\Scenes\MenuScenes\GameOverMenu.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Style\Color.h">
+    <ClInclude Include="Style\Colors.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Objects\UIElements\Scenes\MenuScenes\MenuScene.h">
@@ -174,9 +174,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Objects\UIElements\Controls\TextBlock.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Style\Color.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Objects\UIElements\Scenes\MenuScenes\MenuScene.cpp">
