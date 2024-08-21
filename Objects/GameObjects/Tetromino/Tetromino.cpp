@@ -161,19 +161,27 @@ const SDL_Point& Tetromino::GetRotationCenter(TetrominoType tetrominoType) const
 	switch(tetrominoType)
 	{
 		case TetrominoType::L:
+		{
 			return _cells[1].Position;
+		}
 
 		case TetrominoType::I:
 		case TetrominoType::J:
 		case TetrominoType::S:
 		case TetrominoType::T:
 		case TetrominoType::Z:
+		{
 			return _cells[2].Position;
+		}
 
 		case TetrominoType::O:
+		{
 			return _cells[3].Position;
+		}
 		
 		default:
+		{
 			return _cells[0].Position;
+		}
 	}
 }

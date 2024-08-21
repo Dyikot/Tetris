@@ -18,9 +18,11 @@ void PauseMenu::OnKeyDown(Object* sender, const SDL_KeyboardEvent& e)
 	switch(e.keysym.sym)
 	{
 		case SDLK_ESCAPE:
+		{
 			Application::Current()->SetHiddenSceneToNext();
 			Close();
 			break;
+		}
 	}
 }
 

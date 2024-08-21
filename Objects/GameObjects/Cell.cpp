@@ -33,22 +33,32 @@ void Cell::Move(MovementSide movementSide) noexcept
 	switch(movementSide)
 	{
 		case MovementSide::Left:
+		{
 			Position.x -= Size;
 			break;
+		}			
 
 		case MovementSide::Right:
+		{
 			Position.x += Size;
 			break;
+		}			
 
 		case MovementSide::Down:
+		{
 			Position.y += Size;
 			break;
+		}			
 
 		case MovementSide::Up:
+		{
 			Position.y -= Size;
 			break;
+		}
 
 		default:
+		{
 			break;
+		}
 	}
 }

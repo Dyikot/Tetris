@@ -75,27 +75,38 @@ void GameScene::OnKeyDown(Object* sender, const SDL_KeyboardEvent& e)
 	switch(e.keysym.sym)
 	{
 		case SDLK_LEFT:
+		{
 			OnLeftKeyPressed();
 			break;
+		}
 
 		case SDLK_RIGHT:
+		{
 			OnRightKeyPressed();
 			break;
+		}
 
 		case SDLK_DOWN:
+		{
 			OnDownKeyPressed();
 			break;
+		}
 
 		case SDLK_UP:
+		{
 			_activeTetromino.Rotate();
 			_activeTetromino.CorrectCoordinates(LeftBorder, RightBorder, TopBorder);
 			break;
+		}
 
 		case SDLK_SPACE:
+		{
 			_activeTetromino.NeedsToFall = true;
 			break;
+		}
 
 		case SDLK_c:
+		{
 			if(_activeTetromino.CanReselected)
 			{
 				_activeTetromino.CanReselected = false;
@@ -103,14 +114,19 @@ void GameScene::OnKeyDown(Object* sender, const SDL_KeyboardEvent& e)
 			}
 
 			break;
+		}
 
 		case SDLK_ESCAPE:
+		{
 			Application::Current()->SetNextScene(new PauseMenu());
 			Hide();
 			break;
+		}
 
 		default:
+		{
 			break;
+		}
 	}
 }
 
@@ -119,19 +135,27 @@ void GameScene::OnKeyHold(Object* sender, const SDL_KeyboardEvent& e)
 	switch(e.keysym.sym)
 	{
 		case SDLK_LEFT:
+		{
 			OnLeftKeyPressed();
 			break;
+		}
 
 		case SDLK_RIGHT:
+		{
 			OnRightKeyPressed();
 			break;
+		}
 
 		case SDLK_DOWN:
+		{
 			OnDownKeyPressed();
 			break;
+		}
 
 		default:
+		{
 			break;
+		}
 	}
 }
 

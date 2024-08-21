@@ -11,6 +11,7 @@ static bool PollEvent(SDL_Event* e) noexcept
 		switch(e->type)
 		{
 			case SDL_KEYDOWN:
+			{
 				if(e->key.repeat)
 				{
 					if(HoldKey.IsHold())
@@ -21,13 +22,18 @@ static bool PollEvent(SDL_Event* e) noexcept
 
 					return false;
 				}
+			}
 
 			case SDL_KEYUP:
+			{
 				HoldKey = e->key;
 				break;
+			}
 
 			default:
+			{
 				break;
+			}
 		}
 
 		return true;
