@@ -4,11 +4,11 @@ CellStorage::CellStorage(int rows, int columns, Texture* const cellTexture) noex
 	Rows(rows),
 	Columns(columns),
 	CellTexture(cellTexture),
-	_storage(std::vector<std::vector<Cell>>(rows, std::vector<Cell>(columns)))
+	_storage(std::vector<std::vector<Cell>>(rows, std::vector<Cell>(columns, Cell(*CellTexture))))
 {
 	using namespace std::placeholders;
 
-	RowClearAnimation.AnimationCompleted =
+	RowClearAnimation.AnimationCompleted = 
 		std::bind(&CellStorage::OnRowClearAnimationCompleted, this, _1, _2);
 	RowClearAnimation.ActionCompleted =
 		std::bind(&CellStorage::OnRowClearAnimationActionCompleted, this, _1, _2);
@@ -30,7 +30,7 @@ void CellStorage::Show() const
 		// Отображение упавший фигур
 		for(int column = 0; column < Columns; column++)
 		{
-			if(_storage[row][column].GetBackground() != Colors::None)
+			if(_storage[row][column].Background != Colors::Transparent)
 			{
 				_storage[row][column].Show(
 					{
@@ -80,7 +80,7 @@ void CellStorage::ClearFullRows()
 	
 	_storage.insert(_storage.begin(), 
 					_fullRowsIndices.size(),
-					std::vector(Columns, Cell(CellTexture)));
+					std::vector(Columns, Cell(*CellTexture)));
 }
 
 Cell& CellStorage::GetCellAt(const Cell& cell)
@@ -116,7 +116,7 @@ int CellStorage::GetHighestRowOf(const Tetromino& tetromino) const
 bool CellStorage::IsLocatedAtBottom(const Cell& cell) const
 {
 	return GetLowerCellRow(cell) >= Rows ||
-		   GetLowerCellAt(cell).GetBackground() != Colors::None;
+		   GetLowerCellAt(cell).Background != Colors::Transparent;
 }
 
 bool CellStorage::IsLocatedAtBottom(const Tetromino& tetromino) const
@@ -131,7 +131,7 @@ bool CellStorage::IsLocatedInCells(const Tetromino& tetromino)
 {
 	return std::ranges::any_of(tetromino.GetCells(), [this](const Cell& cell)
 	{
-		return GetCellAt(cell).GetBackground() != Colors::None;
+		return GetCellAt(cell).Background != Colors::Transparent;
 	});
 }
 
@@ -162,7 +162,7 @@ bool CellStorage::IsRowFull(int row)
 {
 	return !std::ranges::any_of(_storage[row], [](const Cell& cell)
 	{
-		return cell.GetBackground() == Colors::None;
+		return cell.Background == Colors::Transparent;
 	});
 }
 
@@ -182,7 +182,7 @@ void CellStorage::OnRowClearAnimationActionCompleted(Animation* sender,
 	{
 		for(int column = StartColumn; column < EndColumn; column++)
 		{
-			_storage[row][column].SetBackground(Colors::None);
+			_storage[row][column].Background = Colors::Transparent;
 		}
 	}
 }

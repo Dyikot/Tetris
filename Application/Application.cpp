@@ -48,6 +48,49 @@ bool Application::IsNextSceneSet() const noexcept
     return _nextScene != nullptr;
 }
 
+bool Application::PollEvent(SDL_Event* e) noexcept
+{
+	if(SDL_PollEvent(e))
+	{
+		switch(e->type)
+		{
+			case SDL_KEYDOWN:
+			{
+				if(e->key.repeat)
+				{
+					if(_keyHoldRegister.IsKeyHold())
+					{		
+						e->key = _keyHoldRegister.GetEvent();
+						return true;
+					}
+
+					return false;
+				}
+			}
+
+			case SDL_KEYUP:
+			{
+				_keyHoldRegister.Register(e->key);
+				break;
+			}
+
+			default:
+			{
+				break;
+			}
+		}
+
+		return true;
+	}
+	else if(_keyHoldRegister.IsKeyHold())
+	{
+		e->key = _keyHoldRegister.GetEvent();
+		return true;
+	}
+
+	return false;
+}
+
 void Application::SetWindowSize(size_t width, size_t height) noexcept
 {
     SDL_SetWindowSize(_currentWindow, width, height);

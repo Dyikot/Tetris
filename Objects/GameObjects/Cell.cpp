@@ -1,11 +1,13 @@
 #include "Cell.h"
 
-Cell::Cell(Texture* cellTexture, const SDL_Point position, const SDL_Color& background) noexcept:
+Cell::Cell(Texture& cellTexture,
+		   const SDL_Point position,
+		   const SDL_Color& background) noexcept:
 	_cellTexture(cellTexture),
 	Position(position),
-	Object(background)
+	Background(background)
 {
-
+	
 }
 
 void Cell::Show() const noexcept
@@ -22,9 +24,9 @@ void Cell::Show(const SDL_Point& position) const noexcept
 		.w = Size * IScene::Scale,
 		.h = Size * IScene::Scale
 	};
-	
-	_cellTexture->SetColor(_backgroud);
-	_cellTexture->Render(_renderer, rectangle);
+
+	_cellTexture.SetColor(Background);
+	_cellTexture.Render(_renderer, rectangle);
 }
 
 
@@ -61,4 +63,13 @@ void Cell::Move(MovementSide movementSide) noexcept
 			break;
 		}
 	}
+}
+
+Cell& Cell::operator=(const Cell& other)
+{
+	Position = other.Position;
+	_cellTexture = other._cellTexture;
+	Background = other.Background;
+
+	return *this;
 }

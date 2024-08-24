@@ -2,7 +2,8 @@
 
 #include <stack>
 #include <filesystem>
-#include "../Objects/UIElements/Scenes/IScene.h"
+#include "../Objects/Scenes/IScene.h"
+#include "../EventRegisters/KeyHoldRegister.h"
 
 class Application
 {
@@ -17,6 +18,7 @@ protected:
 	std::stack<IScene*> _hiddenScenes = std::stack<IScene*>();
 	SDL_Window* _currentWindow = nullptr;
 	SDL_Renderer* _renderer = nullptr;
+	KeyHoldRegister _keyHoldRegister;
 public:
 	static Application* const Current();
 
@@ -39,6 +41,8 @@ public:
 	SDL_Renderer* GetRenderer() const noexcept;
 
 	bool IsNextSceneSet() const noexcept;	
+
+	bool PollEvent(SDL_Event* e) noexcept;
 protected:
 	void SwitchToNextScene() noexcept;
 };

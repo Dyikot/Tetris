@@ -7,9 +7,8 @@
 #include "Application.h"
 #include "SDL/SDL_ttf.h"
 #include "SDL/SDL_mixer.h"
-#include "../Objects/UIElements/Scenes/MenuScenes/StartMenu.h"
-#include "../Events/Events.h"
-#include "../Tools/Serialization/SettinsDataSerializer.h"
+#include "../Objects/Scenes/StartMenu.h"
+#include "../Serialization/SettinsDataSerializer.h"
 
 class Game : public Application
 {

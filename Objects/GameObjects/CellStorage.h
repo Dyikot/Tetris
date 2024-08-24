@@ -4,8 +4,8 @@
 #include <ranges>
 
 #include "Cell.h"
-#include "Tetromino/Tetromino.h"
-#include "../../Tools/Actions/Animation.h"
+#include "Tetromino.h"
+#include "../../Actions/Animation.h"
 
 class CellStorage: public Object
 {
@@ -18,7 +18,7 @@ public:
 											ActionsForCellClearAnimation);
 private:
 	std::vector<std::vector<Cell>> _storage;
-	std::vector<int> _fullRowsIndices = std::vector<int>();
+	std::vector<int> _fullRowsIndices;
 public:
 	CellStorage(int rows, int columns, Texture* const cellTexture) noexcept;
 

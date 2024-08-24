@@ -18,34 +18,34 @@
     <ClInclude Include="Application\Game.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Objects\UIElements\Scenes\IScene.h">
+    <ClInclude Include="Objects\Scenes\IScene.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Objects\UIElements\Scenes\MenuScenes\StartMenu.h">
+    <ClInclude Include="Objects\Scenes\StartMenu.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Objects\UIElements\Controls\Buttons\Button.h">
+    <ClInclude Include="Objects\Controls\Button.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Objects\UIElements\Controls\Control.h">
+    <ClInclude Include="Objects\Controls\Control.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Objects\UIElements\Controls\TextBlock.h">
+    <ClInclude Include="Objects\Controls\TextBlock.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Objects\UIElements\Scenes\MenuScenes\PauseMenu.h">
+    <ClInclude Include="Objects\Scenes\PauseMenu.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Objects\UIElements\Scenes\MenuScenes\SettingsMenu.h">
+    <ClInclude Include="Objects\Scenes\SettingsMenu.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Objects\UIElements\Scenes\GameScene.h">
+    <ClInclude Include="Objects\Scenes\GameScene.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Application\Application.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Objects\GameObjects\Tetromino\Tetromino.h">
+    <ClInclude Include="Objects\GameObjects\Tetromino.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Objects\Object.h">
@@ -60,61 +60,61 @@
     <ClInclude Include="BasicStructs\MovementSide.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Objects\UIElements\Scenes\MenuScenes\GameOverMenu.h">
+    <ClInclude Include="Objects\Scenes\GameOverMenu.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Style\Colors.h">
+    <ClInclude Include="Graphics\Colors.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Objects\UIElements\Scenes\MenuScenes\MenuScene.h">
+    <ClInclude Include="Objects\Scenes\MenuScene.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Events\HoldKeyEvent.h">
+    <ClInclude Include="EventRegisters\KeyHoldRegister.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Style\Texture.h">
+    <ClInclude Include="Graphics\Texture.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Tools\Actions\Animation.h">
+    <ClInclude Include="Actions\Animation.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="resource.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Objects\UIElements\Controls\Slider.h">
+    <ClInclude Include="Objects\Controls\Slider.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Objects\UIElements\Controls\Container.h">
+    <ClInclude Include="Objects\Controls\Container.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Objects\UIElements\Controls\Buttons\TextButton.h">
+    <ClInclude Include="Objects\Controls\TextButton.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Objects\UIElements\Controls\Image.h">
+    <ClInclude Include="Objects\Controls\Image.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Tools\Serialization\ISerializable.h">
+    <ClInclude Include="Serialization\ISerializable.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Tools\Serialization\SettinsDataSerializer.h">
+    <ClInclude Include="Serialization\SettinsDataSerializer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Objects\UIElements\Scenes\Scene.h">
+    <ClInclude Include="Objects\Scenes\Scene.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Objects\UIElements\UIElement.h">
+    <ClInclude Include="Objects\UIElement.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Objects\GameObjects\CellStorage.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Tools\Actions\Action.h">
+    <ClInclude Include="Actions\Action.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Tools\Actions\ActionBase.h">
+    <ClInclude Include="Actions\ActionBase.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Objects\GameObjects\Tetromino\ActiveTetromino.h">
+    <ClInclude Include="Objects\GameObjects\ActiveTetromino.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Audio\Music.h">
@@ -123,10 +123,10 @@
     <ClInclude Include="Audio\SoundEffect.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Events\Events.h">
+    <ClInclude Include="Objects\GameObjects\TetrominoCollection.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Objects\GameObjects\Tetromino\TetrominoCollection.h">
+    <ClInclude Include="BasicStructs\Style.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -137,31 +137,28 @@
     <ClCompile Include="Main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Objects\UIElements\Scenes\MenuScenes\StartMenu.cpp">
+    <ClCompile Include="Objects\Scenes\StartMenu.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Objects\UIElements\Controls\Buttons\Button.cpp">
+    <ClCompile Include="Objects\Controls\Button.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Objects\UIElements\Controls\Control.cpp">
+    <ClCompile Include="Objects\Controls\Control.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Objects\UIElements\Scenes\MenuScenes\PauseMenu.cpp">
+    <ClCompile Include="Objects\Scenes\PauseMenu.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Objects\UIElements\Scenes\MenuScenes\SettingsMenu.cpp">
+    <ClCompile Include="Objects\Scenes\SettingsMenu.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Objects\UIElements\Scenes\GameScene.cpp">
+    <ClCompile Include="Objects\Scenes\GameScene.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Application\Application.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Objects\GameObjects\Tetromino\Tetromino.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Objects\Object.cpp">
+    <ClCompile Include="Objects\GameObjects\Tetromino.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Objects\GameObjects\Cell.cpp">
@@ -170,55 +167,55 @@
     <ClCompile Include="Objects\GameObjects\Grid.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Objects\UIElements\Scenes\MenuScenes\GameOverMenu.cpp">
+    <ClCompile Include="Objects\Scenes\GameOverMenu.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Objects\UIElements\Controls\TextBlock.cpp">
+    <ClCompile Include="Objects\Controls\TextBlock.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Objects\UIElements\Scenes\MenuScenes\MenuScene.cpp">
+    <ClCompile Include="Objects\Scenes\MenuScene.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Events\HoldKeyEvent.cpp">
+    <ClCompile Include="EventRegisters\KeyHoldRegister.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Style\Texture.cpp">
+    <ClCompile Include="Graphics\Texture.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Tools\Actions\Animation.cpp">
+    <ClCompile Include="Actions\Animation.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Objects\UIElements\Controls\Slider.cpp">
+    <ClCompile Include="Objects\Controls\Slider.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Objects\UIElements\Controls\Container.cpp">
+    <ClCompile Include="Objects\Controls\Container.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Objects\UIElements\Controls\Buttons\TextButton.cpp">
+    <ClCompile Include="Objects\Controls\TextButton.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Objects\UIElements\Controls\Image.cpp">
+    <ClCompile Include="Objects\Controls\Image.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Tools\Serialization\SettinsDataSerializer.cpp">
+    <ClCompile Include="Serialization\SettinsDataSerializer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Objects\UIElements\Scenes\Scene.cpp">
+    <ClCompile Include="Objects\Scenes\Scene.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Objects\UIElements\UIElement.cpp">
+    <ClCompile Include="Objects\UIElement.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Objects\GameObjects\CellStorage.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Tools\Actions\Action.cpp">
+    <ClCompile Include="Actions\Action.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Tools\Actions\ActionBase.cpp">
+    <ClCompile Include="Actions\ActionBase.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Objects\GameObjects\Tetromino\ActiveTetromino.cpp">
+    <ClCompile Include="Objects\GameObjects\ActiveTetromino.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Audio\Music.cpp">
@@ -227,7 +224,7 @@
     <ClCompile Include="Audio\SoundEffect.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Objects\GameObjects\Tetromino\TetrominoCollection.cpp">
+    <ClCompile Include="Objects\GameObjects\TetrominoCollection.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
