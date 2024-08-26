@@ -88,10 +88,5 @@ void SettingsMenu::OnKeyDown(Object* sender, const SDL_KeyboardEvent& e)
 			Close();
 			break;
 		}
-
-		default:
-		{
-			break;
-		}
 	}
 }

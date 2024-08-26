@@ -73,11 +73,6 @@ bool Application::PollEvent(SDL_Event* e) noexcept
 				_keyHoldRegister.Register(e->key);
 				break;
 			}
-
-			default:
-			{
-				break;
-			}
 		}
 
 		return true;

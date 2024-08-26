@@ -9,18 +9,18 @@
 #include "Cell.h"
 #include "../../Graphics/Texture.h"
 
-enum class TetrominoType
-{
-	I, J, L, O, S, T, Z
-};
-
 class Tetromino : public Object
 {
+public:
+	enum class Type
+	{
+		I, J, L, O, S, T, Z
+	};
 protected:
-	TetrominoType _type;
+	Type _type;
 	std::array<Cell, 4> _cells;
 public:
-	Tetromino(TetrominoType type, const std::array<Cell, 4>& cells) noexcept;
+	Tetromino(Type type, Texture& cellTexture) noexcept;
 
 	void Show() const noexcept override;
 
@@ -56,7 +56,7 @@ public:
 	/// </summary>
 	/// <param name="tetrominoType">- тип тетрамино</param>
 	/// <returns>Возвращает точку вращения</returns>
-	const SDL_Point& GetRotationCenter(TetrominoType tetrominoType) const;
+	const SDL_Point& GetRotationCenter(Type tetrominoType) const;
 
 	/// <summary>
 	/// Поиск самой низкой клетки
@@ -72,5 +72,8 @@ public:
 
 	const std::array<Cell, 4>& GetCells() const noexcept;
 
-	TetrominoType GetType() const noexcept;	
+	Type GetType() const noexcept;	
+
+private:
+	std::array<Cell, 4> CreateCellsBy(Type type, Texture& cellTexture) const;
 };

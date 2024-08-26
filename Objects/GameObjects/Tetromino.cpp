@@ -1,8 +1,8 @@
 #include "Tetromino.h"
 
-Tetromino::Tetromino(TetrominoType type, const std::array<Cell, 4>& cells) noexcept:
+Tetromino::Tetromino(Type type, Texture& cellTexture) noexcept:
 	_type(type),
-	_cells(cells)
+	_cells(CreateCellsBy(type, cellTexture))
 {
 
 }
@@ -25,7 +25,7 @@ void Tetromino::Move(MovementSide movementSide) noexcept
 
 void Tetromino::Rotate()
 {
-	if(_type == TetrominoType::O)
+	if(_type == Type::O)
 	{
 		return;
 	}
@@ -116,9 +116,86 @@ const std::array<Cell, 4>& Tetromino::GetCells() const noexcept
 	return _cells;
 }
 
-TetrominoType Tetromino::GetType() const noexcept
+Tetromino::Type Tetromino::GetType() const noexcept
 {
 	return _type;
+}
+
+std::array<Cell, 4> Tetromino::CreateCellsBy(Type type, Texture& cellTexture) const
+{
+	switch(type)
+	{
+		case Type::I:
+		{
+			return
+			{
+					Cell(cellTexture, SDL_Point{.x = 30, .y = 0 }),
+					Cell(cellTexture, SDL_Point{.x = 40, .y = 0 }),
+					Cell(cellTexture, SDL_Point{.x = 50, .y = 0 }),
+					Cell(cellTexture, SDL_Point{.x = 60, .y = 0 })
+			};
+		}
+		case Type::J:
+		{
+			return
+			{
+					Cell(cellTexture, SDL_Point{.x = 40, .y = 0 }),
+					Cell(cellTexture, SDL_Point{.x = 40, .y = 10 }),
+					Cell(cellTexture, SDL_Point{.x = 50, .y = 10 }),
+					Cell(cellTexture, SDL_Point{.x = 60, .y = 10 })
+			};
+		}
+		case Type::L:
+		{
+			return
+			{
+					Cell(cellTexture, SDL_Point{.x = 60, .y = 0 }),
+					Cell(cellTexture, SDL_Point{.x = 60, .y = 10 }),
+					Cell(cellTexture, SDL_Point{.x = 50, .y = 10 }),
+					Cell(cellTexture, SDL_Point{.x = 40, .y = 10 })
+			};
+		}
+		case Type::O:
+		{
+			return
+			{
+					Cell(cellTexture, SDL_Point{.x = 40, .y = 0 }),
+					Cell(cellTexture, SDL_Point{.x = 50, .y = 0 }),
+					Cell(cellTexture, SDL_Point{.x = 40, .y = 10 }),
+					Cell(cellTexture, SDL_Point{.x = 50, .y = 10 })
+			};
+		}
+		case Type::S:
+		{
+			return
+			{
+					Cell(cellTexture, SDL_Point{.x = 50, .y = 0 }),
+					Cell(cellTexture, SDL_Point{.x = 60, .y = 0 }),
+					Cell(cellTexture, SDL_Point{.x = 40, .y = 10 }),
+					Cell(cellTexture, SDL_Point{.x = 50, .y = 10 })
+			};
+		}
+		case Type::T:
+		{
+			return
+			{
+					Cell(cellTexture, SDL_Point{.x = 50, .y = 0 }),
+					Cell(cellTexture, SDL_Point{.x = 40, .y = 10 }),
+					Cell(cellTexture, SDL_Point{.x = 50, .y = 10 }),
+					Cell(cellTexture, SDL_Point{.x = 60, .y = 10 })
+			};
+		}
+		case Type::Z:
+		{
+			return
+			{
+					Cell(cellTexture, SDL_Point{.x = 40, .y = 0 }),
+					Cell(cellTexture, SDL_Point{.x = 50, .y = 0 }),
+					Cell(cellTexture, SDL_Point{.x = 50, .y = 10 }),
+					Cell(cellTexture, SDL_Point{.x = 60, .y = 10 })
+			};
+		}
+	}
 }
 
 const Cell& Tetromino::GetLowestCell() const noexcept
@@ -153,32 +230,27 @@ void Tetromino::CopyCoordinates(const Tetromino& tetromino) noexcept
 	}
 }
 
-const SDL_Point& Tetromino::GetRotationCenter(TetrominoType tetrominoType) const
+const SDL_Point& Tetromino::GetRotationCenter(Type tetrominoType) const
 {
 	switch(tetrominoType)
 	{
-		case TetrominoType::L:
+		case Type::L:
 		{
 			return _cells[1].Position;
 		}
 
-		case TetrominoType::I:
-		case TetrominoType::J:
-		case TetrominoType::S:
-		case TetrominoType::T:
-		case TetrominoType::Z:
+		case Type::I:
+		case Type::J:
+		case Type::S:
+		case Type::T:
+		case Type::Z:
 		{
 			return _cells[2].Position;
 		}
 
-		case TetrominoType::O:
+		case Type::O:
 		{
 			return _cells[3].Position;
-		}
-		
-		default:
-		{
-			return _cells[0].Position;
 		}
 	}
 }

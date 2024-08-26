@@ -14,17 +14,13 @@ public:
 	bool CanReselected = true;
 	bool NeedsToFall = false;
 public:
-	ActiveTetromino(TetrominoType type, const std::array<Cell, 4>& cells) noexcept;
-
 	ActiveTetromino(const Tetromino& other);
 
 	virtual ~ActiveTetromino() = default;
 
 	void Show() const noexcept override;
 
-	void UpdatePlaceholderPosition();
-
-	void MovePlaceholderAtBottomOf(const CellStorage& cellStorage);
+	void UpdatePlaceholderPositionIn(const CellStorage& cellStorage);
 
 	bool IsLocatedAtBottomOf(const CellStorage& cellStorage);
 

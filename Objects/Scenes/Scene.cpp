@@ -41,11 +41,6 @@ void Scene::HandleEvent(const SDL_Event & e)
 			OnMouseMove(e.button);
 			break;
 		}
-
-		default:
-		{
-			break;
-		}
 	}
 }
 
@@ -92,11 +87,6 @@ void Scene::SetVisibility(SceneVisibility visibility)
 		case SceneVisibility::Closed:
 		{
 			Close();
-			break;
-		}
-
-		default:
-		{
 			break;
 		}
 	}

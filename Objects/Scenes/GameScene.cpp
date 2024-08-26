@@ -21,8 +21,7 @@ void GameScene::Process()
 	}
 
 	_activeTetromino.Movement.TryProcess();
-	_activeTetromino.UpdatePlaceholderPosition();
-	_activeTetromino.MovePlaceholderAtBottomOf(_cellStorage);
+	_activeTetromino.UpdatePlaceholderPositionIn(_cellStorage);
 
 	if(_activeTetromino.IsLocatedAtBottomOf(_cellStorage))
 	{
@@ -122,11 +121,6 @@ void GameScene::OnKeyDown(Object* sender, const SDL_KeyboardEvent& e)
 			Hide();
 			break;
 		}
-
-		default:
-		{
-			break;
-		}
 	}
 }
 
@@ -149,11 +143,6 @@ void GameScene::OnKeyHold(Object* sender, const SDL_KeyboardEvent& e)
 		case SDLK_DOWN:
 		{
 			OnDownKeyPressed();
-			break;
-		}
-
-		default:
-		{
 			break;
 		}
 	}

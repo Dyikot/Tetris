@@ -57,11 +57,6 @@ void Cell::Move(MovementSide movementSide) noexcept
 			Position.y -= Size;
 			break;
 		}
-
-		default:
-		{
-			break;
-		}
 	}
 }
 

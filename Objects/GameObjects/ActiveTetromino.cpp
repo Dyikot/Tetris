@@ -1,14 +1,5 @@
 #include "ActiveTetromino.h"
 
-ActiveTetromino::ActiveTetromino(TetrominoType type,
-								 const std::array<Cell, 4>& cells) noexcept:
-	Tetromino(type, cells),
-	Placeholder(type, cells)
-{
-	BindMovement();
-	Placeholder.SetBackground(PlaceholderColor);
-}
-
 ActiveTetromino::ActiveTetromino(const Tetromino& other):
 	Tetromino(other),
 	Placeholder(other)
@@ -23,13 +14,10 @@ void ActiveTetromino::Show() const noexcept
 	Tetromino::Show();
 }
 
-void ActiveTetromino::UpdatePlaceholderPosition()
+void ActiveTetromino::UpdatePlaceholderPositionIn(const CellStorage& cellStorage)
 {
 	Placeholder.CopyCoordinates(*this);
-}
 
-void ActiveTetromino::MovePlaceholderAtBottomOf(const CellStorage& cellStorage)
-{
 	while(!cellStorage.IsLocatedAtBottom(Placeholder))
 	{
 		Placeholder.Move(MovementSide::Down);
