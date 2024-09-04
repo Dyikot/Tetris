@@ -22,7 +22,7 @@ void PauseMenu::OnKeyDown(Object* sender, const SDL_KeyboardEvent& e)
 	{
 		case SDLK_ESCAPE:
 		{
-			Application::Current()->SetHiddenSceneToNext();
+			Application::Current()->GetWindow()->SetHiddenSceneToNext();
 			Close();
 			break;
 		}
@@ -31,13 +31,13 @@ void PauseMenu::OnKeyDown(Object* sender, const SDL_KeyboardEvent& e)
 
 void PauseMenu::OnContinueButtonClick(Object* sender, const SDL_MouseButtonEvent& e)
 {
-	Application::Current()->SetHiddenSceneToNext();
+	Application::Current()->GetWindow()->SetHiddenSceneToNext();
 	Close();
 }
 
 void PauseMenu::OnSettingsButtonClick(Object * sender, const SDL_MouseButtonEvent& e)
 {
-	Application::Current()->SetNextScene(new SettingsMenu());
+	Application::Current()->GetWindow()->SetNextScene(new SettingsMenu());
 	Hide();
 }
 

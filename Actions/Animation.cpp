@@ -32,6 +32,7 @@ void Animation::Start() noexcept
 {
 	_isActivated = AnimationCompleted && ActionCompleted;
 	ActionBase::Start();
+	OnAnimationStarted({ Period, _actionsCompleted });
 }
 
 
@@ -54,5 +55,13 @@ void Animation::OnActionCompleted(const AnimationEventArgs& e)
 	if(ActionCompleted)
 	{
 		ActionCompleted(this, e);
+	}
+}
+
+void Animation::OnAnimationStarted(const AnimationEventArgs& e)
+{
+	if(AnimationStarted)
+	{
+		AnimationStarted(this, e);
 	}
 }

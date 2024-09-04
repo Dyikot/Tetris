@@ -1,8 +1,9 @@
 #include "Texture.h"
 
-Texture::Texture(SDL_Renderer* renderer, std::string_view path) noexcept
+Texture::Texture(SDL_Renderer* renderer, std::string_view path) noexcept:
+	_renderer(renderer)
 {
-	_texture = IMG_LoadTexture(renderer, path.data());
+	_texture = IMG_LoadTexture(_renderer, path.data());
 	
 	if(_texture == nullptr)
 	{
@@ -10,8 +11,9 @@ Texture::Texture(SDL_Renderer* renderer, std::string_view path) noexcept
 	}
 }
 
-Texture::Texture(SDL_Texture* texture) noexcept
+Texture::Texture(SDL_Renderer* renderer, SDL_Texture* texture) noexcept
 {
+	_renderer = renderer;
 	_texture = texture;
 }
 
@@ -20,9 +22,9 @@ Texture::~Texture() noexcept
 	SDL_DestroyTexture(_texture);
 }
 
-void Texture::Render(SDL_Renderer* renderer, const SDL_Rect& rectangle) const noexcept
+void Texture::Render(const SDL_Rect& rectangle) const noexcept
 {
-	SDL_RenderCopy(renderer, _texture, NULL, &rectangle);
+	SDL_RenderCopy(_renderer, _texture, NULL, &rectangle);
 }
 
 void Texture::SetColor(const SDL_Color& color) noexcept

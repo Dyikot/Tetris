@@ -3,11 +3,16 @@
 Music::Music(std::string_view path) noexcept
 {
 	_music = Mix_LoadMUS(path.data());
-
+	
 	if(_music == nullptr)
 	{
-		std::cout << SDL_GetError() << '\n';
+		std::cout << "Music: " << SDL_GetError() << '\n';
 	}
+}
+
+Music::Music(Music&& other) noexcept
+{
+	std::swap(_music, other._music);
 }
 
 Music::~Music() noexcept
@@ -17,14 +22,7 @@ Music::~Music() noexcept
 
 void Music::Play() const noexcept
 {
-	if(!Mix_PlayingMusic())
-	{
-		Mix_PlayMusic(_music, 0);
-	}
-	else if(Mix_PausedMusic())
-	{
-		Mix_ResumeMusic();
-	}
+	Mix_PlayMusic(_music, PlayOnce);
 }
 
 void Music::Pause() const noexcept
@@ -35,7 +33,18 @@ void Music::Pause() const noexcept
 	}
 }
 
+void Music::Resume() const noexcept
+{
+	Mix_ResumeMusic();
+}
+
 void Music::Stop() const noexcept
 {
 	Mix_HaltMusic();
+}
+
+void Music::SetVolume(size_t volume) noexcept
+{
+	CorrectVolume(volume);
+	Mix_VolumeMusic(ToMixVolume(volume));
 }

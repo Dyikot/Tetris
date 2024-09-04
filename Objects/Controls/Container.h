@@ -64,7 +64,6 @@ protected:
 		TextBlockStyle
 	};
 
-
 	const SDL_Point RightButtonPosition =
 	{
 		.x = _position.x + _width - ButtonStyle.Width,
@@ -99,7 +98,7 @@ public:
 
 	virtual ~Container() = default;
 
-	void Show() const noexcept override;
+	void OnRender() const override;
 
 	void MoveCurrentItemRight() noexcept;
 

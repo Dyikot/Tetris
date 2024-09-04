@@ -1,41 +1,52 @@
 #pragma once
 
 #include <vector>
-
-#include "IScene.h"
+#include "../../EventRegisters/KeyHoldRegister.h"
 #include "../UIElement.h"
+#include "../../Graphics/Colors.h"
 
-class Scene: public UIElement, public IScene
+struct EventArgs
+{
+	Object* Source;
+};
+
+enum class SceneAction
+{
+	Show,
+	Hide,
+	Close
+};
+
+class Scene: public UIElement
 {
 public:
-	using QuitEventHandler = std::function<void(Object* sender, const SDL_QuitEvent&)>;
+	static constexpr int Scale = 4;
 	using EventHandler = std::function<void(Object* sender, const EventArgs&)>;
 
-	QuitEventHandler Quit;
 	EventHandler Hidden;
 	EventHandler Closed;
 	std::vector<Object*> Objects;
+	SDL_Color Background = Colors::Black;
 protected:
-	SceneVisibility _visibility = SceneVisibility::Visible;
+	SceneAction _currentAction = SceneAction::Show;
 public:
 	virtual ~Scene() = default;
 
-	void Show() const override;
+	void OnRender() const;
 
-	void HandleEvent(const SDL_Event& e) override;
+	virtual void Process() = 0;
 
-	void Close() override;
+	void HandleEvent(const SDL_Event& e);
 
-	void Hide() override;
+	void Show();
 
-	void SetVisibility(SceneVisibility visibility) override;
-	
-	SceneVisibility GetVisibility() const noexcept override;
+	void Close();
+
+	void Hide();
+
+	SceneAction CurrentAction() const;
 protected:
-	virtual void OnQuit(const SDL_QuitEvent& e);
-
 	virtual void OnHide(const EventArgs& e);
 
 	virtual void OnClose(const EventArgs& e);
 };
-

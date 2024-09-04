@@ -9,12 +9,22 @@ GameScene::GameScene() noexcept
 	KeyDown = std::bind(&GameScene::OnKeyDown, this, _1, _2);
 	KeyHold = std::bind(&GameScene::OnKeyHold, this, _1, _2);
 	Hidden = std::bind(&GameScene::OnHide, this, _1, _2);
+	_cellStorage.RowClearAnimation.AnimationStarted = std::bind(
+		&GameScene::OnRowClearAnimationStarted, this, _1, _2);
 
+	_audioManager->ShuffleMusicTracks();
 	_activeTetromino.Movement.Start();
+}
+
+GameScene::~GameScene()
+{
+	_audioManager->CurrentTrack()->Stop();
 }
 
 void GameScene::Process()
 {
+	_audioManager->PlayMusic();
+
 	if(_cellStorage.RowClearAnimation.TryProcess())
 	{
 		return;
@@ -27,7 +37,7 @@ void GameScene::Process()
 	{
 		_cellStorage.Add(_activeTetromino);
 
-		if(_cellStorage.AreRowsFull(_activeTetromino))
+		if(_cellStorage.AreRowsFull())
 		{
 			_cellStorage.RowClearAnimation.Start();
 		}
@@ -37,15 +47,10 @@ void GameScene::Process()
 
 		if(_cellStorage.IsLocatedInCells(_activeTetromino))
 		{
-			Application::Current()->SetNextScene(new GameOverMenu());
+			Application::Current()->GetWindow()->SetNextScene(new GameOverMenu());
 			Close();
 		}
 	}
-}
-
-void GameScene::SetBackground()
-{
-	SetRenderColor(_renderer, Colors::Black);
 }
 
 void GameScene::OnLeftKeyPressed()
@@ -53,6 +58,7 @@ void GameScene::OnLeftKeyPressed()
 	if(!_activeTetromino.IsOnLeftBorder(LeftBorder))
 	{
 		_activeTetromino.Move(MovementSide::Left);
+		OnVerticalMove();
 	}
 }
 
@@ -61,12 +67,18 @@ void GameScene::OnRightKeyPressed()
 	if(!_activeTetromino.IsOnRightBorder(RightBorder))
 	{
 		_activeTetromino.Move(MovementSide::Right);
+		OnVerticalMove();
 	}
 }
 
 void GameScene::OnDownKeyPressed()
 {
 	_activeTetromino.Move(MovementSide::Down);
+}
+
+void GameScene::OnVerticalMove()
+{
+	_audioManager->SoundEffects.TetrominoMove.Play();
 }
 
 void GameScene::OnKeyDown(Object* sender, const SDL_KeyboardEvent& e)
@@ -101,6 +113,7 @@ void GameScene::OnKeyDown(Object* sender, const SDL_KeyboardEvent& e)
 		case SDLK_SPACE:
 		{
 			_activeTetromino.NeedsToFall = true;
+			_audioManager->SoundEffects.TetrominoFall.Play(/*channel*/ 1);
 			break;
 		}
 
@@ -117,7 +130,7 @@ void GameScene::OnKeyDown(Object* sender, const SDL_KeyboardEvent& e)
 
 		case SDLK_ESCAPE:
 		{
-			Application::Current()->SetNextScene(new PauseMenu());
+			Application::Current()->GetWindow()->SetNextScene(new PauseMenu());
 			Hide();
 			break;
 		}
@@ -150,6 +163,35 @@ void GameScene::OnKeyHold(Object* sender, const SDL_KeyboardEvent& e)
 
 void GameScene::OnHide(Object* sender, const EventArgs& e)
 {
+	_audioManager->CurrentTrack()->Pause();
 	_cellStorage.RowClearAnimation.Pause();
 	_activeTetromino.Movement.Pause();
+}
+
+void GameScene::OnRowClearAnimationStarted(Animation* sender, 
+												 const AnimationEventArgs& e)
+{
+	auto rows = _cellStorage.GetFullRowsIndices().size();
+
+	switch(rows)
+	{
+		case 1:
+		{
+			_audioManager->SoundEffects.SingleRowClear.Play(/*channel*/ 1);
+			break;
+		}
+
+		case 2:
+		case 3:
+		{
+			_audioManager->SoundEffects.UpTo3RowClear.Play(/*channel*/ 1);
+			break;
+		}
+
+		case 4:
+		{
+			_audioManager->SoundEffects.UpTo4RowClear.Play(/*channel*/ 1);
+			break;
+		}
+	}
 }

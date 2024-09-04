@@ -31,7 +31,7 @@ Container::Container(const SDL_Point& position,
 	BackgroundOnHover = style.BackgroundOnHover;
 }
 
-void Container::Show() const noexcept
+void Container::OnRender() const
 {
 	SDL_Rect rectangle =
 	{
@@ -42,12 +42,12 @@ void Container::Show() const noexcept
 	};
 
 	// Backgroud
-	SetRenderColor(_renderer, _background);
+	SetRenderColor(_background);
 	SDL_RenderFillRect(_renderer, &rectangle);
 
-	_leftButton.Show();
-	_rightButton.Show();
-	_textBlock.Show();
+	_leftButton.OnRender();
+	_rightButton.OnRender();
+	_textBlock.OnRender();
 }
 
 const std::string* Container::GetCurrentItem() const

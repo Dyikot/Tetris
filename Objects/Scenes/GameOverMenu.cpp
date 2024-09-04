@@ -8,6 +8,7 @@ GameOverMenu::GameOverMenu()
 	_title.SetText("Game Over");
 	_title.SetFontColor(Colors::Red);
 
+	_audioManager->SoundEffects.GameOver.Play();
 	using namespace std::placeholders;
 
 	_retryButton.Click = std::bind(&GameOverMenu::OnRetryButtonClick, this, _1, _2);
@@ -21,6 +22,6 @@ void GameOverMenu::OnExitButtonClick(Object* sender, const SDL_MouseButtonEvent&
 
 void GameOverMenu::OnRetryButtonClick(Object * sender, const SDL_MouseButtonEvent & e)
 {
-	Application::Current()->SetNextScene(new GameScene());
+	Application::Current()->GetWindow()->SetNextScene(new GameScene());
 	Close();
 }

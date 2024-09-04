@@ -1,10 +1,10 @@
 #include "Scene.h"
 
-void Scene::Show() const
+void Scene::OnRender() const
 {
 	for(auto object : Objects)
 	{
-		object->Show();
+		object->OnRender();
 	}
 }
 
@@ -12,12 +12,6 @@ void Scene::HandleEvent(const SDL_Event & e)
 {
 	switch(e.type)
 	{
-		case SDL_QUIT:
-		{
-			OnQuit(e.quit);
-			break;
-		}
-
 		case SDL_KEYDOWN:
 		{
 			OnKeyDown(e.key);
@@ -44,62 +38,26 @@ void Scene::HandleEvent(const SDL_Event & e)
 	}
 }
 
-void Scene::Close()
+void Scene::Show()
 {
-	_visibility = SceneVisibility::Closed;
+	_currentAction = SceneAction::Show;
+}
 
+void Scene::Close()
+{	
+	_currentAction = SceneAction::Close;
 	OnClose(EventArgs{ .Source = this });
-
-	if(!Application::Current()->IsNextSceneSet())
-	{
-		OnQuit({ .type = SDL_QUIT, .timestamp = SDL_GetTicks() });
-	}
 }
 
 void Scene::Hide()
 {
-	_visibility = SceneVisibility::Hidden;
-
+	_currentAction = SceneAction::Hide;
 	OnHide(EventArgs{ .Source = this });
 }
 
-SceneVisibility Scene::GetVisibility() const noexcept
+SceneAction Scene::CurrentAction() const
 {
-	return _visibility;
-}
-
-void Scene::SetVisibility(SceneVisibility visibility)
-{
-	switch(visibility)
-	{
-		case SceneVisibility::Visible:
-		{
-			_visibility = visibility;
-			break;
-		}
-
-		case SceneVisibility::Hidden:
-		{
-			Hide();
-			break;
-		}
-
-		case SceneVisibility::Closed:
-		{
-			Close();
-			break;
-		}
-	}
-}
-
-void Scene::OnQuit(const SDL_QuitEvent& e)
-{
-	if(Quit)
-	{
-		Quit(this, e);
-	}
-
-	Application::Current()->Shutdown();
+	return _currentAction;
 }
 
 void Scene::OnHide(const EventArgs& e)

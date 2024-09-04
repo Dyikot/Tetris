@@ -19,7 +19,11 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Application\Application.h" />
+    <ClInclude Include="Audio\GameAudioManager.h" />
+    <ClInclude Include="Audio\AudioBase.h" />
     <ClInclude Include="Audio\Music.h" />
+    <ClInclude Include="Audio\AudioManager.h" />
     <ClInclude Include="Objects\GameObjects\ActiveTetromino.h" />
     <ClInclude Include="Audio\SoundEffect.h" />
     <ClInclude Include="Objects\GameObjects\TetrominoCollection.h" />
@@ -34,7 +38,7 @@
     <ClInclude Include="Serialization\SettinsDataSerializer.h" />
     <ClInclude Include="Serialization\ISerializable.h" />
     <ClInclude Include="Actions\Animation.h" />
-    <ClInclude Include="Application\Application.h" />
+    <ClInclude Include="Application\Window.h" />
     <ClInclude Include="EventRegisters\KeyHoldRegister.h" />
     <ClInclude Include="Graphics\Texture.h" />
     <ClInclude Include="Objects\Scenes\MenuScene.h" />
@@ -47,7 +51,6 @@
     <ClInclude Include="Application\Game.h" />
     <ClInclude Include="Objects\Object.h" />
     <ClInclude Include="Objects\Scenes\GameScene.h" />
-    <ClInclude Include="Objects\Scenes\IScene.h" />
     <ClInclude Include="Objects\Scenes\StartMenu.h" />
     <ClInclude Include="Objects\Controls\TextBlock.h" />
     <ClInclude Include="Objects\Scenes\PauseMenu.h" />
@@ -59,6 +62,10 @@
     <ClInclude Include="BasicStructs\Style.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Application\Application.cpp" />
+    <ClCompile Include="Audio\AudioBase.cpp" />
+    <ClCompile Include="Audio\GameAudioManager.cpp" />
+    <ClCompile Include="Audio\AudioManager.cpp" />
     <ClCompile Include="Audio\Music.cpp" />
     <ClCompile Include="Objects\GameObjects\ActiveTetromino.cpp" />
     <ClCompile Include="Audio\SoundEffect.cpp" />
@@ -69,11 +76,12 @@
     <ClCompile Include="Objects\Controls\Image.cpp" />
     <ClCompile Include="Objects\Controls\Container.cpp" />
     <ClCompile Include="Objects\Controls\Slider.cpp" />
+    <ClCompile Include="Objects\Object.cpp" />
     <ClCompile Include="Objects\UIElement.cpp" />
     <ClCompile Include="Objects\Scenes\Scene.cpp" />
     <ClCompile Include="Serialization\SettinsDataSerializer.cpp" />
     <ClCompile Include="Actions\Animation.cpp" />
-    <ClCompile Include="Application\Application.cpp" />
+    <ClCompile Include="Application\Window.cpp" />
     <ClCompile Include="EventRegisters\KeyHoldRegister.cpp" />
     <ClCompile Include="Graphics\Texture.cpp" />
     <ClCompile Include="Objects\Scenes\MenuScene.cpp" />

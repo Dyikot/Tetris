@@ -2,9 +2,9 @@
 
 SoundEffect::SoundEffect(std::string_view path) noexcept
 {
-	_soundEffect = Mix_LoadWAV(path.data());
+	_soundChunk = Mix_LoadWAV(path.data());
 
-	if(_soundEffect == nullptr)
+	if(_soundChunk == nullptr)
 	{
 		std::cout << SDL_GetError() << '\n';
 	}
@@ -12,10 +12,21 @@ SoundEffect::SoundEffect(std::string_view path) noexcept
 
 SoundEffect::~SoundEffect() noexcept
 {
-	Mix_FreeChunk(_soundEffect);
+	Mix_FreeChunk(_soundChunk);
 }
 
 void SoundEffect::Play() const noexcept
 {
-	Mix_PlayChannel(-1, _soundEffect, 0);
+	Mix_PlayChannel(ChannelAutoSelection, _soundChunk, PlayOnce);
+}
+
+void SoundEffect::Play(int channel) const noexcept
+{
+	Mix_PlayChannel(channel, _soundChunk, PlayOnce);
+}
+
+void SoundEffect::SetVolume(size_t volume) noexcept
+{
+	CorrectVolume(volume);
+	Mix_VolumeChunk(_soundChunk, ToMixVolume(volume));
 }

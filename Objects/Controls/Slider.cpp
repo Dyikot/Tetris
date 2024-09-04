@@ -18,8 +18,7 @@ Slider::Slider(const SDL_Point& position,
 
 	_thumbPosition = 
 	{ 
-		.x = StartThumbXPosition + static_cast<int>(static_cast<double>(filling) 
-												    / static_cast<double>(Full) * width),
+		.x = StartThumbXPosition + static_cast<int>(static_cast<double>(filling) / Full * width),
 		.y = position.y + height / 2 - ThumbHeight / 2 
 	};
 }
@@ -30,7 +29,7 @@ Slider::Slider(const SDL_Point& position, const Style& style, size_t filling) no
 	BackgroundOnHover = style.BackgroundOnHover;
 }
 
-void Slider::Show() const noexcept
+void Slider::OnRender() const noexcept
 {
 	SDL_Rect border =
 	{
@@ -57,15 +56,15 @@ void Slider::Show() const noexcept
 	};
 
 	// Bar
-	SetRenderColor(_renderer, _background);
+	SetRenderColor( _background);
 	SDL_RenderFillRect(_renderer, &bar);
 
 	// Border
-	SetRenderColor(_renderer, BorderColor);
+	SetRenderColor( BorderColor);
 	SDL_RenderDrawRect(_renderer, &border);
 
 	// Thumb
-	SetRenderColor(_renderer, ThumbColor);
+	SetRenderColor( ThumbColor);
 	SDL_RenderFillRect(_renderer, &thumb);
 }
 
@@ -74,6 +73,7 @@ void Slider::MoveThumbTo(const int x) noexcept
 	if(x > StartThumbXPosition && x < EndThumbXPosition)
 	{
 		_thumbPosition.x = x;
+		OnThumbMoved(ThumbMovedEventArgs{ GetFilling() });
 	}
 }
 
@@ -81,6 +81,14 @@ size_t Slider::GetFilling() const noexcept
 {
 	return (_thumbPosition.x - StartThumbXPosition) * 100
 		   / (EndThumbXPosition - StartThumbXPosition);
+}
+
+void Slider::OnThumbMoved(const ThumbMovedEventArgs& e)
+{
+	if(ThumbMoved)
+	{
+		ThumbMoved(this, e);
+	}
 }
 
 void Slider::SetFilling(size_t filling) noexcept

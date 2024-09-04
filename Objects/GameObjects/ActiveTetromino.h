@@ -18,7 +18,7 @@ public:
 
 	virtual ~ActiveTetromino() = default;
 
-	void Show() const noexcept override;
+	void OnRender() const noexcept override;
 
 	void UpdatePlaceholderPositionIn(const CellStorage& cellStorage);
 

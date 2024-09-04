@@ -16,9 +16,9 @@ Grid::Grid(const SDL_Point& position,
 
 }
 
-void Grid::Show() const noexcept
+void Grid::OnRender() const noexcept
 {
-	SetRenderColor(_renderer, LineColor);
+	SetRenderColor(LineColor);
 
 	for(int x = ColumnWidth; x < Width; x += ColumnWidth)
 	{

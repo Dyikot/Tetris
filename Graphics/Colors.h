@@ -34,8 +34,3 @@ static bool operator!=(const SDL_Color& left, const SDL_Color& right)
 {
 	return !operator==(left, right);
 }
-
-static void SetRenderColor(SDL_Renderer* renderer, const SDL_Color& color) noexcept
-{
-	SDL_SetRenderDrawColor(renderer, color.r, color.g, color.b, color.a);
-}

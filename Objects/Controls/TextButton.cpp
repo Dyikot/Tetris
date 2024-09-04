@@ -54,7 +54,10 @@ void TextButton::OnContentOrPositionChange() noexcept
 {
 	if(_content != nullptr)
 	{
-		_content->SetPosition({ .x = _position.x + _width / 2,
-								.y = _position.y + _height / 2 });
+		_content->SetPosition(
+			{
+				.x = _position.x + _width / 2,
+				.y = _position.y + _height / 2 
+			});
 	}
 }

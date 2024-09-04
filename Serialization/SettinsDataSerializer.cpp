@@ -34,7 +34,8 @@ void SettinsDataSerializer::Serialize(const SerializationData* data) const
 }
 
 
-std::unique_ptr<SerializationData> SettinsDataSerializer::Deserialize(const std::filesystem::path & path) const
+std::unique_ptr<SerializationData> SettinsDataSerializer::Deserialize(
+	const std::filesystem::path & path) const
 {
 	auto settingsData = std::make_unique<SettingsData>();
 
@@ -54,7 +55,7 @@ std::unique_ptr<SerializationData> SettinsDataSerializer::Deserialize(const std:
 		std::vector<std::string> values;
 		std::string buffer;
 
-		while(std::getline(stream, buffer, settingsData->Delimetr))
+		while(std::getline(stream, buffer, Delimetr))
 		{
 			values.push_back(std::move(buffer));
 		} 
@@ -81,11 +82,13 @@ bool SettinsDataSerializer::IsPathRelevant(const std::filesystem::path& path) co
 std::string SettingsData::ToString() const
 {
 	std::stringstream ss;
-	ss << WidndowWidth << Delimetr;
-	ss << WidndowHeight << Delimetr;
-	ss << AcvtiveResolutionIndex << Delimetr;
-	ss << SoundEffectFilling << Delimetr;
-	ss << MusicFilling << Delimetr;
+	constexpr char delimetr = SettinsDataSerializer::Delimetr;
+
+	ss << WindowWidth << delimetr;
+	ss << WindowHeight << delimetr;
+	ss << ActiveResolutionIndex << delimetr;
+	ss << SoundEffectVolume << delimetr;
+	ss << MusicVolume << delimetr;
 	
 	return ss.str();
 }
@@ -108,9 +111,9 @@ void SettingsData::Convert(const std::vector<std::string>& values)
 
 	auto properties = values | std::ranges::views::transform(ToSize_t);
 
-	WidndowWidth = properties[0];
-	WidndowHeight = properties[1];
-	AcvtiveResolutionIndex = properties[2];
-	SoundEffectFilling = properties[3];
-	MusicFilling = properties[4];
+	WindowWidth = properties[0];
+	WindowHeight = properties[1];
+	ActiveResolutionIndex = properties[2];
+	SoundEffectVolume = properties[3];
+	MusicVolume = properties[4];
 }

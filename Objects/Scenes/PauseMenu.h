@@ -1,7 +1,6 @@
 #pragma once
 
-#include "IScene.h"
-#include "../../Application/Application.h"
+#include "../../Application/Window.h"
 #include "../Controls/TextButton.h"
 #include "../Controls/TextBlock.h"
 #include "SettingsMenu.h"

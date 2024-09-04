@@ -6,33 +6,35 @@
 #include "Cell.h"
 #include "Tetromino.h"
 #include "../../Actions/Animation.h"
+#include "../../Audio/GameAudioManager.h"
 
 class CellStorage: public Object
 {
 public:
 	const int Rows;
 	const int Columns;
-	const int ActionsForCellClearAnimation = Columns / 2;
 	Texture* const CellTexture;
-	Animation RowClearAnimation = Animation(/*period*/ std::chrono::milliseconds(70),
-											ActionsForCellClearAnimation);
+	Animation RowClearAnimation = 
+	{
+		/*period*/ std::chrono::milliseconds(70),
+		/*actions*/ static_cast<size_t>(Columns / 2)
+	};
 private:
+	const Tetromino* _lastAddedTetromino;
 	std::vector<std::vector<Cell>> _storage;
 	std::vector<int> _fullRowsIndices;
 public:
 	CellStorage(int rows, int columns, Texture* const cellTexture) noexcept;
 
-	void Show() const override;
+	void OnRender() const override;
 
 	void ClearFullRows();
-
-	void Add(const std::array<Cell, 4>& cells);
 
 	void Add(const Tetromino& tetromino);
 
 	bool AreRowsFull(int lowestRow, int highestRow);
 
-	bool AreRowsFull(const Tetromino& tetromino);
+	bool AreRowsFull();
 
 	bool IsLocatedAtBottom(const Cell& cell) const;
 

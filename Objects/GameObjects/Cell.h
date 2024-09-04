@@ -3,6 +3,7 @@
 #include"../Object.h"
 #include "../../BasicStructs/MovementSide.h"
 #include "../../Graphics/Texture.h"
+#include "../../Graphics/Colors.h"
 
 class Cell: public Object
 {
@@ -20,13 +21,13 @@ public:
 	/// <summary>
 	/// Отрисовка клетки
 	/// </summary>
-	void Show() const noexcept override;
+	void OnRender() const noexcept override;
 	
 	/// <summary>
 	/// Отрисовка клетки в других координатах
 	/// </summary>
 	/// <param name="coordinates">- координаты начальной точки клетки</param>
-	void Show(const SDL_Point& coordinates) const noexcept;
+	void OnRender(const SDL_Point& coordinates) const noexcept;
 
 	/// <summary>
 	/// Перемещение клетки
@@ -36,4 +37,3 @@ public:
 
 	Cell& operator=(const Cell& other);
 };
-

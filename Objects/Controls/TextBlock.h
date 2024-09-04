@@ -27,7 +27,7 @@ public:
 
 	~TextBlock();
 
-	void Show() const noexcept override;
+	void OnRender() const noexcept override;
 
 	void SetText(std::string_view text) noexcept;
 

@@ -3,6 +3,8 @@
 #include <vector>
 #include "Control.h"
 #include "../../BasicStructs/Style.h"
+#include "../../Audio/GameAudioManager.h"
+#include "../../Application/Application.h"
 
 class Button: public Control
 {
@@ -10,6 +12,8 @@ public:
 	MouseEventHandler Click;
 	SDL_Color BorderColor;
 protected:
+	const SoundEffect& ClickSoundEffect = Application::Current()
+		->AudioManager<GameAudioManager>()->SoundEffects.ButtonClick;
 	Control* _content;
 public:
 	Button(const SDL_Point& position,
@@ -25,7 +29,7 @@ public:
 
 	virtual ~Button() noexcept;
 
-	void Show() const override;
+	void OnRender() const override;
 
 	void SetContent(Control* content) noexcept;
 

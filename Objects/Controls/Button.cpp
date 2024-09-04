@@ -11,7 +11,6 @@ Button::Button(const SDL_Point& position,
 	BorderColor(borderColor),
 	_content(content)
 {
-	
 }
 
 Button::Button(const SDL_Point& position, const Style& style, Control* content) noexcept:
@@ -25,7 +24,7 @@ Button::~Button() noexcept
 	delete _content;
 }
 
-void Button::Show() const
+void Button::OnRender() const
 {
 	SDL_Rect rectangle =
 	{
@@ -36,15 +35,15 @@ void Button::Show() const
 	};
 
 	// Border
-	SetRenderColor(_renderer, BorderColor);
+	SetRenderColor(BorderColor);
 	SDL_RenderDrawRect(_renderer, &rectangle);
 
 	// Backgroud
-	SetRenderColor(_renderer, _background);
+	SetRenderColor(_background);
 	SDL_RenderFillRect(_renderer, &rectangle);
 
 	// Content
-	_content->Show();
+	_content->OnRender();
 }
 
 
@@ -61,6 +60,8 @@ Control* const Button::GetContent() const
 
 void Button::OnClick(const SDL_MouseButtonEvent& e)
 {
+	ClickSoundEffect.Play();
+
 	if(Click)
 	{
 		Click(this, e);

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "../Object.h"
+#include "../../Graphics/Colors.h"
 
 class Grid : public Object
 {
@@ -21,6 +22,5 @@ public:
 		 int height,
 		 const SDL_Color& lineColor) noexcept;
 
-	void Show() const noexcept override;
+	void OnRender() const noexcept override;
 };
-

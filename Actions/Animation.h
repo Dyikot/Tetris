@@ -18,6 +18,7 @@ public:
 
 	const size_t Actions;
 	AnimationEventHandler AnimationCompleted;
+	AnimationEventHandler AnimationStarted;
 	AnimationEventHandler ActionCompleted;
 protected:
 	size_t _actionsCompleted = 0;
@@ -35,4 +36,6 @@ protected:
 	virtual void OnAnimationCompleted(const AnimationEventArgs& e);
 
 	virtual void OnActionCompleted(const AnimationEventArgs& e);
+
+	virtual void OnAnimationStarted(const AnimationEventArgs& e);
 };

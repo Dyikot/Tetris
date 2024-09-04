@@ -1,4 +1,5 @@
 #include "Cell.h"
+#include "../Scenes/Scene.h"
 
 Cell::Cell(Texture& cellTexture,
 		   const SDL_Point position,
@@ -10,23 +11,23 @@ Cell::Cell(Texture& cellTexture,
 	
 }
 
-void Cell::Show() const noexcept
+void Cell::OnRender() const noexcept
 {
-	Show(Position);
+	OnRender(Position);
 }
 
-void Cell::Show(const SDL_Point& position) const noexcept
+void Cell::OnRender(const SDL_Point& position) const noexcept
 {
 	SDL_Rect rectangle =
 	{
-		.x = position.x * IScene::Scale,
-		.y = position.y * IScene::Scale,
-		.w = Size * IScene::Scale,
-		.h = Size * IScene::Scale
+		.x = position.x * Scene::Scale,
+		.y = position.y * Scene::Scale,
+		.w = Size * Scene::Scale,
+		.h = Size * Scene::Scale
 	};
 
 	_cellTexture.SetColor(Background);
-	_cellTexture.Render(_renderer, rectangle);
+	_cellTexture.Render(rectangle);
 }
 
 

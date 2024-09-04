@@ -7,11 +7,11 @@ Tetromino::Tetromino(Type type, Texture& cellTexture) noexcept:
 
 }
 
-void Tetromino::Show() const noexcept
+void Tetromino::OnRender() const noexcept
 {
 	for(auto& cell : _cells)
 	{
-		cell.Show();
+		cell.OnRender();
 	}
 }
 

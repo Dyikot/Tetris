@@ -8,10 +8,10 @@ ActiveTetromino::ActiveTetromino(const Tetromino& other):
 	Placeholder.SetBackground(PlaceholderColor);
 }
 
-void ActiveTetromino::Show() const noexcept
+void ActiveTetromino::OnRender() const noexcept
 {
-	Placeholder.Show();
-	Tetromino::Show();
+	Placeholder.OnRender();
+	Tetromino::OnRender();
 }
 
 void ActiveTetromino::UpdatePlaceholderPositionIn(const CellStorage& cellStorage)
@@ -28,9 +28,7 @@ bool ActiveTetromino::IsLocatedAtBottomOf(const CellStorage& cellStorage)
 {
 	if(NeedsToFall)
 	{
-		NeedsToFall = false;
 		CopyCoordinates(Placeholder);
-
 		return true;
 	}
 
@@ -43,6 +41,7 @@ Tetromino& ActiveTetromino::operator=(const Tetromino& other) noexcept
 	_type = other.GetType();
 	Placeholder = other;
 	Placeholder.SetBackground(PlaceholderColor);
+	NeedsToFall = false;
 
 	return *this;
 }

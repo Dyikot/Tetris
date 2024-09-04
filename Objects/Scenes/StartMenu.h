@@ -2,7 +2,6 @@
 
 #include <algorithm>
 
-#include "IScene.h"
 #include "GameScene.h"
 #include "SettingsMenu.h"
 #include "../Controls/TextButton.h"
@@ -10,7 +9,9 @@
 
 class StartMenu : public MenuScene
 {
-private:	
+private:
+	GameAudioManager* _audioManager = Application::Current()->AudioManager<GameAudioManager>();
+	
 	TextButton _startGameButton = 
 	{
 		SDL_Point

@@ -9,7 +9,7 @@ TextBlock::TextBlock(const SDL_Point& position,
     _text(text),
     _fontColor(fontColor),
     _fontFamily(TTF_OpenFont("Resources/Fonts/CreteRound-Regular.ttf", fontSize)),
-    _textTexture(GenerateTextureByText())
+    _textTexture(_renderer, GenerateTextureByText())
 {
     UpdateSizeByTexture();
 }
@@ -37,7 +37,7 @@ TextBlock::~TextBlock()
 }
 
 
-void TextBlock::Show() const noexcept
+void TextBlock::OnRender() const noexcept
 {
     const auto [x, y] = GetRealPosition();
 
@@ -50,11 +50,11 @@ void TextBlock::Show() const noexcept
     };
 
     // Backgroud
-    SetRenderColor(_renderer, _background);
+    SetRenderColor(_background);
     SDL_RenderFillRect(_renderer, &textRectangle);
 
     // Text
-    _textTexture.Render(_renderer, textRectangle);
+    _textTexture.Render(textRectangle);
 }
 
 void TextBlock::SetText(std::string_view text) noexcept

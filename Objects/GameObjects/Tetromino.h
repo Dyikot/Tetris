@@ -22,7 +22,7 @@ protected:
 public:
 	Tetromino(Type type, Texture& cellTexture) noexcept;
 
-	void Show() const noexcept override;
+	void OnRender() const noexcept override;
 
 	void Move(MovementSide movementSide) noexcept;
 
@@ -33,12 +33,11 @@ public:
 	void CopyCoordinates(const Tetromino& tetromino) noexcept;
 
 	/// <summary>
-	/// ѕроверка на то, не зашло ли тетрамино за границу игрового пол€.
-	/// » если зашло то, корректирует положение, перемеща€ в границы игрового пол€
+	/// Correct tetromino coordinates if its out grid's border
 	/// </summary>
-	/// <param name="left">- лева€ граница игрового пол€</param>
-	/// <param name="right">- права€ граница игрового пол€</param>
-	/// <param name="top">- верхн€€ граница игрового пол€</param>
+	/// <param name="left"> - left grid border</param>
+	/// <param name="right"> - right grid border</param>
+	/// <param name="top"> - top grid border</param>
 	void CorrectCoordinates(int left, int right, int top);
 
 	bool IsOnRightBorder(int right) const noexcept;
@@ -51,29 +50,15 @@ public:
 
 	bool IsOutTopBorder(int top) const noexcept;
 
-	/// <summary>
-	/// ¬ыбираетс€ точка вокруг которой происходит вращение
-	/// </summary>
-	/// <param name="tetrominoType">- тип тетрамино</param>
-	/// <returns>¬озвращает точку вращени€</returns>
 	const SDL_Point& GetRotationCenter(Type tetrominoType) const;
 
-	/// <summary>
-	/// ѕоиск самой низкой клетки
-	/// </summary>
-	/// <returns>¬озвращает найденную клетку</returns>
 	const Cell& GetLowestCell() const noexcept;
 
-	/// <summary>
-	/// ѕоиск самой высокой клетки
-	/// </summary>
-	/// <returns>¬озвращает найденную клетку</returns>
 	const Cell& GetHighestCell() const noexcept;
 
 	const std::array<Cell, 4>& GetCells() const noexcept;
 
-	Type GetType() const noexcept;	
-
+	Type GetType() const noexcept;
 private:
 	std::array<Cell, 4> CreateCellsBy(Type type, Texture& cellTexture) const;
 };

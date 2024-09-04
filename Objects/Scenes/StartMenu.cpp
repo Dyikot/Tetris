@@ -6,7 +6,7 @@ StartMenu::StartMenu()
 	Objects = { &_title, &_startGameButton, &_settingsButton, &_exitButton };
 
 	_title.SetText("Tetris");
-
+	
 	using namespace std::placeholders;
 
 	_startGameButton.Click = std::bind(&StartMenu::OnStartButtonClick, this, _1, _2);
@@ -16,13 +16,14 @@ StartMenu::StartMenu()
 
 void StartMenu::OnStartButtonClick(Object* sender, const SDL_MouseButtonEvent& e)
 {
-	Application::Current()->SetNextScene(new GameScene());
+	
+	Application::Current()->GetWindow()->SetNextScene(new GameScene());
 	Close();
 }
 
 void StartMenu::OnSettingsButtonClick(Object* sender, const SDL_MouseButtonEvent& e)
 {
-	Application::Current()->SetNextScene(new SettingsMenu());
+	Application::Current()->GetWindow()->SetNextScene(new SettingsMenu());
 	Hide();
 }
 

@@ -16,20 +16,23 @@ SettingsMenu::SettingsMenu()
 	MouseMove = std::bind(&SettingsMenu::OnMouseMove, this, _1, _2);
 	MouseDown = std::bind(&SettingsMenu::OnMouseDown, this, _1, _2);
 	KeyDown = std::bind(&SettingsMenu::OnKeyDown, this, _1, _2);
+	Closed = std::bind(&SettingsMenu::OnClose, this, _1, _2);
 	_applyButton.Click = std::bind(&SettingsMenu::OnApplyButtonClick, this, _1, _2);
 	_backButton.Click = std::bind(&SettingsMenu::OnBackButtonClick, this, _1, _2);
-	Closed = std::bind(&SettingsMenu::OnClose, this, _1, _2);
+	_musicSlider.ThumbMoved = std::bind(&SettingsMenu::OnMusicThumbMoved, this, _1, _2);
+	_soundEffectsSlider.ThumbMoved = std::bind(&SettingsMenu::OnSoundEffectThumbMoved,
+											   this, _1, _2);
 }
 
 void SettingsMenu::OnClose(Object* sender, const EventArgs& e)
 {
 	const auto& [width, height] = WindowResolutionMap.at(*_resolutionContainer.GetCurrentItem());
 
-	_settingsData->WidndowWidth = width;
-	_settingsData->WidndowHeight = height;
-	_settingsData->AcvtiveResolutionIndex = _activeResolutionIndex;
-	_settingsData->SoundEffectFilling = _soundEffectsSlider.GetFilling();
-	_settingsData->MusicFilling = _musicSlider.GetFilling();
+	_settingsData->WindowWidth = width;
+	_settingsData->WindowHeight = height;
+	_settingsData->ActiveResolutionIndex = _activeResolutionIndex;
+	_settingsData->SoundEffectVolume = _soundEffectsSlider.GetFilling();
+	_settingsData->MusicVolume = _musicSlider.GetFilling();
 
 	_settingsDataSerializer.Serialize(_settingsData);
 }
@@ -39,14 +42,24 @@ void SettingsMenu::OnApplyButtonClick(Object* sender, const SDL_MouseButtonEvent
 	auto [width, height] = WindowResolutionMap.at(*_resolutionContainer.GetCurrentItem());
 	_activeResolutionIndex = _resolutionContainer.GetCurrentItemIndex();
 
-	Application::Current()->SetWindowSize(width, height);
+	Application::Current()->GetWindow()->SetActualWindowSize(width, height);
 	return;
 }
 
 void SettingsMenu::OnBackButtonClick(Object * sender, const SDL_MouseButtonEvent& e)
 {
-	Application::Current()->SetHiddenSceneToNext();
+	Application::Current()->GetWindow()->SetHiddenSceneToNext();
 	Close();
+}
+
+void SettingsMenu::OnMusicThumbMoved(Object* sender, const ThumbMovedEventArgs& e)
+{
+	_audioManager->SetMusicVolume(e.Filling);
+}
+
+void SettingsMenu::OnSoundEffectThumbMoved(Object* sender, const ThumbMovedEventArgs& e)
+{
+	_audioManager->SetSoundEffectsVolume(e.Filling);
 }
 
 void SettingsMenu::OnMouseDown(Object* sender, const SDL_MouseButtonEvent& e)
@@ -84,7 +97,7 @@ void SettingsMenu::OnKeyDown(Object* sender, const SDL_KeyboardEvent& e)
 	{
 		case SDLK_ESCAPE:
 		{
-			Application::Current()->SetHiddenSceneToNext();
+			Application::Current()->GetWindow()->SetHiddenSceneToNext();
 			Close();
 			break;
 		}

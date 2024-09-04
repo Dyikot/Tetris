@@ -1,15 +1,17 @@
 #pragma once
 
 #include "SDL/SDL.h"
-#include "../Application/Application.h"
-#include "../Graphics/Colors.h"
 
 class Object
 {
-protected:	
-	SDL_Renderer* _renderer = Application::Current()->GetRenderer();
+protected:
+	SDL_Renderer* _renderer;
 public:
+	Object() noexcept;
+
 	virtual ~Object() = default;
 
-	virtual void Show() const = 0;
+	virtual void OnRender() const = 0;
+protected:
+	void SetRenderColor(const SDL_Color& color) const noexcept;
 };

@@ -6,11 +6,6 @@ int MenuScene::CalculateButtonVerticalPosition(const int order)
 		   + order * (NavigationButtonStyle.Height + VerticalSpacing);
 }
 
-void MenuScene::SetBackground()
-{
-	SetRenderColor(_renderer, Colors::Black);
-}
-
 void MenuScene::Process()
 {
 
@@ -19,6 +14,11 @@ void MenuScene::Process()
 void MenuScene::OnMouseMove(const SDL_MouseButtonEvent& e)
 {
 	UIElement::OnMouseMove(e);
+
+	if(_hoverButton != nullptr && _hoverButton->IsMouseOver(e))
+	{
+		return;
+	}
 
 	for(auto button : _navigationButtons)
 	{

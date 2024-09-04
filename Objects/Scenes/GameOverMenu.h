@@ -1,8 +1,7 @@
 #pragma once
 
-#include "IScene.h"
 #include "GameScene.h"
-#include "../../Application/Application.h"
+#include "../../Application/Window.h"
 #include "../Controls/TextButton.h"
 #include "../Controls/TextBlock.h"
 #include "MenuScene.h"
@@ -10,6 +9,8 @@
 class GameOverMenu: public MenuScene
 {
 private:
+	GameAudioManager* _audioManager = Application::Current()->AudioManager<GameAudioManager>();
+
 	TextButton _retryButton =
 	{
 		SDL_Point

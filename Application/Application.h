@@ -1,48 +1,52 @@
 #pragma once
 
-#include <stack>
-#include <filesystem>
-#include "../Objects/Scenes/IScene.h"
+#include <functional>
+#include "SDL/SDL_ttf.h"
+#include "SDL/SDL_mixer.h"
+#include "SDL/SDL_image.h"
+#include "../Objects/Scenes/Scene.h"
 #include "../EventRegisters/KeyHoldRegister.h"
+#include "../Audio/AudioManager.h"
+
+class Window;
 
 class Application
 {
 public:
-	static constexpr int WindowWidth = 400;
-	static constexpr int WindowHeight = 800;
-protected:
-	inline static Application* _current = nullptr;
+	using QuitEventHandler = std::function<void(Application* sender, const SDL_QuitEvent&)>;
 
-	IScene* _currentScene = nullptr;
-	IScene* _nextScene = nullptr;
-	std::stack<IScene*> _hiddenScenes = std::stack<IScene*>();
-	SDL_Window* _currentWindow = nullptr;
-	SDL_Renderer* _renderer = nullptr;
+	QuitEventHandler Quit;
+protected:
+	Window* _window = nullptr;
+	AudioManager* _audioManager = nullptr;
 	KeyHoldRegister _keyHoldRegister;
+	Uint32 _delay = 10;
+	bool _isActive = true;
+private:
+	inline static Application* _current = nullptr;
 public:
 	static Application* const Current();
 
 	Application() noexcept;
 
-	virtual ~Application();
+	~Application() noexcept;
 
-	virtual void Run() = 0;
+	void Run();
 
-	virtual void Shutdown() = 0;
+	void Shutdown() noexcept;
 
-	void SetNextScene(IScene* next) noexcept;
+	Window* const GetWindow() const;
 
-	void SetHiddenSceneToNext() noexcept;
-
-	void SetWindowSize(size_t width, size_t height) noexcept;
-
-	SDL_Window* GetCurrentWindow() noexcept;
-
-	SDL_Renderer* GetRenderer() const noexcept;
-
-	bool IsNextSceneSet() const noexcept;	
-
-	bool PollEvent(SDL_Event* e) noexcept;
+	template<AudioManagerType AudioManagerType = AudioManager>
+	AudioManagerType* const AudioManager() const;
 protected:
-	void SwitchToNextScene() noexcept;
+	virtual void OnQuit(const SDL_QuitEvent& e);
+private:
+	bool PollEvent(SDL_Event* e) noexcept;
 };
+
+template<AudioManagerType AudioManagerType>
+inline AudioManagerType* const Application::AudioManager() const
+{
+	return static_cast<AudioManagerType* const>(_audioManager);
+}

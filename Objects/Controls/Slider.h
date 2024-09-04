@@ -1,11 +1,18 @@
 #pragma once
 
 #include "Control.h"
+struct ThumbMovedEventArgs
+{
+	size_t Filling;
+};
 
 class Slider: public Control
 {
 public:
+	using ThumbMoveEventHandler = std::function<void(Object*, const ThumbMovedEventArgs& e)>;
+
 	static constexpr size_t Full = 100;
+	ThumbMoveEventHandler ThumbMoved;
 	SDL_Color ThumbColor = Colors::Whitesmoke;
 	SDL_Color BorderColor = Colors::Green;
 protected:
@@ -23,7 +30,9 @@ public:
 
 	Slider(const SDL_Point& position, const Style& style, size_t filling = Full) noexcept;
 
-	void Show() const noexcept override;
+	virtual ~Slider() = default;
+
+	void OnRender() const noexcept override;
 
 	void MoveThumbTo(const int x) noexcept;
 
@@ -31,4 +40,6 @@ public:
 
 	/// <returns>процент заполнения 0 - 100 %</returns>
 	size_t GetFilling() const noexcept;
+protected:
+	virtual void OnThumbMoved(const ThumbMovedEventArgs& e);
 };

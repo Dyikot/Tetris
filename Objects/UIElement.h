@@ -3,11 +3,6 @@
 #include <functional>
 #include "Object.h"
 
-struct EventArgs
-{
-	Object* Source;
-};
-
 class UIElement: public Object
 {
 public:

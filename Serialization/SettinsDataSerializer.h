@@ -4,23 +4,25 @@
 #include <ranges>
 
 #include "ISerializable.h"
-#include "../Application/Application.h"
+#include "../Application/Window.h"
 
 struct SettingsData: SerializationData
 {
-	size_t WidndowWidth = 400;
-	size_t WidndowHeight = 800;
-	size_t AcvtiveResolutionIndex = 1;
-	size_t SoundEffectFilling = 100;
-	size_t MusicFilling = 100;
+	size_t WindowWidth = 400;
+	size_t WindowHeight = 800;
+	size_t ActiveResolutionIndex = 1;
+	size_t SoundEffectVolume = 100;
+	size_t MusicVolume = 100;
 
 	std::string ToString() const override;
 
-	void Convert(const std::vector<std::string>& values) override;
+	void Convert(const std::vector<std::string>& values);
 };
 
 class SettinsDataSerializer: public ISerializable
 {
+public:
+	static constexpr char Delimetr = '\n';
 public:
 	std::filesystem::path GetDefaultFilePath() const;
 
@@ -31,11 +33,10 @@ public:
 
 	void Serialize(const SerializationData* data) const;
 
-	std::unique_ptr<SerializationData> 
-		Deserialize(const std::filesystem::path& path) const override;
+	std::unique_ptr<SerializationData> Deserialize(
+		const std::filesystem::path& path) const override;
 
 	std::unique_ptr<SerializationData> Deserialize() const;
 private:
 	bool IsPathRelevant(const std::filesystem::path& path) const;
 };
-

@@ -2,7 +2,7 @@
 
 #include <vector>
 
-#include "../../Application/Application.h"
+#include "../../Application/Window.h"
 #include "Scene.h"
 #include "../Controls/TextButton.h"
 
@@ -31,18 +31,23 @@ protected:
 		.Background = Colors::Transparent,
 		.FontColor = Colors::Whitesmoke
 	};
-	const int NavigationButtonVerticalPosition = Application::Current()->WindowWidth / 2
+	const int NavigationButtonVerticalPosition = Application::Current()->GetWindow()->Width() / 2
 												 - NavigationButtonStyle.Width / 2;
 
 	std::vector<Button*> _navigationButtons;
 	Button* _hoverButton = nullptr;
-	TextBlock _title = TextBlock({ Application::Current()->WindowWidth / 2 , 200 },
-								 "Title",
-								 TitleStyle);
+	TextBlock _title = 
+	{
+		SDL_Point
+		{ 
+			Application::Current()->GetWindow()->Width() / 2 , 
+			200 
+		},
+		"Title",
+		TitleStyle
+	};
 public:
 	virtual ~MenuScene() = default;
-
-	void SetBackground() override;
 
 	void Process() override;
 

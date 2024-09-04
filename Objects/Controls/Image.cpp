@@ -36,7 +36,7 @@ Image::Image(const SDL_Point& position,
 	BackgroundOnHover = style.BackgroundOnHover;
 }
 
-void Image::Show() const
+void Image::OnRender() const
 {
 	SDL_Rect rectangle =
 	{
@@ -46,7 +46,7 @@ void Image::Show() const
 		.h = _height
 	};
 
-	_texture.Render(_renderer, rectangle);
+	_texture.Render(rectangle);
 }
 
 void Image::SetBackground(const SDL_Color& color)

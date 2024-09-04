@@ -8,13 +8,13 @@ CellStorage::CellStorage(int rows, int columns, Texture* const cellTexture) noex
 {
 	using namespace std::placeholders;
 
-	RowClearAnimation.AnimationCompleted = 
-		std::bind(&CellStorage::OnRowClearAnimationCompleted, this, _1, _2);
-	RowClearAnimation.ActionCompleted =
-		std::bind(&CellStorage::OnRowClearAnimationActionCompleted, this, _1, _2);
+	RowClearAnimation.AnimationCompleted = std::bind(
+		&CellStorage::OnRowClearAnimationCompleted, this, _1, _2);
+	RowClearAnimation.ActionCompleted = std::bind(
+		&CellStorage::OnRowClearAnimationActionCompleted, this, _1, _2);
 }
 
-void CellStorage::Show() const
+void CellStorage::OnRender() const
 {
 	int cellsInRow = 1;
 
@@ -32,7 +32,7 @@ void CellStorage::Show() const
 		{
 			if(_storage[row][column].Background != Colors::Transparent)
 			{
-				_storage[row][column].Show(
+				_storage[row][column].OnRender(
 					{
 						.x = column * Cell::Size,
 						.y = row * Cell::Size
@@ -58,10 +58,10 @@ bool CellStorage::AreRowsFull(int lowestRow, int highestRow)
 	return !_fullRowsIndices.empty();
 }
 
-bool CellStorage::AreRowsFull(const Tetromino& tetromino)
+bool CellStorage::AreRowsFull()
 {
-	auto lowestRow = GetLowestRowOf(tetromino);
-	auto highestRow = GetHighestRowOf(tetromino);
+	auto lowestRow = GetLowestRowOf(*_lastAddedTetromino);
+	auto highestRow = GetHighestRowOf(*_lastAddedTetromino);
 
 	return AreRowsFull(lowestRow, highestRow);
 }
@@ -135,17 +135,14 @@ bool CellStorage::IsLocatedInCells(const Tetromino& tetromino)
 	});
 }
 
-void CellStorage::Add(const std::array<Cell, 4>& cells)
+void CellStorage::Add(const Tetromino& tetromino)
 {
-	for(const auto& cell : cells)
+	_lastAddedTetromino = &tetromino;
+
+	for(const auto& cell : tetromino.GetCells())
 	{
 		GetCellAt(cell) = cell;
 	}
-}
-
-void CellStorage::Add(const Tetromino& tetromino)
-{
-	Add(tetromino.GetCells());
 }
 
 const std::vector<int>& CellStorage::GetFullRowsIndices() const

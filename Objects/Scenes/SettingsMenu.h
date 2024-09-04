@@ -5,7 +5,6 @@
 #include <algorithm>
 #include <ranges>
 
-#include "IScene.h"
 #include "MenuScene.h"
 #include "../Controls/Slider.h"
 #include "../Controls/Container.h"
@@ -31,7 +30,7 @@ private:
 		.FontColor = Colors::Whitesmoke
 	};
 
-	const int SliderHorizontalPosition = Application::Current()->WindowWidth / 2
+	const int SliderHorizontalPosition = Application::Current()->GetWindow()->Width() / 2
 										 - SliderStyle.Width / 2;
 
 	// Window resolutions
@@ -66,6 +65,9 @@ private:
 																.Deserialize();
 	SettingsData* _settingsData = dynamic_cast<SettingsData*>(_serializationData.get());
 
+	// Audio volume regulator
+	AudioManager* _audioManager = Application::Current()->AudioManager();
+
 	// Controls
 
 	TextBlock _resolutionTitle = 
@@ -79,7 +81,7 @@ private:
 		SettingTitleStyle 
 	};
 	
-	size_t _activeResolutionIndex = _settingsData->AcvtiveResolutionIndex;
+	size_t _activeResolutionIndex = _settingsData->ActiveResolutionIndex;
 	Container _resolutionContainer = 
 	{
 		SDL_Point
@@ -130,7 +132,7 @@ private:
 				 + VerticalSpacing
 		},
 		SliderStyle,
-		_settingsData->SoundEffectFilling 
+		_settingsData->SoundEffectVolume 
 	};
 
 	TextBlock _musicTitle = 
@@ -156,7 +158,7 @@ private:
 				 + VerticalSpacing
 		},
 		SliderStyle,
-		_settingsData->MusicFilling
+		_settingsData->MusicVolume
 	};
 
 	TextButton _backButton = 
@@ -187,4 +189,8 @@ private:
 	void OnApplyButtonClick(Object* sender, const SDL_MouseButtonEvent& e);
 
 	void OnBackButtonClick(Object* sender, const SDL_MouseButtonEvent& e);
+
+	void OnMusicThumbMoved(Object* sender, const ThumbMovedEventArgs& e);
+
+	void OnSoundEffectThumbMoved(Object* sender, const ThumbMovedEventArgs& e);
 };

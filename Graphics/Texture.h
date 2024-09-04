@@ -9,14 +9,15 @@ class Texture
 {
 private:
 	SDL_Texture* _texture;
+	SDL_Renderer* _renderer;
 public:
 	Texture(SDL_Renderer* renderer, std::string_view path) noexcept;
 
-	Texture(SDL_Texture* texture) noexcept;
+	Texture(SDL_Renderer* renderer, SDL_Texture* texture) noexcept;
 
 	~Texture() noexcept;
 
-	void Render(SDL_Renderer* renderer, const SDL_Rect& rectangle) const noexcept;
+	void Render(const SDL_Rect& rectangle) const noexcept;
 
 	void SetColor(const SDL_Color& color) noexcept;
 

@@ -23,7 +23,7 @@ public:
 
 	Image(const SDL_Point& position, std::string_view path, const Style& style) noexcept;
 
-	void Show() const override;
+	void OnRender() const override;
 
 	void SetBackground(const SDL_Color& color) override;
 
