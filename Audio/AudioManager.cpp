@@ -51,7 +51,7 @@ void AudioManager::ShuffleMusicTracks()
 	Random().Shuffle(_musicTracks);
 }
 
-Music* const AudioManager::CurrentTrack() const noexcept
+Music* AudioManager::CurrentTrack() const noexcept
 {
 	return _musicTracks.empty() ? nullptr : _musicTracks[_currentTrackIndex];
 }

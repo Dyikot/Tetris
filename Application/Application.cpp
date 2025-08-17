@@ -1,11 +1,6 @@
 #include "Application.h"
 #include "Window.h"
 
-Application* const Application::Current()
-{
-	return _current;
-}
-
 Application::Application() noexcept
 {
 	_current = this;
@@ -33,8 +28,8 @@ Application::Application() noexcept
 
 Application::~Application() noexcept
 {
-	delete _window;
 	delete _audioManager;
+	delete _window;
 	TTF_Quit();
 	IMG_Quit();
 	Mix_Quit();
@@ -60,12 +55,7 @@ void Application::Run()
 
 void Application::Shutdown() noexcept
 {
-	OnQuit(SDL_QuitEvent{ .type = SDL_QUIT, .timestamp = SDL_GetTicks() });
-}
-
-Window* const Application::GetWindow() const
-{
-	return _window;
+	OnQuit(SDL_QuitEvent(SDL_QUIT, SDL_GetTicks()));
 }
 
 bool Application::PollEvent(SDL_Event* e) noexcept
@@ -78,9 +68,9 @@ bool Application::PollEvent(SDL_Event* e) noexcept
 			{
 				if(e->key.repeat)
 				{
-					if(_keyHoldRegister.IsKeyHold())
+					if(_keyHoldDetector.IsKeyHold())
 					{
-						e->key = _keyHoldRegister.GetEvent();
+						e->key = _keyHoldDetector.GetEvent();
 						return true;
 					}
 
@@ -91,7 +81,7 @@ bool Application::PollEvent(SDL_Event* e) noexcept
 
 			case SDL_KEYUP:
 			{
-				_keyHoldRegister.Register(e->key);
+				_keyHoldDetector.Start(e->key);
 				break;
 			}
 
@@ -104,9 +94,9 @@ bool Application::PollEvent(SDL_Event* e) noexcept
 
 		return true;
 	}
-	else if(_keyHoldRegister.IsKeyHold())
+	else if(_keyHoldDetector.IsKeyHold())
 	{
-		e->key = _keyHoldRegister.GetEvent();
+		e->key = _keyHoldDetector.GetEvent();
 		return true;
 	}
 

@@ -10,14 +10,16 @@ Music::Music(std::string_view path) noexcept
 	}
 }
 
-Music::Music(Music&& other) noexcept
-{
-	std::swap(_music, other._music);
-}
+Music::Music(Music&& other) noexcept:
+	_music(std::exchange(other._music, nullptr))
+{}
 
 Music::~Music() noexcept
 {
-	Mix_FreeMusic(_music);
+	if(_music)
+	{
+		Mix_FreeMusic(_music);
+	}
 }
 
 void Music::Play() const noexcept
@@ -45,6 +47,6 @@ void Music::Stop() const noexcept
 
 void Music::SetVolume(size_t volume) noexcept
 {
-	CorrectVolume(volume);
+	AdjustVolume(volume);
 	Mix_VolumeMusic(ToMixVolume(volume));
 }

@@ -1,8 +1,8 @@
 #include "Window.h"
-
+#include "Application.h"
 
 Window::Window(std::string_view title, 
-               const SDL_Point& position, 
+               SDL_Point position, 
                int width,
                int height,
                int actualWidth,
@@ -43,13 +43,13 @@ void Window::Render()
 {
     switch(_currentScene->CurrentAction())
     {
-        case SceneAction::Hide:
+        case SceneState::Hidden:
         {
             _hiddenScenes.push(_currentScene);
             __fallthrough;
         }
 
-        case SceneAction::Close:
+        case SceneState::Closed:
         {
             if(IsNextSceneSet())
             {
@@ -65,13 +65,12 @@ void Window::Render()
 
     _currentScene->Process();
 
-    SetCurrentSceneBackground();
-    SDL_RenderClear(Renderer);
-    _currentScene->OnRender();
+    SetBackground();
+    _currentScene->Render(Renderer);
     SDL_RenderPresent(Renderer);
 }
 
-Scene* const Window::CurrentScene() const noexcept
+Scene* Window::CurrentScene() const noexcept
 {
     return _currentScene;
 }
@@ -149,8 +148,9 @@ void Window::SwitchToNextScene() noexcept
     _nextScene = nullptr;
 }
 
-void Window::SetCurrentSceneBackground() const noexcept
+void Window::SetBackground() const noexcept
 {
     auto [r, g, b, a] = _currentScene->Background;
     SDL_SetRenderDrawColor(Renderer, r, g, b, a);
+    SDL_RenderClear(Renderer);
 }

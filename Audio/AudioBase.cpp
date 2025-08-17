@@ -2,25 +2,25 @@
 
 AudioBase::AudioBase() noexcept
 {
-	SetMaxVolume(MaxVolumeInPercent);
+	SetMaxVolume(MaxVolume);
 }
 
 void AudioBase::SetMaxVolume(size_t volume)
 {
-	CorrectVolume(volume);
+	AdjustVolume(volume);
 	_partOfMaxVolume = volume;
-	_partOfMaxVolume /= MaxVolumeInPercent;
+	_partOfMaxVolume /= MaxVolume;
 }
 
-void AudioBase::CorrectVolume(size_t& volume)
+void AudioBase::AdjustVolume(size_t& volume)
 {
-	if(volume > MaxVolumeInPercent)
+	if(volume > MaxVolume)
 	{
-		volume = MaxVolumeInPercent;
+		volume = MaxVolume;
 	}
 }
 
 size_t AudioBase::ToMixVolume(size_t volume)
 {
-	return volume * _partOfMaxVolume * MaxMixVolume / MaxVolumeInPercent;
+	return volume * _partOfMaxVolume * MaxMixVolume / MaxVolume;
 }

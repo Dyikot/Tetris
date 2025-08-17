@@ -1,5 +1,7 @@
 #include "SoundEffect.h"
 
+static constexpr int ChannelAutoSelection = -1;
+
 SoundEffect::SoundEffect(std::string_view path) noexcept
 {
 	_soundChunk = Mix_LoadWAV(path.data());
@@ -10,9 +12,16 @@ SoundEffect::SoundEffect(std::string_view path) noexcept
 	}
 }
 
+SoundEffect::SoundEffect(SoundEffect&& other) noexcept:
+	_soundChunk(std::exchange(other._soundChunk, nullptr))
+{}
+
 SoundEffect::~SoundEffect() noexcept
 {
-	Mix_FreeChunk(_soundChunk);
+	if(_soundChunk)
+	{
+		Mix_FreeChunk(_soundChunk);
+	}
 }
 
 void SoundEffect::Play() const noexcept
@@ -27,6 +36,6 @@ void SoundEffect::Play(int channel) const noexcept
 
 void SoundEffect::SetVolume(size_t volume) noexcept
 {
-	CorrectVolume(volume);
+	AdjustVolume(volume);
 	Mix_VolumeChunk(_soundChunk, ToMixVolume(volume));
 }
